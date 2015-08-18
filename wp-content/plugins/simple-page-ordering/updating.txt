@@ -1,0 +1,14 @@
+Before updating check the capabilities code as we've updated it to only check for edit_post capabilies and not edit_other_posts. It should be this:
+
+/**
+	 * Checks to see if the current user has the capability to "edit others" for a post type
+	 *
+	 * @param string $post_type Post type name
+	 * @return bool True or false
+	 */
+	private static function check_edit_others_caps( $post_type ) {
+		$post_type_object = get_post_type_object( $post_type );
+		$edit_others_cap = empty( $post_type_object ) ? 'edit_' . $post_type : $post_type_object->cap->edit_posts; //this is the custom line
+		return apply_filters( 'simple_page_ordering_edit_rights', current_user_can( $edit_others_cap ), $post_type );
+	}
+}

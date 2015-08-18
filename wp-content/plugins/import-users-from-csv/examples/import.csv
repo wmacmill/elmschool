@@ -1,0 +1,2 @@
+user_login,user_email,user_pass,first_name,last_name,display_name,role
+johndoe,john.doe@localhost.localdomain,,John,Doe,John Doe,subscriber

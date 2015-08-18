@@ -1,0 +1,12 @@
+.reset-password-field {
+  background: #0079bc none repeat scroll 0 0;
+  border: medium solid #0079bc;
+  border-radius: 5px;
+  color: #fff;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.reset-password-field:hover {
+	color: #fff;
+}

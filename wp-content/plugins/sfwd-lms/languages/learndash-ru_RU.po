@@ -1,0 +1,2363 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LearnDash LMS\n"
+"POT-Creation-Date: 2014-12-10 19:59+0300\n"
+"PO-Revision-Date: 2014-12-10 20:20+0300\n"
+"Last-Translator: Ivan Dyakov <imdyakov@mac.com>\n"
+"Language-Team: Ivan Dyakov <imdyakov@mac.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: assignment_uploads.php:398
+msgid "Unable to write to directory. Is this directory writable by the server?"
+msgstr "Не могу создать директорию. Свойства записи включены на сервере?"
+
+#: assignment_uploads.php:504 assignment_uploads.php:584
+#: templates/lesson.php:132 templates/topic.php:101
+msgid "Download"
+msgstr "Загрузить"
+
+#: assignment_uploads.php:507 assignment_uploads.php:587
+msgid "Approve"
+msgstr "Согласовать "
+
+#: assignment_uploads.php:574 assignment_uploads.php:611
+msgid "Assignment"
+msgstr "Задание"
+
+#: assignment_uploads.php:610 assignment_uploads.php:618 sfwd_lms.php:2954
+#: sfwd_lms.php:3214
+msgid "Assignments"
+msgstr "Задания"
+
+#: assignment_uploads.php:612
+msgid "Edit Assignment"
+msgstr "Изменить задание"
+
+#: assignment_uploads.php:613
+msgid "View Assignment"
+msgstr "Просмотр задания"
+
+#: assignment_uploads.php:614
+msgid "Search Assignments"
+msgstr "Искать задания "
+
+#: assignment_uploads.php:615
+msgid "No assignment found"
+msgstr "Задания не найдены"
+
+#: assignment_uploads.php:616
+msgid "No assignment found in Trash"
+msgstr "В корзине заданий нет"
+
+#: assignment_uploads.php:617
+msgid "Parent:"
+msgstr "Исходник: "
+
+#: content-none.php:13
+msgid "Nothing Found"
+msgstr "Ничего не найдено"
+
+#: content-none.php:17
+msgid ""
+"Apologies, but no results were found. Perhaps searching will help find a "
+"related post."
+msgstr ""
+"Приносим прощение, но таких результатов нет. Возможно, поиск поможет найти "
+"нужную запись."
+
+#: content.php:13
+msgid "Featured post"
+msgstr "Лучшая запись"
+
+#: content.php:22
+#, php-format
+msgid "Permalink to %s"
+msgstr "Постоянная ссылка на %s"
+
+#: content.php:27
+msgid "Leave a reply"
+msgstr "Оставить ответ"
+
+#: content.php:27
+msgid "1 Reply"
+msgstr "1 ответ"
+
+#: content.php:27
+msgid "% Replies"
+msgstr "% ответов"
+
+#: content.php:41
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Читать далее <span class=\"meta-nav\">&rarr;</span>"
+
+#: content.php:47
+msgid "Pages:"
+msgstr "Страницы: "
+
+#: content.php:68
+#, php-format
+msgid "View all posts by %s"
+msgstr "Смотреть все записи автора %s"
+
+#: content.php:74
+#, php-format
+msgid ""
+"This entry was posted in %1$s and tagged %2$s on %3$s<span class=\"by-author"
+"\"> by %4$s</span>."
+msgstr ""
+"Запись опубликована %1$s и помечена %2$s %3$s<span class=\"by-author\"> "
+"автором %4$s</span>."
+
+#: content.php:76
+#, php-format
+msgid ""
+"This entry was posted in %1$s on %3$s<span class=\"by-author\"> by %4$s</"
+"span>."
+msgstr ""
+"Запись опубликована автором в %1$s on %3$s<span class=\"by-author\"> автором "
+"%4$s</span>."
+
+#: content.php:78
+#, php-format
+msgid "This entry was posted on %3$s<span class=\"by-author\"> by %4$s</span>."
+msgstr ""
+"Запись опубликована %3$s<span class=\"by-author\"> автором %4$s</span>."
+
+#: content.php:89 groups.php:243
+msgid "Edit"
+msgstr "Изменить"
+
+#: content.php:96
+#, php-format
+msgid "About %s"
+msgstr "Об авторе %s"
+
+#: content.php:100
+#, php-format
+msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Смотреть все записи автора %s <span class=\"meta-nav\">&rarr;</span>"
+
+#: conv_pdf.php:72
+msgid "Post does not exist."
+msgstr "Запись не существует."
+
+#: conv_pdf.php:133
+msgid "<strong>Error: Directory not found.</strong><br /><br />Path: "
+msgstr "<strong>Ошибка: Папка не найдена.</strong><br /><br />Путь: "
+
+#: conv_pdf.php:465
+msgid ""
+"<strong>Generating completed successfully.</strong><br /><br />Post/Page "
+"title: "
+msgstr ""
+"<strong>Генерация прошла успешно.</strong><br /><br />Запись/Название "
+"страницы: "
+
+#: conv_pdf.php:465
+msgid "<br />Output path: "
+msgstr "<br />Конечный путь: "
+
+#: conv_pdf.php:465
+msgid "<br /><br />Go back to "
+msgstr "<br /><br />Вернитесь назад к "
+
+#: conv_pdf.php:465
+msgid "the settig panel</a>."
+msgstr "панели настроек</a>."
+
+#: conv_pdf.php:465
+msgid "POST2PDF Converter"
+msgstr "Конвертер POST2PDF"
+
+#: course_info_widget.php:6
+msgid ""
+"LearnDash - Course attempt and score information of users. Visible only to "
+"users logged in."
+msgstr ""
+"Информация о попытках пройти курс и полученных баллах видна только "
+"авторизованным пользователя. "
+
+#: course_info_widget.php:8
+msgid "Course Information"
+msgstr "Информация о курсе "
+
+#: course_info_widget.php:49 course_info_widget.php:97 course_progress.php:780
+#: sfwd_cpt.php:369
+msgid "Title:"
+msgstr "Название: "
+
+#: course_info_widget.php:58
+msgid ""
+"LearnDash - Course Navigation. Shows lessons and topics on the current "
+"course."
+msgstr ""
+"Навигация по курсу LearnDash. Показывает разделы и материалы на текущей "
+"странице."
+
+#: course_info_widget.php:60
+msgid "Course Navigation"
+msgstr "Навигация по курсу"
+
+#: course_info_widget.php:148
+msgid "Associated Content"
+msgstr "Связанные данные"
+
+#: course_list_shortcode.php:127 sfwd_lms.php:3041
+msgid "Categories"
+msgstr "Рубрики"
+
+#: course_list_shortcode.php:129
+msgid "Select category"
+msgstr "Выбрать категорию"
+
+#: course_progress.php:65 sfwd_lms.php:479 sfwd_lms.php:556
+msgid "Upload Assignment"
+msgstr "Загрузить задание"
+
+#: course_progress.php:71
+msgid "Upload"
+msgstr "Загрузить"
+
+#: course_progress.php:85 course_progress.php:101
+msgid "Mark Complete"
+msgstr "Изучено"
+
+#: course_progress.php:543
+msgid "Not Started"
+msgstr "Не начат"
+
+#: course_progress.php:545
+msgid "In Progress"
+msgstr "В процессе"
+
+#: course_progress.php:547 sfwd_lms.php:2589
+#: templates/course_info_shortcode.php:40
+msgid "Completed"
+msgstr "Изучен"
+
+#: course_progress.php:743
+msgid "LearnDash course progress bar"
+msgstr "Индикатор хода изучения курса"
+
+#: course_progress.php:745
+msgid "Course Progress Bar"
+msgstr "Индикатор хода изучения"
+
+#: enhanced-paypal-shortcodes.php:266 sfwd_lms.php:3421 sfwd_lms.php:3427
+msgid "Complete Your Purchase"
+msgstr "Завершить покупку"
+
+#: enhanced-paypal-shortcodes.php:400 enhanced-paypal-shortcodes.php:526
+#: enhanced-paypal-shortcodes.php:720 enhanced-paypal-shortcodes.php:859
+#: sfwd_lms.php:3408 sfwd_lms.php:3447
+msgid "Take this Course"
+msgstr "Изучить курс"
+
+#: enhanced-paypal-shortcodes.php:524 enhanced-paypal-shortcodes.php:718
+msgid "PayPal - The safer, easier way to pay online."
+msgstr "PayPal - простой и безопасный способ платежей в Интернет."
+
+#: enroll_users.php:9 groups.php:238
+msgid "Enrolled Courses"
+msgstr "Регистрация на курсах"
+
+#: enroll_users.php:35 groups.php:247
+msgid "Enroll a Course"
+msgstr "Регистрироваться на курс"
+
+#: enroll_users.php:46 groups.php:256
+msgid "Unenroll a Course"
+msgstr "Отменить изучение"
+
+#: groups.php:8
+msgid "Empty value"
+msgstr "Пустое значение"
+
+#: groups.php:37
+msgid "Email could not be sent to: "
+msgstr "Не получилось отправить email: "
+
+#: groups.php:40
+msgid "Email sent to: "
+msgstr "Email отправлен: "
+
+#: groups.php:49 groups.php:55 groups.php:62 sfwd_lms.php:3208
+msgid "LearnDash Groups"
+msgstr "Группы LearnDash"
+
+#: groups.php:50 groups.php:141
+msgid "LearnDash Group"
+msgstr "Группа LearnDash"
+
+#: groups.php:51 sfwd_cpt.php:19 sfwd_lms.php:279 sfwd_lms.php:294
+#: sfwd_lms.php:308 sfwd_lms.php:322 sfwd_lms.php:3028 sfwd_lms.php:3062
+#: sfwd_lms.php:3082 sfwd_lms.php:3096 sfwd_lms.php:3155
+msgid "Add New"
+msgstr "Создать"
+
+#: groups.php:52
+msgid "Add New LearnDash Group"
+msgstr "Добавить новую группу"
+
+#: groups.php:53
+msgid "Edit LearnDash Group"
+msgstr "Изменить группу"
+
+#: groups.php:54
+msgid "New LearnDash Group"
+msgstr "Новая группа"
+
+#: groups.php:56
+msgid "LearnDash Group Updated."
+msgstr "Группа LearnDash обновлена."
+
+#: groups.php:57
+msgid "View LearnDash Group"
+msgstr "Показать группу"
+
+#: groups.php:58
+msgid "Search LearnDash Group"
+msgstr "Искать группу"
+
+#: groups.php:59
+msgid "No LearnDash Group found"
+msgstr "Группы LearnDash не найдены"
+
+#: groups.php:60
+msgid "No LearnDash Group found in the Trash"
+msgstr "В корзине нет групп LearnDash"
+
+#: groups.php:86
+msgid "Holds LearnDash user Groups"
+msgstr "Содержит группы пользователей LearnDash"
+
+#: groups.php:107 groups.php:110
+msgid "LearnDash Group updated."
+msgstr "Группа LearnDash обновлена."
+
+#: groups.php:108
+msgid "Custom field updated."
+msgstr "Особое поле обновлено."
+
+#: groups.php:109
+msgid "Custom field deleted."
+msgstr "Особое поле обновлено."
+
+#. translators: %s: date and time of the revision
+#: groups.php:112
+#, php-format
+msgid "LearnDash Group restored to revision from %s"
+msgstr "Группа LearnDash  восстановлена из редакции от %s "
+
+#: groups.php:113
+msgid "Group published."
+msgstr "Группа опубликована."
+
+#: groups.php:114
+msgid "LearnDash Group saved."
+msgstr "Группа LearnDash сохранена."
+
+#: groups.php:115
+msgid "LearnDash Group submitted. "
+msgstr "Группа LearnDash отправлена."
+
+#: groups.php:116
+#, php-format
+msgid "LearnDash Group scheduled for: <strong>%1$s</strong>. "
+msgstr "Группа LearnDash запланирована на: <strong>%1$s</strong>. "
+
+#. translators: Publish box date format, see http://php.net/date
+#: groups.php:118
+msgid "M j, Y @ G:i"
+msgstr "j M Y в G:i"
+
+#: groups.php:119
+msgid "Group draft updated."
+msgstr "Черновик группы обновлён. "
+
+#: groups.php:267
+msgid "Group Leaders"
+msgstr "Лидеры группы"
+
+#: groups.php:289 groups.php:349
+msgid "Selected:"
+msgstr "Выбраны: "
+
+#: groups.php:308
+msgid "Please add some users with Group Leader role"
+msgstr "Пожалуйста, добавьте пользователей с ролью лидера группы"
+
+#: groups.php:311
+msgid "Assign Users"
+msgstr "Назначить пользователей"
+
+#: groups.php:314
+msgid "Search Users:"
+msgstr "Поиск пользоватлей: "
+
+#: groups.php:319
+msgid ""
+"<b>Instructions: </b> Hold CNTRL to select muliple users for this group, "
+"<br>and click the arrow to move to selected list of users."
+msgstr ""
+"<b>ИНСТРУКЦИИ: </b> Удерживайте клавишу CTRL для выбора нескольких "
+"пользователей, <br>и нажмите стрелку, чтобы добавить их в группу."
+
+#: groups.php:458 groups.php:627
+msgid "Please login as a Group Administrator"
+msgstr "Пожалуйста, авторизуйтесь как администратор группы"
+
+#: groups.php:471 groups.php:480 groups.php:640 groups.php:649
+msgid "S. No."
+msgstr "S. No."
+
+#: groups.php:472 groups.php:481 templates/profile.php:22
+msgid "Name"
+msgstr "Имя"
+
+#: groups.php:473 groups.php:482 templates/profile.php:26
+msgid "Username"
+msgstr "Логин"
+
+#: groups.php:474 groups.php:483 templates/profile.php:27
+msgid "Email"
+msgstr "Email"
+
+#: groups.php:475 groups.php:484 groups.php:644 groups.php:653
+msgid "Action"
+msgstr "Действие"
+
+#: groups.php:497
+msgid "Report"
+msgstr "Отчёт"
+
+#: groups.php:507
+msgid "No users."
+msgstr "Пользователей нет."
+
+#: groups.php:619 groups.php:635 groups.php:681 groups.php:754
+#: sfwd_lms.php:2974 sfwd_lms.php:3220
+msgid "Group Administration"
+msgstr "Управление группами"
+
+#: groups.php:642 groups.php:651
+msgid "Group"
+msgstr "Группа"
+
+#: groups.php:664
+msgid "List Users"
+msgstr "Список пользователей"
+
+#: groups.php:664
+msgid "Export Progress"
+msgstr "Экспорт хода изучения"
+
+#: groups.php:664
+msgid "Export Results"
+msgstr "Экспортировать результаты"
+
+#: groups.php:681 groups.php:754
+msgid "Back"
+msgstr "Назад"
+
+#: groups.php:692
+msgid "Email Users"
+msgstr "Сообщение пользователям"
+
+#: groups.php:694
+msgid "Email Subject:"
+msgstr "Тема сообщения: "
+
+#: groups.php:700
+msgid "Email Message:"
+msgstr "Текст сообщения: "
+
+#: groups.php:704 groups.php:732
+msgid "Send"
+msgstr "Отправить"
+
+#: groups.php:713
+msgid "Sending..."
+msgstr "Отправляю..."
+
+#: groups.php:715
+msgid "Please Wait"
+msgstr "Пожалуйста, подождите"
+
+#: quiz_pro.php:209 sfwd_lms.php:3849
+msgid "PRINT YOUR CERTIFICATE!"
+msgstr "РАСПЕЧАТАЙТЕ СВОЙ СЕРТИФИКАТ!"
+
+#: quizinfo_shortcode.php:48
+msgid "Yes"
+msgstr "Да"
+
+#: quizinfo_shortcode.php:48
+msgid "No"
+msgstr "Нет"
+
+#: sfwd_cpt.php:21
+#, php-format
+msgid "Add New %s"
+msgstr "Создать новый %s "
+
+#: sfwd_cpt.php:22
+#, php-format
+msgid "Edit %s"
+msgstr "Изменить %s"
+
+#: sfwd_cpt.php:23
+#, php-format
+msgid "New %s"
+msgstr "Новый %s"
+
+#: sfwd_cpt.php:24
+#, php-format
+msgid "View %s"
+msgstr "Смотреть %s"
+
+#: sfwd_cpt.php:25
+#, php-format
+msgid "Search %s"
+msgstr "Искать %s"
+
+#: sfwd_cpt.php:26
+#, php-format
+msgid "No %s found"
+msgstr "%s не найдены"
+
+#: sfwd_cpt.php:27
+#, php-format
+msgid "No %s found in Trash"
+msgstr "%s нет в корзине"
+
+#: sfwd_cpt.php:28
+#, php-format
+msgid "Parent %s"
+msgstr "Родительская запись %s"
+
+#: sfwd_cpt.php:150 sfwd_lms.php:2877 templates/course.php:97
+#: templates/course_content_shortcode.php:70
+#, php-format
+msgid " Available on: %s "
+msgstr "Доступно: %s "
+
+#: sfwd_cpt.php:282
+msgid "Displays a list of lessons for a course and tracks lesson progress."
+msgstr "Отображает список разделов курса и отслеживает ход изучения. "
+
+#: sfwd_cpt.php:286
+#, php-format
+msgid "Displays a list of %s"
+msgstr "Отображает список %s"
+
+#: sfwd_lms.php:277 sfwd_lms.php:283 sfwd_lms.php:289 sfwd_lms.php:2939
+#: sfwd_lms.php:3088
+msgid "Topics"
+msgstr "Материалы"
+
+#: sfwd_lms.php:278
+msgid "Topic"
+msgstr "Материал"
+
+#: sfwd_lms.php:280
+msgid "Add New Topic"
+msgstr "Добавить материал"
+
+#: sfwd_lms.php:281 sfwd_lms.php:3345
+msgid "Edit Topic"
+msgstr "Изменить материал"
+
+#: sfwd_lms.php:282
+msgid "New Topic"
+msgstr "Новый материал"
+
+#: sfwd_lms.php:284
+msgid "View Topic"
+msgstr "Просмотр материала"
+
+#: sfwd_lms.php:285
+msgid "Search Topics"
+msgstr "Поиск материалов"
+
+#: sfwd_lms.php:286
+msgid "No Topics found"
+msgstr "Материалы не найдены"
+
+#: sfwd_lms.php:287
+msgid "No Topics found in Trash"
+msgstr "В корзине нет материалов"
+
+#: sfwd_lms.php:292 sfwd_lms.php:298 sfwd_lms.php:2944 sfwd_lms.php:3102
+#: templates/course.php:173 templates/course_content_shortcode.php:146
+#: templates/lesson.php:105 templates/profile.php:60 templates/topic.php:74
+msgid "Quizzes"
+msgstr "Тесты"
+
+#: sfwd_lms.php:293 sfwd_lms.php:518 templates/course_info_shortcode.php:67
+msgid "Quiz"
+msgstr "Тест"
+
+#: sfwd_lms.php:295
+msgid "Add New Quiz"
+msgstr "Добавить новый тест"
+
+#: sfwd_lms.php:296 sfwd_lms.php:3127
+msgid "Edit Quiz"
+msgstr "Изменить тест"
+
+#: sfwd_lms.php:297
+msgid "New Quiz"
+msgstr "Новый тест"
+
+#: sfwd_lms.php:299
+msgid "View Quiz"
+msgstr "Просмотр теста"
+
+#: sfwd_lms.php:300
+msgid "Search Quizzes"
+msgstr "Искать тесты"
+
+#: sfwd_lms.php:301
+msgid "No Quizzes found"
+msgstr "Тесты не найдены"
+
+#: sfwd_lms.php:302
+msgid "No Quizzes found in Trash"
+msgstr "В корзине нет тестов"
+
+#: sfwd_lms.php:306 sfwd_lms.php:312 sfwd_lms.php:2934 sfwd_lms.php:3068
+#: templates/course.php:84 templates/course_content_shortcode.php:57
+msgid "Lessons"
+msgstr "Разделы"
+
+#: sfwd_lms.php:307 sfwd_lms.php:470
+msgid "Lesson"
+msgstr "Раздел"
+
+#: sfwd_lms.php:309
+msgid "Add New Lesson"
+msgstr "Добавить раздел"
+
+#: sfwd_lms.php:310
+msgid "Edit Lesson"
+msgstr "Изменить раздел"
+
+#: sfwd_lms.php:311
+msgid "New Lesson"
+msgstr "Новый раздел"
+
+#: sfwd_lms.php:313
+msgid "View Lesson"
+msgstr "Просмотр раздела"
+
+#: sfwd_lms.php:314
+msgid "Search Lessons"
+msgstr "Искать раздел"
+
+#: sfwd_lms.php:315
+msgid "No Lessons found"
+msgstr "Разделы не найдены"
+
+#: sfwd_lms.php:316
+msgid "No Lessons found in Trash"
+msgstr "В корзине нет разделов"
+
+#: sfwd_lms.php:320 sfwd_lms.php:326 sfwd_lms.php:2929 sfwd_lms.php:3034
+msgid "Courses"
+msgstr "Курсы"
+
+#: sfwd_lms.php:321 sfwd_lms.php:336
+msgid "Course"
+msgstr "Курс"
+
+#: sfwd_lms.php:323
+msgid "Add New Course"
+msgstr "Создать курс"
+
+#: sfwd_lms.php:324
+msgid "Edit Course"
+msgstr "Изменить курс"
+
+#: sfwd_lms.php:325
+msgid "New Course"
+msgstr "Новый курс"
+
+#: sfwd_lms.php:327
+msgid "View Course"
+msgstr "Просмотр курса"
+
+#: sfwd_lms.php:328
+msgid "Search Courses"
+msgstr "Искать курсы"
+
+#: sfwd_lms.php:329
+msgid "No Courses found"
+msgstr "Курсы не найдены"
+
+#: sfwd_lms.php:330
+msgid "No Courses found in Trash"
+msgstr "В корзине нет курсов"
+
+#: sfwd_lms.php:342 sfwd_lms.php:3174
+msgid "PayPal Settings"
+msgstr "Настройки PayPal"
+
+#: sfwd_lms.php:346 templates/course.php:60
+msgid "Course Materials"
+msgstr "Материалы курса"
+
+#: sfwd_lms.php:348
+msgid "Options for course materials"
+msgstr "Настройки материалов курса"
+
+#: sfwd_lms.php:352
+msgid "Course Price Type"
+msgstr "Тип курса"
+
+#: sfwd_lms.php:355
+msgid "Open"
+msgstr "Открытый"
+
+#: sfwd_lms.php:356
+msgid "Closed"
+msgstr "Закрытый"
+
+#: sfwd_lms.php:357
+msgid "Free"
+msgstr "Бесплатный"
+
+#: sfwd_lms.php:358
+msgid "Buy Now"
+msgstr "Платный"
+
+#: sfwd_lms.php:359
+msgid "Recurring"
+msgstr "По подписке"
+
+#: sfwd_lms.php:362
+msgid ""
+"Is it open to all, free join, one time purchase, or a recurring subscription?"
+msgstr ""
+"Курс открыт для всех или нет, бесплатный, платный или доступен только по "
+"подписке?"
+
+#: sfwd_lms.php:366
+msgid "Custom Button URL"
+msgstr "URL кнопки"
+
+#: sfwd_lms.php:368
+msgid "Optional"
+msgstr "Необязательно"
+
+#: sfwd_lms.php:369
+msgid ""
+"Entering a URL in this field will enable the \"Take This Course\" button. "
+"The button will not display if this field is left empty."
+msgstr ""
+"Ввод URL адреса в этом поле создаёт кнопку \"Пройти этот курс\". Если поле "
+"оставлено пустым, кнопка отображаться не будет."
+
+#: sfwd_lms.php:373
+msgid "Course Price"
+msgstr "Цена курса"
+
+#: sfwd_lms.php:375
+msgid "Enter course price here. Leave empty if the course is free."
+msgstr "Введите цену курса. Если он бесплатный оставьте поле пустым."
+
+#: sfwd_lms.php:379
+msgid "Billing Cycle"
+msgstr "Период подписки"
+
+#: sfwd_lms.php:382
+msgid "Billing Cycle for the recurring payments in case of a subscription."
+msgstr "Период подписки для повторных платежей в случае его продления."
+
+#: sfwd_lms.php:406
+msgid "Course Access List"
+msgstr "Список слушателей курса"
+
+#: sfwd_lms.php:408
+msgid ""
+"This field is auto-populated with the UserIDs of those who have access to "
+"this course."
+msgstr ""
+"Это поле заполняется автоматически идентификаторами пользователей, у которых "
+"есть доступ к курсу."
+
+#: sfwd_lms.php:411
+msgid "Sort Lesson By"
+msgstr "Сортировать разделы по "
+
+#: sfwd_lms.php:414 sfwd_lms.php:426
+msgid "Use Default"
+msgstr "Стандартно"
+
+#: sfwd_lms.php:415 sfwd_lms.php:491 sfwd_lms.php:566 sfwd_lms.php:1251
+msgid "Title"
+msgstr "Названию"
+
+#: sfwd_lms.php:416 sfwd_lms.php:492 sfwd_lms.php:567 sfwd_lms.php:1252
+#: templates/profile.php:63
+msgid "Date"
+msgstr "Дате "
+
+#: sfwd_lms.php:417 sfwd_lms.php:493 sfwd_lms.php:568 sfwd_lms.php:1253
+msgid "Menu Order"
+msgstr "Атрибуту"
+
+#: sfwd_lms.php:420 sfwd_lms.php:431
+msgid "Choose the sort order of lessons in this course."
+msgstr "Выберите тип сортировки разделов курса."
+
+#: sfwd_lms.php:423
+msgid "Sort Lesson Direction"
+msgstr "Направление сортировки"
+
+#: sfwd_lms.php:427 sfwd_lms.php:503 sfwd_lms.php:578 sfwd_lms.php:1263
+msgid "Ascending"
+msgstr "По возрастанию"
+
+#: sfwd_lms.php:428 sfwd_lms.php:504 sfwd_lms.php:579 sfwd_lms.php:1264
+msgid "Descending"
+msgstr "По убыванию"
+
+#: sfwd_lms.php:433
+msgid "Course prerequisites"
+msgstr "Условия доступа"
+
+#: sfwd_lms.php:433
+msgid "Select a course as prerequisites to view this course"
+msgstr ""
+"Выберите другой курс, который является проходным для доступа к данному курсу."
+
+#: sfwd_lms.php:435
+msgid "Disable Lesson Progression"
+msgstr "Отключить порядок изучения"
+
+#: sfwd_lms.php:438
+msgid ""
+"Disable the feature that allows attempting lessons only in allowed order."
+msgstr ""
+"Отключает функцию, которая фиксирует последовательность изучения разделов в "
+"установленном порядке."
+
+#: sfwd_lms.php:442
+msgid "Expire Access"
+msgstr "Срок действия"
+
+#: sfwd_lms.php:444
+msgid "Leave this field unchecked if access never expires."
+msgstr "Не надо выделять, если срок действия курса не ограничен."
+
+#: sfwd_lms.php:448
+msgid "Expire Access After (days)"
+msgstr "Срок действия истекает после (дней) "
+
+#: sfwd_lms.php:450
+msgid "Enter the number of days a user has access to this course."
+msgstr ""
+"Введите количество дней в течении которых у пользователя будет доступ к "
+"курсу."
+
+#: sfwd_lms.php:454
+msgid "Delete Course and Quiz Data After Expiration"
+msgstr "Удалить курс и тест, когда срока действия истёк"
+
+#: sfwd_lms.php:456
+msgid ""
+"Select this option if you want the user's course progress to be deleted when "
+"their access expires."
+msgstr ""
+"Выделите, если хотите чтобы данные пользователя о ходе изучения курса "
+"удалились по истечению срока его действия."
+
+#: sfwd_lms.php:460
+msgid "PayPal Email"
+msgstr "Email PayPal"
+
+#: sfwd_lms.php:460
+msgid "Enter your PayPal email here."
+msgstr "Введите свой e-mail PayPal здесь."
+
+#: sfwd_lms.php:461
+msgid "PayPal Currency"
+msgstr "Валюта PayPal"
+
+#: sfwd_lms.php:461
+msgid "Enter the currency code for transactions."
+msgstr "Введите код валюты для покупок с PayPal."
+
+#: sfwd_lms.php:462
+msgid "PayPal Country"
+msgstr "Страна PayPal"
+
+#: sfwd_lms.php:462
+msgid "Enter your country code here."
+msgstr "Введите код страны PayPal здесь."
+
+#: sfwd_lms.php:463
+msgid "PayPal Cancel URL"
+msgstr "URL отмены покупки"
+
+#: sfwd_lms.php:463
+msgid "Enter the URL used for purchase cancellations."
+msgstr "Введите URL переадресации для отмены покупки с PayPal."
+
+#: sfwd_lms.php:464
+msgid "PayPal Return URL"
+msgstr "URL успешной покупки"
+
+#: sfwd_lms.php:464
+msgid ""
+"Enter the URL used for completed purchases (typically a thank you page)."
+msgstr ""
+"Введите URL переадресации при совершении покупки с PayPal (обычно это "
+"страница благодарности). "
+
+#: sfwd_lms.php:465
+msgid "PayPal Notify URL"
+msgstr "URL уведомления PayPal"
+
+#: sfwd_lms.php:465
+msgid "Enter the URL used for IPN notifications."
+msgstr "Введите URL мгновенного платежного уведомления PayPal."
+
+#: sfwd_lms.php:466
+msgid "Use PayPal Sandbox"
+msgstr "Тестовая запись PayPal"
+
+#: sfwd_lms.php:466
+msgid "Check to enable the PayPal sandbox."
+msgstr ""
+"Отметьте, чтобы подключить тестовую запись PayPal для фиктивных покупок."
+
+#: sfwd_lms.php:477 sfwd_lms.php:529 sfwd_lms.php:553
+msgid "Associated Course"
+msgstr "Связанный курс"
+
+#: sfwd_lms.php:477 sfwd_lms.php:529 sfwd_lms.php:553
+msgid "Associate with a course."
+msgstr "Свяжите с курсом."
+
+#: sfwd_lms.php:478
+msgid "Forced Lesson Timer"
+msgstr "Установить таймер"
+
+#: sfwd_lms.php:478
+msgid ""
+"Minimum time a user has to spend on Lesson page before it can be marked "
+"complete. Examples: 40 (for 40 seconds), 20s, 45sec, 2m 30s, 2min 30sec, 1h "
+"5m 10s, 1hr 5min 10sec"
+msgstr ""
+"Минимальный отрезок времени, в течении которого пользователь должен изучать "
+"раздел прежде, чем сможет пометить его как изученный. Примеры: 40 (40 "
+"секунд), 20с, 45сек, 2м 30с, 2мин 30сек, 1ч 5м 10с, 1час 5мин 10сек"
+
+#: sfwd_lms.php:479 sfwd_lms.php:556
+msgid "Check this if you want to make it mandatory to upload assignment"
+msgstr "Отметьте, если хотите сделать загрузку задания обязательной."
+
+#: sfwd_lms.php:480 sfwd_lms.php:557
+msgid "Auto Approve Assignment"
+msgstr "Авто согласование задания"
+
+#: sfwd_lms.php:480 sfwd_lms.php:557
+msgid "Check this if you want to auto-approve the uploaded assignment"
+msgstr "Отметьте, если хотите, чтобы задания согласовывались автоматически."
+
+#: sfwd_lms.php:481
+msgid "Sample Lesson"
+msgstr "Бесплатный раздел"
+
+#: sfwd_lms.php:481
+msgid ""
+"Check this if you want this lesson and all its topics to be available for "
+"free."
+msgstr ""
+"Отметьте, если хотите, чтобы раздел и все его материалы были в свободном "
+"доступе. "
+
+#: sfwd_lms.php:482
+msgid "Make lesson visible X days after sign-up"
+msgstr "Срок видимости раздела"
+
+#: sfwd_lms.php:482
+msgid "Make lesson visible ____ days after sign-up"
+msgstr ""
+"Здесь можно сделать раздел видимым в течении ___ колличества дней после "
+"подписки на курс."
+
+#: sfwd_lms.php:483
+msgid "Make lesson visible on specific date"
+msgstr "Доступ к уроку с определенного дня"
+
+#: sfwd_lms.php:487 sfwd_lms.php:562 sfwd_lms.php:1247
+msgid "Sort By"
+msgstr "Сортировать по "
+
+#: sfwd_lms.php:490 sfwd_lms.php:502 sfwd_lms.php:565 sfwd_lms.php:577
+#: sfwd_lms.php:1250 sfwd_lms.php:1262
+msgid "Select a choice..."
+msgstr "Выберите..."
+
+#: sfwd_lms.php:496 sfwd_lms.php:507 sfwd_lms.php:571 sfwd_lms.php:582
+#: sfwd_lms.php:1256 sfwd_lms.php:1267
+msgid "Choose the sort order."
+msgstr "Выберите порядок сортировки."
+
+#: sfwd_lms.php:499 sfwd_lms.php:574 sfwd_lms.php:1259
+msgid "Sort Direction"
+msgstr "Направление сортировки"
+
+#: sfwd_lms.php:510 sfwd_lms.php:1270
+msgid "Posts Per Page"
+msgstr "Сколько записей на странице"
+
+#: sfwd_lms.php:512 sfwd_lms.php:1272
+msgid "Enter the number of posts to display per page."
+msgstr "Введите количество записей для отображения на странице."
+
+#: sfwd_lms.php:526
+msgid "Repeats"
+msgstr "Пересдачи теста"
+
+#: sfwd_lms.php:526
+msgid "Number of repeats allowed for quiz"
+msgstr "Количество допустимых повторений для прохождения теста."
+
+#: sfwd_lms.php:527
+msgid "Certificate Threshold"
+msgstr "Порог для сертификата"
+
+#: sfwd_lms.php:527
+msgid ""
+"Minimum score required to award a certificate, between 0 and 1 where 1 = "
+"100%."
+msgstr ""
+"Минимальное количество набранных баллов, необходимых для получения "
+"сертификата (от 0 до 1, где 1 = 100%)."
+
+#: sfwd_lms.php:528
+msgid "Passing Percentage"
+msgstr "Процент изучения курса"
+
+#: sfwd_lms.php:528
+msgid ""
+"Passing percentage required to pass the quiz (number only). e.g. 80 for 80%."
+msgstr ""
+"Процент изучения материалов курса, необходимый для доступа к тесту (только "
+"число), например, 80 - это 80%."
+
+#: sfwd_lms.php:530 sfwd_lms.php:554
+msgid "Associated Lesson"
+msgstr "Связанный раздел"
+
+#: sfwd_lms.php:530 sfwd_lms.php:554
+msgid "Optionally associate a quiz with a lesson."
+msgstr "Свяжите задание с разделом (опционально)."
+
+#: sfwd_lms.php:531
+msgid "Associated Certificate"
+msgstr "Связанный сертификат"
+
+#: sfwd_lms.php:531
+msgid "Optionally associate a quiz with a certificate."
+msgstr "Свяжите тест с сертификатом (опционально)."
+
+#: sfwd_lms.php:532
+msgid "Associated Settings"
+msgstr "настройки связи"
+
+#: sfwd_lms.php:532
+msgid ""
+"If you imported a quiz, use this field to select it. Otherwise, create new "
+"settings below. After saving or publishing, you will be able to add "
+"questions."
+msgstr ""
+"Если Вы импортировали тест, используйте данное поле для его выбора, либо "
+"укажите новые настройки ниже. После сохранения или публикации Вы сможете "
+"добавлять вопросы."
+
+#: sfwd_lms.php:532
+msgid "Preview"
+msgstr "Просмотр"
+
+#: sfwd_lms.php:532
+msgid "-- Select Settings --"
+msgstr "-- Выбрать настройки --"
+
+#: sfwd_lms.php:534 sfwd_lms.php:3111
+msgid "Quiz Options"
+msgstr "Настройки теста "
+
+#: sfwd_lms.php:546
+msgid "Lesson Topic"
+msgstr "Материал раздела"
+
+#: sfwd_lms.php:555
+msgid "Forced Topic Timer"
+msgstr "Установить таймер"
+
+#: sfwd_lms.php:555
+msgid ""
+"Minimum time a user has to spend on Topic page before it can be marked "
+"complete. Examples: 40 (for 40 seconds), 20s, 45sec, 2m 30s, 2min 30sec, 1h "
+"5m 10s, 1hr 5min 10sec"
+msgstr ""
+"Минимальный отрезок времени, в течении которого пользователь должен изучать "
+"материал прежде, чем сможет пометить его как изученный. Примеры: 40 (40 "
+"секунд), 20с, 45сек, 2м 30с, 2мин 30сек, 1ч 5м 10с, 1час 5мин 10сек"
+
+#: sfwd_lms.php:607 sfwd_lms.php:2949 sfwd_lms.php:3161
+msgid "Certificates"
+msgstr "Сертификаты"
+
+#: sfwd_lms.php:618 sfwd_lms.php:3201
+msgid "Transactions"
+msgstr "Покупки "
+
+#: sfwd_lms.php:624
+msgid "Click the Export button below to export the transaction list."
+msgstr "Нажмите кнопку \"Экспорт\" ниже, чтобы загрузить список покупок."
+
+#: sfwd_lms.php:648
+msgid "Course Info"
+msgstr "Инфо о курсе"
+
+#: sfwd_lms.php:733
+msgid "day(s)"
+msgstr "дней "
+
+#: sfwd_lms.php:734
+msgid "week(s)"
+msgstr "недель "
+
+#: sfwd_lms.php:735
+msgid "month(s)"
+msgstr "месяцев "
+
+#: sfwd_lms.php:736
+msgid "year(s)"
+msgstr "лет "
+
+#: sfwd_lms.php:830 sfwd_lms.php:846 sfwd_lms.php:939 sfwd_lms.php:943
+msgid "No attempts"
+msgstr "Нет попыток "
+
+#: sfwd_lms.php:841 sfwd_lms.php:875 sfwd_lms.php:966
+#: sfwd_module_class.php:715
+msgid ""
+"Security Check - If you receive this in error, log out and back in to "
+"WordPress"
+msgstr ""
+"Проверка безопасности - Если Вы видите эту ошибку, выйдите из учётной записи "
+"и зайдите на сайт снова."
+
+#: sfwd_lms.php:857
+msgid "Export User Course Data &raquo;"
+msgstr "Экспорт данных курса &raquo;"
+
+#: sfwd_lms.php:956
+msgid "Export Quiz Data &raquo;"
+msgstr "Экспорт данных теста &raquo;"
+
+#: sfwd_lms.php:994
+msgid "Export &raquo;"
+msgstr "Экспорт &raquo;"
+
+#: sfwd_lms.php:1019 sfwd_lms.php:1032
+msgid "-- Select a Certificate --"
+msgstr "-- Выберите сертификат --"
+
+#: sfwd_lms.php:1062 sfwd_lms.php:1147
+msgid "-- Select a Course --"
+msgstr "-- Выберите курс --"
+
+#: sfwd_lms.php:1090 sfwd_module_class.php:322
+msgid "-- Select a Lesson or Topic --"
+msgstr "-- Выберите раздел или материал --"
+
+#: sfwd_lms.php:1127 sfwd_module_class.php:321
+msgid "-- Select a Lesson --"
+msgstr "-- Выберите раздел --"
+
+#: sfwd_lms.php:1232
+msgid " Options"
+msgstr " Настройки "
+
+#: sfwd_lms.php:1248
+msgid "select"
+msgstr "выбрать "
+
+#: sfwd_lms.php:1496
+#, php-format
+msgid "To take this %s, you need to complete the following course first:%s"
+msgstr "Для изучения %s, Ва необходимо сначала пройти курс: %s"
+
+#: sfwd_lms.php:1581
+msgid "Access to certificate page is disallowed."
+msgstr "Доступ к странице сертификатов закрыт."
+
+#: sfwd_lms.php:1647 sfwd_lms.php:1659 sfwd_lms.php:1688
+msgid "Something went wrong, please try again."
+msgstr "Что-то пошло не так, пожалуйста, попробуйте снова."
+
+#: sfwd_lms.php:1686
+msgid "Quiz data was saved!"
+msgstr "Данные теста сохранены! "
+
+#: sfwd_lms.php:2086
+msgid "Previous Lesson"
+msgstr "Пред. раздел"
+
+#: sfwd_lms.php:2091
+msgid "Previous Topic"
+msgstr "Пред. материал"
+
+#: sfwd_lms.php:2135
+msgid "Next Lesson"
+msgstr "След. раздел"
+
+#: sfwd_lms.php:2141
+msgid "Next Topic"
+msgstr "След. материал"
+
+#: sfwd_lms.php:2419
+msgid "Your access to this course has expired."
+msgstr "Время Вашего доступа к данному курсу истекло."
+
+#: sfwd_lms.php:2653 sfwd_lms.php:2660
+msgid "Click Here to Continue "
+msgstr "Нажмите, чтобы продолжить"
+
+#: sfwd_lms.php:2776
+msgid "Permanently Delete Course Data"
+msgstr "Окончательно удалить данные курса"
+
+#: sfwd_lms.php:2777
+msgid ""
+"Check and click update profile to permanently delete user's LearnDash course "
+"data. <strong>This cannot be undone.</strong>"
+msgstr ""
+"Отметьте и нажмите обновить профиль, чтобы удалить данные курса для "
+"пользователя безвозвратно."
+
+#: sfwd_lms.php:2880
+msgid "Return to Course Overview"
+msgstr "Вернуться к просмотру курса"
+
+#: sfwd_lms.php:2891 sfwd_lms.php:3195
+msgid "User Reports"
+msgstr "Отчёты пользоватлей"
+
+#: sfwd_lms.php:2896
+msgid "Export User Course Data"
+msgstr "Экспорт данных пользователя по курсу"
+
+#: sfwd_lms.php:2896
+msgid "Export Quiz Data"
+msgstr "Экспорт данных пользователя по тесту"
+
+#: sfwd_lms.php:2906
+msgid "LearnDash LMS"
+msgstr "LearnDash LMS"
+
+#: sfwd_lms.php:2907
+msgid "LearnDash Reports"
+msgstr "Отчёты LearnDash"
+
+#: sfwd_lms.php:2908 sfwd_lms.php:3167 sfwd_lms.php:3915
+msgid "Certificate Shortcodes"
+msgstr "Короткие коды"
+
+#: sfwd_lms.php:2909 sfwd_lms.php:3053 sfwd_lms.php:3954
+msgid "Course Shortcodes"
+msgstr "Короткие коды"
+
+#: sfwd_lms.php:2912
+msgid "LearnDash LMS License"
+msgstr "Лицензия LearnDash LMS"
+
+#: sfwd_lms.php:2959
+msgid "Groups"
+msgstr "Группы"
+
+#: sfwd_lms.php:2964
+msgid "Reports"
+msgstr "Отчёты"
+
+#: sfwd_lms.php:2969
+msgid "Settings"
+msgstr "Настройки"
+
+#: sfwd_lms.php:3047
+msgid "Tags"
+msgstr "Метки"
+
+#: sfwd_lms.php:3074
+msgid "Lesson Options"
+msgstr "Настройки раздела"
+
+#: sfwd_lms.php:3119
+msgid "Import/Export"
+msgstr "Импорт/Экспорт"
+
+#: sfwd_lms.php:3134 sfwd_lms.php:4013
+msgid "Questions"
+msgstr "Вопросы"
+
+#: sfwd_lms.php:3141 sfwd_lms.php:4014
+msgid "Statistics"
+msgstr "Статистика"
+
+#: sfwd_lms.php:3148 sfwd_lms.php:4015
+msgid "Leaderboard"
+msgstr "Рейтинг успеваемости"
+
+#: sfwd_lms.php:3181
+msgid "LMS License"
+msgstr "Лицензия LMS"
+
+#: sfwd_lms.php:3189
+msgid "Support"
+msgstr "Поддержка"
+
+#: sfwd_lms.php:3497
+msgid "Shortcode"
+msgstr "Короткий код"
+
+#: sfwd_lms.php:3505 sfwd_lms.php:3514
+msgid "Assigned Course"
+msgstr "Связанный курс"
+
+#: sfwd_lms.php:3513
+msgid "Assigned Lesson"
+msgstr "Связанный раздел"
+
+#: sfwd_lms.php:3523 templates/course.php:85 templates/course.php:173
+#: templates/course_content_shortcode.php:58
+#: templates/course_content_shortcode.php:146 templates/lesson.php:105
+#: templates/profile.php:32 templates/topic.php:74
+msgid "Status"
+msgstr "Статус"
+
+#: sfwd_lms.php:3542 sfwd_lms.php:3624
+msgid "Approved"
+msgstr "Одобрено"
+
+#: sfwd_lms.php:3547 sfwd_lms.php:3625
+msgid "Not Approved"
+msgstr "Не одобрено"
+
+#: sfwd_lms.php:3594
+msgid "Show All Courses"
+msgstr "Показать все курсы"
+
+#: sfwd_lms.php:3603
+msgid "Show All Lessons"
+msgstr "Показать все разделы"
+
+#: sfwd_lms.php:3623
+msgid "Approval Status"
+msgstr "Статистика одобрений"
+
+#: sfwd_lms.php:3920
+msgid ""
+"<b>Shortcode Options</b><p>You may use shortcodes to customize the display "
+"of your certificates. Provided is a built-in shortcode for displaying user "
+"information.</p><p><b>[usermeta]</b><p>This shortcode takes a parameter "
+"named field, which is the name of the user meta data field to be displayed.</"
+"p><p>Example: <b>[usermeta field=\"display_name\"]</b> would display the "
+"user's Display Name.</p><p>See <a href=\"http://codex.wordpress.org/"
+"Function_Reference/get_userdata#Notes\">the full list of available fields "
+"here</a>.</p>"
+msgstr ""
+"<b>Варианты использования коротких кодов</b><p>Вы можете использовать "
+"короткие коды для настройки отображения Ваших сертификатов. Встроенный "
+"короткий код для отображения информации пользователя.<p><p><b>[usermeta]</"
+"b><p>Этот код вызывает параметр поля имени, который является отображаемым "
+"именем из мета данных пользователя.</p><p>Пример: <b>[usermeta field="
+"\"display_name\"]</b> будет выводит отображаемое имя пользователя.</"
+"p><p>Смотрите <a href=\"http://codex.wordpress.org/Function_Reference/"
+"get_userdata#Notes\">полный список доступных полей здесь</a>.</p>"
+
+#: sfwd_lms.php:3921
+msgid ""
+"This shortcode displays information regarding quiz attempts on the "
+"certificate. This short code can use the following parameters:"
+msgstr ""
+"Этот короткий код отображает на сертификате информацию о количестве попыток "
+"пройти тест. Данный код можно использовать со следующими приметрами: "
+
+#: sfwd_lms.php:3924
+msgid ""
+"This parameter determines the information to be shown by the shortcode. "
+"Possible values are:\n"
+"\t\t\t\t\t\t\t\t\n"
+"\t\t\t\t\t\t\t\t<ol class=\"cert_shortcode_parm_list\">\n"
+"\t\t\t\t\t\t\t\t\n"
+"\t\t\t\t\t\t\t\t\t<li>score</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>count</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>pass</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>timestamp</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>points*</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>total_points*</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>percentage</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>quiz_title</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>course_title</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>timespent*</li>\n"
+"\t\t\t\t\t\t\t\t</ol>\n"
+"\t\t\t\t\t\t\t\t\n"
+"\t\t\t\t\t\t\t\tValues marked with an asterisk (*) are only valid for the "
+"Advanced Quiz. <br>Example: <b>[quizinfo show=\"percentage\"]%</b> shows the "
+"percentage score of the user in the quiz."
+msgstr ""
+"Этот параметр определяет информацию, выводимую коротким кодом. Возможные "
+"значения:\n"
+"\t\t\t\t\t\t\t\t\n"
+"\t\t\t\t\t\t\t\t<ol class=\"cert_shortcode_parm_list\">\n"
+"\t\t\t\t\t\t\t\t\n"
+"\t\t\t\t\t\t\t\t\t<li>score</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>count</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>pass</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>timestamp</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>points*</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>total_points*</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>percentage</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>quiz_title</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>course_title</li>\n"
+"\t\t\t\t\t\t\t\t\t<li>timespent*</li>\n"
+"\t\t\t\t\t\t\t\t</ol>\n"
+"\t\t\t\t\t\t\t\t\n"
+"\t\t\t\t\t\t\t\tЗначения отмеченные звёздочкой (*) применимы только к "
+"сложным тестам. <br>Пример: <b>[quizinfo show=\"percentage\"]%</b> выводит "
+"процент прохождения теста пользователем."
+
+#: sfwd_lms.php:3941
+msgid ""
+"This can be used to change the timestamp format. Default: \"F j, Y, g:i a\" "
+"shows as <i>March 10, 2001, 5:16 pm</i>. <br>Example: <b>[quizinfo show="
+"\"timestamp\" format=\"Y-m-d H:i:s\"]</b> will show as <i>2001-03-10 "
+"17:16:18</i>"
+msgstr ""
+"Может быть использован для изменения формата временной метки. Стандартно \"F "
+"j, Y, g:i a\" отображается как <i>March 10, 2001, 5:16 pm</i>. <br>Пример: "
+"<b>[quizinfo show=\"timestamp\" format=\"Y-m-d H:i:s\"]</b> выведет "
+"<i>2001-03-10 17:16:18</i>"
+
+#: sfwd_lms.php:3943
+msgid ""
+"See <a target=\"_blank\" href=\"http://php.net/manual/en/function.date.php"
+"\">the full list of available date formating strings  here.</a>"
+msgstr ""
+"Смотрите <a target=\"_blank\" href=\"http://php.net/manual/en/function.date."
+"php\">полный список форматов даты здесь.</a>"
+
+#: sfwd_lms.php:3959
+msgid "Shortcode Options"
+msgstr "Варианты коротких кодов"
+
+#: sfwd_lms.php:3961
+msgid ""
+"You may use shortcodes to add information to any page/course/lesson/quiz. "
+"Here are built-in shortcodes for displaying relavent user information."
+msgstr ""
+"Вы можете использовать короткие коды для добавления информации на любые "
+"страницы/курсы/разделы/тесты. Далее приведены встроенные короткие коды для "
+"отображения соответствующей информации пользователей."
+
+#: sfwd_lms.php:3962
+msgid ""
+"Displays user's enrolled courses, course progress, quiz scores, and achieved "
+"certificates."
+msgstr ""
+"Отображает регистрацию пользователя на курсах, динамику их изучения, "
+"набранные в тестах баллы и полученные сертификаты.  "
+
+#: sfwd_lms.php:3965
+msgid ""
+"This shortcode shows list of courses. You can use this short code on any "
+"page if you dont want to use the default /courses page. This short code can "
+"take following parameters:"
+msgstr ""
+"Этот короткий код используется для отображения списка курсов. Вы можете "
+"использовать его на любой странице, если стандартная страница всех курсов "
+"Вам не подходит. Этот код может работать со следующими параметрами: "
+
+#: sfwd_lms.php:3967
+msgid ""
+"limits the number of courses displayed. Example: <b>[ld_course_list num="
+"\"10\"]</b> shows 10 courses."
+msgstr ""
+"ограничивает число отображаемых курсов. Пример: <b>[ld_course_list num="
+"\"10\"]</b> будет выводить только 10 курсов."
+
+#: sfwd_lms.php:3968
+msgid ""
+"sets order of courses. Possible values: <b>DESC</b>, <b>ASC</b>. Example: "
+"<b>[ld_course_list order=\"ASC\"]</b> shows courses in ascending order."
+msgstr ""
+"определяет направление сортировки курсов. Возможные значения: <b>DESC</b>, "
+"<b>ASC</b>. Пример: <b>[ld_course_list order=\"ASC\"]</b> будет сортировать "
+"курсы в порядке возрастания."
+
+#: sfwd_lms.php:3969
+msgid ""
+"sets what the list of ordered by. Example: <b>[ld_course_list order=\"ASC\" "
+"orderby=\"title\"]</b> shows courses in ascending order by title."
+msgstr ""
+"определяет как будет отсортирован список по выбранному критерию. Пример: "
+"<b>[ld_course_list order=\"ASC\" orderby=\"title\"]</b> будет сортировать "
+"курсы в порядке возрастания по названию."
+
+#: sfwd_lms.php:3970
+msgid ""
+"shows courses with mentioned tag. Example: <b>[ld_course_list tag=\"math\"]</"
+"b> shows courses having tag math."
+msgstr ""
+"отображает курсы с указанной меткой. Пример: <b>[ld_course_list tag=\"math"
+"\"]</b> будет отображать курсы с меткой math."
+
+#: sfwd_lms.php:3971
+msgid ""
+"shows courses with mentioned tag_id. Example: <b>[ld_course_list tag_id="
+"\"30\"]</b> shows courses having tag with tag_id 30."
+msgstr ""
+"отображает курсы с указанным id метки. Пример: <b>[ld_course_list tag_id="
+"\"30\"]</b> будет отображать курсы помеченные меткой с id=30."
+
+#: sfwd_lms.php:3972
+msgid ""
+"shows courses with mentioned category id. Example: <b>[ld_course_list cat="
+"\"10\"]</b> shows courses having category with category id 10."
+msgstr ""
+"показывает курсы с указанным id рубрики. Пример: <b>[ld_course_list cat="
+"\"10\"]</b> будет отображать курсы в рубрике, имеющей id=10."
+
+#: sfwd_lms.php:3973
+msgid ""
+"shows courses with mentioned category slug. Example: <b>[ld_course_list "
+"category_name=\"math\"]</b> shows courses having category slug math."
+msgstr ""
+"отображает курсы с установленным ярлыком рубрики. Пример: <b>[ld_course_list "
+"category_name=\"math\"]</b> будет отображать курсы в рубрике, имеющей ярлык "
+"math."
+
+#: sfwd_lms.php:3974
+msgid ""
+"show current user's courses. Example: <b>[ld_course_list mycourses=\"true"
+"\"]</b> shows courses the current user has access to."
+msgstr ""
+"отображает курсы текущего пользователя. Пример: <b>[ld_course_list mycourses="
+"\"true\"]</b> будет отображать курсы к которым имеет доступ авторизованный "
+"пользователь."
+
+#: sfwd_lms.php:3975
+msgid ""
+"shows a category dropdown. Example: <b>[ld_course_list categoryselector="
+"\"true\"]</b>."
+msgstr ""
+"показывает ниспадающий список рубрик. Пример: <b>[ld_course_list "
+"categoryselector=\"true\"]</b>."
+
+#: sfwd_lms.php:3976
+msgid ""
+"number of columns to show when using course grid addon. Example: "
+"<b>[ld_course_list col=\"2\"]</b> shows 2 columns."
+msgstr ""
+"задаёт количество отображаемых колонок при использовании соответствующего "
+"приложения к плагину. Пример: <b>[ld_course_list col=\"2\"]</b> будет "
+"выводить 2 колонки."
+
+#: sfwd_lms.php:3978
+msgid ""
+"See <a target=\"_blank\" href=\"https://codex.wordpress.org/Class_Reference/"
+"WP_Query#Order_.26_Orderby_Parameters\">the full list of available orderby "
+"options here.</a>"
+msgstr ""
+"Смотрите <a target=\"_blank\" href=\"https://codex.wordpress.org/"
+"Class_Reference/WP_Query#Order_.26_Orderby_Parameters\">полный список "
+"возможных вариантов сортировки здесь.</a>"
+
+#: sfwd_lms.php:3980
+msgid ""
+"This shortcode shows list of lessons. You can use this short code on any "
+"page. This short code can take following parameters: num, order, orderby, "
+"tag, tag_id, cat, category_name. See [ld_course_list] above details on using "
+"the shortcode parameters."
+msgstr ""
+"Этот короткий код выводит список разделов. Вы можете использовать его на "
+"любой странице. Он может использоваться со следующими параметрами: num, "
+"order, orderby, tag, tag_id, cat, category_name. Смотрите описание кода "
+"[ld_course_list] и возможности использования параметров выше."
+
+#: sfwd_lms.php:3982
+msgid ""
+"This shortcode shows list of quizzes. You can use this short code on any "
+"page. This short code can take following parameters: num, order, orderby, "
+"tag, tag_id, cat, category_name.. See [ld_course_list] above details on "
+"using the shortcode parameters."
+msgstr ""
+"Этот короткий код выводит список тестов. Вы можете использовать его на любой "
+"странице. Он может использоваться со следующими параметрами: num, order, "
+"orderby, tag, tag_id, cat, category_name. Смотрите описание кода "
+"[ld_course_list] и возможности использования параметров выше."
+
+#: sfwd_lms.php:3984
+msgid ""
+"This shortcode displays users progress bar for the course in any course/"
+"lesson/quiz pages."
+msgstr ""
+"Этот короткий код выводит индикатор хода изучения курса на любой странице "
+"курса/раздела/теста. "
+
+#: sfwd_lms.php:3986
+msgid ""
+"This shortcode shows the content if the user is not enrolled in the course. "
+"Example usage: <strong>[visitor]</strong>Welcome Visitor!<strong>[/visitor]</"
+"strong>"
+msgstr ""
+"Этот короткий код позволяет выводить какую-либо информацию, если "
+"пользователь еще не зарегистрирован на курс. Пример использования: "
+"<strong>[visitor]</strong>Добро пожаловать, посетителю сайта!<strong>[/"
+"visitor]</strong>"
+
+#: sfwd_lms.php:3988
+msgid ""
+"This shortcode shows the content if the user is enrolled in the course. "
+"Example usage: <strong>[student]</strong>Welcome Student!<strong>[/student]</"
+"strong>"
+msgstr ""
+"Этот короткий код позволяет выводить какую-либо информацию, если "
+"пользователь уже зарегистрирован на курс. Пример использования: "
+"<strong>[student]</strong>Добро пожаловать, слушателю курса!<strong>[/"
+"student]</strong>"
+
+#: sfwd_lms.php:3990
+msgid ""
+"This shortcode displays the list of groups users are assigned to as users or "
+"leaders."
+msgstr ""
+"Этот короткий код выводит список групп, в которые пользователи входят как "
+"слушатели или лидеры."
+
+#: sfwd_lms.php:3992
+msgid ""
+"This shortcode displays can show the payment buttons on any page. Example: "
+"<strong>[learndash_payment_buttons course_id=\"123\"]</strong> shows the "
+"payment buttons for course with Course ID: 123"
+msgstr ""
+"Этот короткий код позволяет выводить кнопки оплаты на любой странице. "
+"Пример: <strong>[learndash_payment_buttons course_id=\"123\"]</strong> будет "
+"выводить кнопку оплаты курса с  ID 123."
+
+#: sfwd_lms.php:3994
+msgid ""
+"This shortcode displays the Course Content table (course lessons, topics, "
+"and quizzes) when inserted on a page or post. Example: "
+"<strong>[course_content course_id=\"123\"]</strong> shows the course content "
+"for course with Course ID: 123"
+msgstr ""
+"Этот короткий код позволяет выводит таблицу с учебным планом курса  (разделы "
+"курса, материалы и тесты) в том месте, где он используется на странице или в "
+"записи. Пример: <strong>[course_content course_id=\"123\"]</strong> будет "
+"выводить учебный план курса с ID 123."
+
+#: sfwd_module_class.php:319
+msgid "LearnDash Categories"
+msgstr "Рубрики LearnDash"
+
+#: sfwd_module_class.php:320
+msgid "Loading..."
+msgstr "Загружаю... "
+
+#: sfwd_module_class.php:557
+msgid "Upload Image"
+msgstr "Загрузить изображение "
+
+#: sfwd_module_class.php:568
+#, php-format
+msgid " characters. Most search engines use a maximum of %s chars for the %s."
+msgstr ""
+" знаков. Большинство поисковых систем используют максимум %s символов для %s."
+
+#: sfwd_module_class.php:591
+msgid "Click for Help!"
+msgstr "Нужна подсказка?"
+
+#: sfwd_module_class.php:717
+msgid "Options Reset."
+msgstr "Сброс настроек"
+
+#: sfwd_module_class.php:726
+msgid "Options Updated."
+msgstr "Настройки изменены"
+
+#: sfwd_module_class.php:777
+msgid "Update Options"
+msgstr "Обновить настройки "
+
+#: sfwd_module_class.php:778
+#, php-format
+msgid "Reset %s Settings to Defaults"
+msgstr "Сбросить установки \"%s\" "
+
+#: tcpdf/config/tcpdf_config.php:41
+msgid "You are not allowed to access this file."
+msgstr "У Вас нет доступа к этому файлу. "
+
+#: templates/course.php:43
+msgid "Course Status:"
+msgstr "Статус курса: "
+
+#: templates/course.php:71 templates/course_content_shortcode.php:44
+msgid "Course Content"
+msgstr "Учебный план курса"
+
+#: templates/course.php:80 templates/course_content_shortcode.php:53
+#: templates/profile.php:11
+msgid "Expand All"
+msgstr "Развернуть всё"
+
+#: templates/course.php:80 templates/course_content_shortcode.php:53
+#: templates/profile.php:11
+msgid "Collapse All"
+msgstr "Свернуть всё"
+
+#: templates/course_info_shortcode.php:20
+msgid "You are registered for the following courses"
+msgstr "Вы зарегистрированы на следующие курсы "
+
+#: templates/course_info_shortcode.php:38
+msgid "Course progress details:"
+msgstr "Ход изучения курса: "
+
+#: templates/course_info_shortcode.php:40
+msgid "out of"
+msgstr "из "
+
+#: templates/course_info_shortcode.php:40
+msgid "steps"
+msgstr "этапов "
+
+#: templates/course_info_shortcode.php:54
+msgid "You have taken the following quizzes:"
+msgstr "Вы прошли следующие тесты: "
+
+#: templates/course_info_shortcode.php:70
+msgid "Print Certificate"
+msgstr "Печатать сертификаты"
+
+#: templates/course_info_shortcode.php:75
+msgid "Rank: "
+msgstr "Рейтинг: "
+
+#: templates/course_info_shortcode.php:77
+msgid "Score "
+msgstr "Баллы "
+
+#: templates/course_info_shortcode.php:77
+msgid " out of "
+msgstr " из "
+
+#: templates/course_info_shortcode.php:77
+msgid " question(s)"
+msgstr "вопросов"
+
+#: templates/course_info_shortcode.php:79
+msgid " . Points: "
+msgstr ". Баллы: "
+
+#: templates/course_info_shortcode.php:81
+msgid " on "
+msgstr " "
+
+#: templates/course_list_template.php:8
+msgid "Read more."
+msgstr "Читать далее"
+
+#: templates/course_navigation_admin.php:62
+#: templates/course_navigation_widget.php:61
+msgid "Return to"
+msgstr "Вернуться к "
+
+#: templates/course_progress_widget.php:1 templates/profile.php:50
+#, php-format
+msgid "%s out of %s steps completed"
+msgstr "%s из %s этапов завершены"
+
+#: templates/lesson.php:30 templates/topic.php:61
+msgid "Please go back and complete the previous lesson."
+msgstr "Пожалуйста, вернитесь назад и изучите предыдущий раздел."
+
+#: templates/lesson.php:78
+msgid "Lesson Topics"
+msgstr "Материалы раздела"
+
+#: templates/lesson.php:125 templates/topic.php:94
+msgid "Files you have uploaded"
+msgstr "Загруженные Вами файлы"
+
+#: templates/lesson.php:133 templates/topic.php:102
+msgid "Comments"
+msgstr "Комментарии"
+
+#: templates/profile.php:13
+msgid "Profile"
+msgstr "Профиль"
+
+#: templates/profile.php:18
+msgid "Edit profile"
+msgstr "Изменить профиль"
+
+#: templates/profile.php:31
+msgid "Registered Courses"
+msgstr "Зарегистрирован на курсах "
+
+#: templates/profile.php:48
+msgid "Course Progress Overview"
+msgstr "Обзор хода изучения курса"
+
+#: templates/profile.php:54
+#, php-format
+msgid "%s%% Complete"
+msgstr "%s%% выполнено"
+
+#: templates/profile.php:61
+msgid "Certificate"
+msgstr "Сертификат"
+
+#: templates/profile.php:62
+msgid "Score"
+msgstr "Баллы"
+
+#: templates/quiz.php:30
+msgid "Please go back and complete the previous lesson.<br>"
+msgstr "Пожалуйста, вернитесь назад и изучите предыдущий радел.<br>"
+
+#: templates/quiz.php:32
+msgid "Please go back and complete the previous topic.<br>"
+msgstr "Пожалуйста, вернитесь назад и изучите предыдущий материал.<br>"
+
+#: templates/quiz.php:42
+#, php-format
+msgid "You have already taken this quiz %d times and may not take it again."
+msgstr "Вы уже прошли этот тест %d раз и больше не можете сдать заново."
+
+#: templates/topic.php:32
+msgid "Topic Progress:"
+msgstr "Материалы:"
+
+#: templates/topic.php:47
+msgid "Back to Lesson"
+msgstr "Вернуться к разделу"
+
+#: templates/topic.php:55
+msgid "Please go back and complete the previous topic."
+msgstr "Пожалуйста, вернитесь назад и изучите предыдущий материал."
+
+#: templates/user_groups_shortcode.php:4
+msgid "Group Leader in : "
+msgstr "Лидер группы в: "
+
+#: templates/user_groups_shortcode.php:20
+msgid "Assigned Group(s) : "
+msgstr "Прикрепленная(ые) группа(ы):"
+
+#: wp_autoupdate.php:205
+msgid "You do not have sufficient permissions to access this page."
+msgstr "У Вас нет прав доступа к данной странице."
+
+#: wp_autoupdate.php:228
+msgid "settings saved."
+msgstr "настройки сохранены."
+
+#: wp_autoupdate.php:243
+msgid "License Settings"
+msgstr "Настройки лицензии"
+
+#: wp_autoupdate.php:245
+msgid "Email:"
+msgstr "Email: "
+
+#: wp_autoupdate.php:247
+msgid "License Key:"
+msgstr "Лицензионный ключ: "
+
+#: wp_autoupdate.php:251
+msgid "Update License"
+msgstr "Обновить лицензию"
+
+#~ msgctxt "learndash"
+#~ msgid "Assignments"
+#~ msgstr "Задания"
+
+#~ msgctxt "learndash"
+#~ msgid "Assignment"
+#~ msgstr "Задание"
+
+#~ msgctxt "learndash"
+#~ msgid "Edit Assignment"
+#~ msgstr "Редактировать задание"
+
+#~ msgctxt "learndash"
+#~ msgid "View Assignment"
+#~ msgstr "Смотреть задание"
+
+#~ msgctxt "learndash"
+#~ msgid "Search Assignments"
+#~ msgstr "Искать задание"
+
+#~ msgctxt "learndash"
+#~ msgid "No assignment found"
+#~ msgstr "Задания не найдены "
+
+#~ msgctxt "learndash"
+#~ msgid "No assignment found in Trash"
+#~ msgstr "В корзине нет заданий "
+
+#~ msgctxt "learndash"
+#~ msgid "Parent:"
+#~ msgstr "Родительское: "
+
+#~ msgctxt "post type general name"
+#~ msgid "LearnDash Groups"
+#~ msgstr "Группы LearnDash"
+
+#~ msgctxt "post type singular name"
+#~ msgid "LearnDash Group"
+#~ msgstr "Группа LearnDash"
+
+#~ msgctxt "learndash"
+#~ msgid "Add New"
+#~ msgstr "Создать"
+
+#~ msgid "You must specify a name."
+#~ msgstr "Необходимо указать название."
+
+#~ msgid "This entry should really be deleted?"
+#~ msgstr "Удалить запись, уверены?"
+
+#~ msgid "Not all fields completed."
+#~ msgstr "Не все поля заполнены. "
+
+#~ msgid "You must specify a template name."
+#~ msgstr "Необходимо указать название шаблона."
+
+#~ msgid "Close"
+#~ msgstr "Закрыть"
+
+#~ msgid "Today"
+#~ msgstr "Сегодня"
+
+#~ msgid "Loading"
+#~ msgstr "Загружаю"
+
+#~ msgid "You must answer this question."
+#~ msgstr "Вам необходимо ответить на этот вопрос."
+
+#~ msgid "You must answer all questions before you can completed the quiz."
+#~ msgstr "Вам необходимо ответить на все вопросы, чтобы закончить тест."
+
+#~ msgid "All fields have to be filled."
+#~ msgstr "Все поля должны быть заполнены."
+
+#~ msgid "Settings saved"
+#~ msgstr "Настройки сохранены"
+
+#~ msgid "Database repaired"
+#~ msgstr "База данных восстановлена"
+
+#~ msgid "File cannot be processed"
+#~ msgstr "Не возможно запустить файл"
+
+#~ msgid "Quiz not found"
+#~ msgstr "Тест не найден"
+
+#~ msgid "Question not found"
+#~ msgstr "Вопрос не найден"
+
+#~ msgid "Question edited"
+#~ msgstr "Вопрос изменён"
+
+#~ msgid "Question added"
+#~ msgstr "Вопрос добавлен"
+
+#~ msgid "Edit question"
+#~ msgstr "Изменить вопрос"
+
+#~ msgid "New question"
+#~ msgstr "Новый вопрос"
+
+#~ msgid "Question: %d"
+#~ msgstr "Вопрос: %d"
+
+#~ msgid "questions copied"
+#~ msgstr "вопросы скопированы "
+
+#~ msgid "Quiz edited"
+#~ msgstr "Тест изменён"
+
+#~ msgid "quiz created"
+#~ msgstr "тест создан "
+
+#~ msgid "Quiz title or quiz description are not filled"
+#~ msgstr "Название или описание теста не указаны  "
+
+#~ msgid "Edit quiz"
+#~ msgstr "Изменить тест"
+
+#~ msgid "Create quiz"
+#~ msgstr "Создать тест"
+
+#~ msgid "Template stored"
+#~ msgstr "Шаблон сохранён"
+
+#~ msgid "Quiz deleted"
+#~ msgstr "Тест удалён"
+
+#~ msgid "Not categorized"
+#~ msgstr "Без рубрики"
+
+#~ msgid "No category"
+#~ msgstr "Нет рубрики"
+
+#~ msgid "Anonymous"
+#~ msgstr "Анонимный"
+
+#~ msgid "Deleted user"
+#~ msgstr "Удалённый пользователь"
+
+#~ msgid "No name or e-mail entered."
+#~ msgstr "Имя или e-mail не указаны."
+
+#~ msgid "You signed up successfully."
+#~ msgstr "Вы успешно подписались."
+
+#~ msgid "An error has occurred."
+#~ msgstr "Возникла ошибка."
+
+#~ msgid "You can not enter again."
+#~ msgstr "Вы не можете подписаться повторно."
+
+#~ msgid "Your name can not exceed 15 characters."
+#~ msgstr "Ваше имя не должно превышать 15 символов."
+
+#~ msgid "You entered wrong captcha code."
+#~ msgstr "Вы ввели неверный защитный код."
+
+#~ msgid "File was not uploaded"
+#~ msgstr "Файл не был загружен"
+
+#~ msgid "File have wrong format"
+#~ msgstr "Недопустимый формат файла"
+
+#~ msgid "File is not compatible with the current version"
+#~ msgstr "Файл несовместим с текущей версией"
+
+#~ msgid "XML could not be loaded."
+#~ msgstr "Не получилось загрузить XML."
+
+#~ msgid "The user completed a quiz."
+#~ msgstr "Пользователь прошёл тест."
+
+#~ msgid "The user completed a quiz with 100 percent."
+#~ msgstr "Пользователь прошёл тест на 100%."
+
+#~ msgid "A powerful and beautiful quiz plugin for WordPress."
+#~ msgstr "Мощный и красивый плагин тестирования для Wordpress. "
+
+#~ msgid "WP-Pro-Quiz"
+#~ msgstr "WP-Pro-Quiz"
+
+#~ msgid "Filter"
+#~ msgstr "Фильтр"
+
+#~ msgid "Sort by:"
+#~ msgstr "Сортировать по: "
+
+#~ msgid "best user"
+#~ msgstr "успеваемости "
+
+#~ msgid "newest entry"
+#~ msgstr "новизне записи"
+
+#~ msgid "oldest entry"
+#~ msgstr "сроку записи"
+
+#~ msgid "How many entries should be shown on one page:"
+#~ msgstr "Сколько записей показывать на странице: "
+
+#~ msgid "Type"
+#~ msgstr "Тип"
+
+#~ msgid "UR = unregistered user, R = registered user"
+#~ msgstr "UR = незарегистрированный, R = зарегистрированный"
+
+#~ msgid "User"
+#~ msgstr "Пользователь"
+
+#~ msgid "E-Mail"
+#~ msgstr "E-Mail"
+
+#~ msgid "Points"
+#~ msgstr "Баллы "
+
+#~ msgid "Results"
+#~ msgstr "Результаты"
+
+#~ msgid "Delete"
+#~ msgstr "Удалить"
+
+#~ msgid "save"
+#~ msgstr "сохранить "
+
+#~ msgid "cancel"
+#~ msgstr "отмена "
+
+#~ msgid "Apply"
+#~ msgstr "Применить"
+
+#~ msgid "Delete all entries"
+#~ msgstr "Удалить все записи"
+
+#~ msgid "Quiz-summary"
+#~ msgstr "Сводка по тесту"
+
+#~ msgid "Correct"
+#~ msgstr "Верно"
+
+#~ msgid "Incorrect"
+#~ msgstr "Неверно"
+
+#~ msgid "Hint"
+#~ msgstr "Подсказка"
+
+#~ msgid "Skip question"
+#~ msgstr "Пропустить вопрос"
+
+#~ msgid "Check"
+#~ msgstr "Проверить"
+
+#~ msgid "Next"
+#~ msgstr "Далее"
+
+#~ msgid "Page %d"
+#~ msgstr "Страница %d"
+
+#~ msgid "Quiz is loading..."
+#~ msgstr "Тест загружается..."
+
+#~ msgid "maximum of %s points"
+#~ msgstr "из %s баллов максимум"
+
+#~ msgid "Result"
+#~ msgstr "Результат"
+
+#~ msgid "Table is loading"
+#~ msgstr "Таблица загружается"
+
+#~ msgid "back to overview"
+#~ msgstr "назад к просмотру "
+
+#~ msgid "E-Mail settings"
+#~ msgstr "Настройки сообщений"
+
+#~ msgid "Settings in case of problems"
+#~ msgstr "Настройки на случай проблем "
+
+#~ msgid "Save"
+#~ msgstr "Сохранить"
+
+#~ msgid "Global settings"
+#~ msgstr "Общие настройки"
+
+#~ msgid "Leaderboard time format"
+#~ msgstr "Формат времени для списка лучших"
+
+#~ msgid "Custom"
+#~ msgstr "Произвольно "
+
+#~ msgid "Documentation on date and time formatting"
+#~ msgstr "Документация по формату даты и времени"
+
+#~ msgid "Statistic time format"
+#~ msgstr "Формат времени для статистики"
+
+#~ msgid "Select example:"
+#~ msgstr "Выберите шаблон: "
+
+#~ msgid "Time format:"
+#~ msgstr "Другой формат: "
+
+#~ msgid "Category management"
+#~ msgstr "Управление рубриками"
+
+#~ msgid "Quiz template management"
+#~ msgstr "Управление шаблонами тестов"
+
+#~ msgid "Question template management"
+#~ msgstr "Упраление шаблонами вопросов"
+
+#~ msgid "Admin e-mail settings"
+#~ msgstr "Настройки e-mail админа"
+
+#~ msgid "To:"
+#~ msgstr "Кому: "
+
+#~ msgid ""
+#~ "Separate multiple email addresses with a comma, e.g. wp@test.com, "
+#~ "test@test.com"
+#~ msgstr ""
+#~ "Укажите несколько адресов через запятую, например: wp@test.com, test@test."
+#~ "com"
+
+#~ msgid "From:"
+#~ msgstr "От: "
+
+#~ msgid "Subject:"
+#~ msgstr "Тема: "
+
+#~ msgid "HTML"
+#~ msgstr "HTML"
+
+#~ msgid "Activate"
+#~ msgstr "Активировать"
+
+#~ msgid "Message body:"
+#~ msgstr "Тело сообщения: "
+
+#~ msgid "Allowed variables"
+#~ msgstr "Допустимые переменные"
+
+#~ msgid "User-ID"
+#~ msgstr "ID пользователя"
+
+#~ msgid "Quiz-Name"
+#~ msgstr "Название теста"
+
+#~ msgid "Result in precent"
+#~ msgstr "Результат в процентах"
+
+#~ msgid "Reached points"
+#~ msgstr "Набранные баллы"
+
+#~ msgid "IP-address of the user"
+#~ msgstr "IP-адрес пользователя"
+
+#~ msgid "Category-Overview"
+#~ msgstr "Описание рубрики"
+
+#~ msgid "User e-mail settings"
+#~ msgstr "Сообщение пользователю"
+
+#~ msgid ""
+#~ "If this option is activated, a [raw] shortcode is automatically set "
+#~ "around LDAdvQuiz shortcode ( [LDAdvQuiz X] ) into [raw] [LDAdvQuiz X] [/"
+#~ "raw]"
+#~ msgstr ""
+#~ "Если активно, короткий код [raw] автоматически добавляется к короткому "
+#~ "коду LDAdvQuiz ( [LDAdvQuiz X] ), превращая его в [raw] [LDAdvQuiz X] [/"
+#~ "raw]. "
+
+#~ msgid ""
+#~ "Own themes changes internal  order of filters, what causes the problems. "
+#~ "With additional shortcode [raw] this is prevented."
+#~ msgstr ""
+#~ "Некоторые темы изменяют внутренний порядок фильтров, что может вызвать "
+#~ "проблемы. Посредством дополнительного кода [raw] это можно предотвратить. "
+
+#~ msgid "load template"
+#~ msgstr "загрузить шаблон"
+
+#~ msgid "Sort questions by category"
+#~ msgstr "Сортировать вопросы по рубрике"
+
+#~ msgid ""
+#~ "Also works in conjunction with the \"display randomly question\" option."
+#~ msgstr ""
+#~ "Также работает в связке с настройкой \"Выводить вопросы случайным образом"
+#~ "\"."
+
+#~ msgid "Seconds"
+#~ msgstr "Секунд"
+
+#~ msgid "Admin e-mail notification"
+#~ msgstr "Уведомление админа"
+
+#~ msgid "for registered users only"
+#~ msgstr "только для зарегистрированных пользователей"
+
+#~ msgid "for all users"
+#~ msgstr "для всех пользоватлей"
+
+#~ msgid "Yes/No"
+#~ msgstr "Да/Нет"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Add field"
+#~ msgstr "Добавить поле "
+
+#~ msgid "Import/Export Associated Settings"
+#~ msgstr "Импорт/Экспорт связанных настроек"
+
+#~ msgid "Export"
+#~ msgstr "Экспорт"
+
+#~ msgid ""
+#~ "Choose the respective question, which you would like to export and press "
+#~ "on \"Start export\""
+#~ msgstr ""
+#~ "Выберите вопрос, который хотите экспортировать и нажмите \"Начать экспорт"
+#~ "\""
+
+#~ msgid "Format:"
+#~ msgstr "Формат: "
+
+#~ msgid "*.wpq"
+#~ msgstr "*.wpq"
+
+#~ msgid "or"
+#~ msgstr "или "
+
+#~ msgid "*.xml"
+#~ msgstr "*.xml"
+
+#~ msgid "Start export"
+#~ msgstr "Начать экспорт"
+
+#~ msgid "Import only *.wpq or *.xml files from known and trusted sources."
+#~ msgstr ""
+#~ "Импортируйте только файлы *.wpq или *.xml  и только из известных "
+#~ "источников."
+
+#~ msgid "Which users should be displayed:"
+#~ msgstr "Каких пользователей отображать: "
+
+#~ msgid "all"
+#~ msgstr "всех"
+
+#~ msgid "only registered users"
+#~ msgstr "зарегистрированных"
+
+#~ msgid "only anonymous users"
+#~ msgstr "анонимных"
+
+#~ msgid "History"
+#~ msgstr "История"

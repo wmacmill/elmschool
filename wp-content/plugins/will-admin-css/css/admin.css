@@ -1,0 +1,10 @@
+/*removing uneeded meta boxes from editing page*/
+#normal-sortables, #disable_title, #postimagediv {
+    display: none !important;
+}
+
+/*removes tabs from the courses, lessons and quiz section*/
+.nav-tab-admin_page_learndash-lms-course_shortcodes, .nav-tab-edit-category, .nav-tab-edit-post_tag, .nav-tab-sfwd-lessons_page_sfwd-lms_sfwd_lms_post_type_sfwd-lessons, .nav-tab-admin_page_learndash-lms-certificate_shortcodes {
+	display: none !important;
+}
+

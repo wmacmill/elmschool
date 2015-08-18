@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* General */
+.jwuh-hide { display: none; }
+
+/* Options page */
+.settings_page_userhierarchy-access .wrap form table
+	.settings_page_userhierarchy-access .wrap form table thead tr { background: #EAF2FA; }
+		.settings_page_userhierarchy-access .wrap form table thead tr th,
+		.settings_page_userhierarchy-access .wrap form table thead tr td { background: #EAF2FA; font-size: 1em; text-align: right; }
+		.settings_page_userhierarchy-access .wrap form table thead tr th:first-child { text-align: left; }
+	.settings_page_userhierarchy-access .wrap form table tbody th:first-child { text-align: left; }
+	.settings_page_userhierarchy-access .wrap form table tbody th,
+	.settings_page_userhierarchy-access .wrap form table tbody td { font-size: 1em; text-align: center; }
+	.settings_page_userhierarchy-access .wrap form table tbody tr:first-child th { border-bottom: 1px solid #AAAAAA; }
+	.settings_page_userhierarchy-access .wrap form table tbody tr:first-child td { border-bottom: 1px solid #AAAAAA; text-align: right; }
+
+.jwuh-role { position: relative; }
+	.jwuh-role .jwuh-header .jwuh-help { display: none; position: absolute; right: 0; padding: 0 0 10px 30px; color: #7A9BBE; font-family: 'Comic Sans MS', sans-serif; background: url('../images/helparrow-q4-cc.png') no-repeat 0 3px transparent; }
+	.jwuh-role.jwuh-enabled:hover .jwuh-header .jwuh-help { display: block; }
+	.jwuh-role table tfoot { display: none; background: #EAF2FA; }
+		.jwuh-role table tfoot .jwuh-help { display: block; float: right; padding: 10px 30px 0 0; color: #7A9BBE; font-family: 'Comic Sans MS', sans-serif; background: url('../images/helparrow-q2-cc.png') no-repeat right 3px transparent; }
+		.jwuh-role table tfoot .jwuh-help:first-child { float: left; padding: 10px 0 0 30px; background-image: url('../images/helparrow-q3-c.png'); background-position: 0 3px; }
+	.jwuh-role:hover table tfoot { display: table-footer-group; }
+
+/* Permission controls */
+.jwuh-capset-push-down { display: block; float: right; width: 11px; height: 13px; margin-left: 8px; background: url('../images/arrow-down.png') no-repeat 0 0 transparent; }
+.jwuh-capset-push-down:hover { background-position: -11px 0; }
+.jwuh-capset-switch { display: block; float: right; width: 20px; height: 16px; background: url('../images/switch.png') no-repeat 0 0 transparent; }
+.jwuh-capset-switch:hover { background-position: -20px 0; }
+label.jwuh-maincap { padding-left: 20px; }
