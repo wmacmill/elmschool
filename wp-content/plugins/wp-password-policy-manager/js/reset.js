@@ -1,4 +1,5 @@
 jQuery(function($){
+    "use strict";
     if(wppm_ModifyForm) {
         var form = $('#resetpassform'),data = form.html(), d = wppm_ModifyForm;
         form.html($('<div id="wp-reset-container"></div>').html(data));
