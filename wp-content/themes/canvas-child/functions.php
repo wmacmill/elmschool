@@ -206,6 +206,45 @@ function wpse_59652_list_terms_exclusions()
 }
 
 
+//This removes the ability for anyone other than admin to upload videos
+add_filter('upload_mimes', 'custom_upload_mimes');
+function custom_upload_mimes ( $existing_mimes=array() ) {
+    
+    if (current_user_can('administrator')) {//abort if admin
+        return $existing_mimes;
+    }
+    //see https://codex.wordpress.org/Function_Reference/get_allowed_mime_types for allowed mime types
+    //see https://codex.wordpress.org/Plugin_API/Filter_Reference/upload_mimes for how this function is working 
+    // Add file extension 'extension' with mime type 'mime/type'
+    $existing_mimes['extension'] = 'mime/type';
+     
+    // add as many as you like e.g. 
+    /*
+
+    $existing_mimes['doc'] = 'application/msword';
+
+    */
+    // remove all the video upload options...
+    unset( $existing_mimes['exe'] );//also executeable files - just asking for trouble
+    unset( $existing_mimes['avi'] );
+    unset( $existing_mimes['mp4|m4v'] );
+    unset( $existing_mimes['wmv'] ); 
+    unset( $existing_mimes['asf|asx'] );
+    unset( $existing_mimes['wmx'] );
+    unset( $existing_mimes['wm'] );
+    unset( $existing_mimes['divx'] );
+    unset( $existing_mimes['flv'] );
+    unset( $existing_mimes['mov|qt'] );
+    unset( $existing_mimes['mpeg|mpg|mpe'] );
+    unset( $existing_mimes['ogv'] );
+    unset( $existing_mimes['webm'] );
+    unset( $existing_mimes['mkv'] );
+
+
+    // and return the new full result
+    return $existing_mimes;
+
+}
 
 /**
 * This is the end. Ensure the file closes with a php tag ?>
