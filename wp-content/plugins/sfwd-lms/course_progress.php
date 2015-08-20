@@ -739,10 +739,10 @@ function has_global_quizzes($id = null) {
 
 class LearnDash_Course_Progress_Widget extends WP_Widget {
 
-	function LearnDash_Course_Progress_Widget() {
+	function __construct() {
 		$widget_ops = array('classname' => 'widget_ldcourseprogress', 'description' => __('LearnDash course progress bar', 'learndash'));
 		$control_ops = array();//'width' => 400, 'height' => 350);
-		$this->WP_Widget('ldcourseprogress', __('Course Progress Bar', 'learndash'), $widget_ops, $control_ops);
+		parent::__construct('ldcourseprogress', __('Course Progress Bar', 'learndash'), $widget_ops, $control_ops);
 	}
 
 	function widget( $args, $instance ) {

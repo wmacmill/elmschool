@@ -168,7 +168,7 @@ function learndash_groups_page_box( $post ) {
 	// Use get_post_meta to retrieve an existing value from the database and use the value for the form
 	$data = get_post_meta( $post->ID, $key = '_learndash_groups', $single = true );
 	//$users = get_users("orderby=display_name&order=ASC");
-	$sql = "SELECT * FROM $wpdb->users"; //Exclude Admins and Group Leaders
+	$sql = "SELECT * FROM $wpdb->users";// WHERE ID NOT IN (SELECT user_id FROM `" . $wpdb->prefix . "usermeta` where meta_key = 'wp_capabilities' AND (meta_value like '%\"administrator\"%' OR meta_value like '%\"group_leader\"%'))"; //Exclude Admins and Group Leaders
 	$sql .= ' ORDER BY display_name ASC';
 	$users = $wpdb->get_results( $sql );
 	$all_group_leaders = learndash_group_leaders();// get_users("role=group_leader&orderby=display_name&order=ASC");

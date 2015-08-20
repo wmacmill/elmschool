@@ -2,10 +2,10 @@
 
 class LearnDash_Course_Info_Widget extends WP_Widget {
 
-	function LearnDash_Course_Info_Widget() {
+	function __construct() {
 		$widget_ops = array('classname' => 'widget_ldcourseinfo', 'description' => __('LearnDash - Course attempt and score information of users. Visible only to users logged in.', 'learndash'));
 		$control_ops = array();//'width' => 400, 'height' => 350);
-		$this->WP_Widget('ldcourseinfo', __('Course Information', 'learndash'), $widget_ops, $control_ops);
+		parent::__construct('ldcourseinfo', __('Course Information', 'learndash'), $widget_ops, $control_ops);
 	}
 
 	function widget( $args, $instance ) {
@@ -54,10 +54,10 @@ class LearnDash_Course_Info_Widget extends WP_Widget {
 
 class LearnDash_Course_Navigation_Widget extends WP_Widget {
 
-	function LearnDash_Course_Navigation_Widget() {
+	function __construct() {
 		$widget_ops = array('classname' => 'widget_ldcoursenavigation', 'description' => __('LearnDash - Course Navigation. Shows lessons and topics on the current course.', 'learndash'));
 		$control_ops = array();//'width' => 400, 'height' => 350);
-		$this->WP_Widget('widget_ldcoursenavigation', __('Course Navigation', 'learndash'), $widget_ops, $control_ops);
+		parent::__construct('widget_ldcoursenavigation', __('Course Navigation', 'learndash'), $widget_ops, $control_ops);
 	}
 
 	function widget( $args, $instance ) {
