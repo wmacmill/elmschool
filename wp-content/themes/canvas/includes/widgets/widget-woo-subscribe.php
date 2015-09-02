@@ -30,7 +30,7 @@ class Woo_Widget_Subscribe extends WP_Widget {
 	  * The constructor. Sets up the widget.
 	----------------------------------------*/
 
-	function Woo_Widget_Subscribe () {
+	function __construct() {
 
 		/* Widget settings. */
 		$widget_ops = array( 'classname' => 'widget_woo_subscribe', 'description' => __( 'Add a subscribe/connect widget.', 'woothemes' ) );
@@ -39,7 +39,7 @@ class Woo_Widget_Subscribe extends WP_Widget {
 		$control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => 'woo_subscribe' );
 
 		/* Create the widget. */
-		parent::__construct( 'woo_subscribe', __('Woo - Subscribe / Connect', 'woothemes' ), $widget_ops, $control_ops );
+		parent::__construct( 'woo_subscribe', __( 'Woo - Subscribe / Connect', 'woothemes' ), $widget_ops, $control_ops );
 
 	} // End Constructor
 
@@ -59,10 +59,10 @@ class Woo_Widget_Subscribe extends WP_Widget {
 		/* Our variables from the widget settings. */
 		$title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base );
 
-		$form = $instance['form'];
-	   	$social = $instance['social'];
-	   	$single = $instance['single'];
-	   	$page = $instance['page'];
+		$form = ! empty( $instance['form'] ) ? $instance['form'] : '';
+		$social = ! empty( $instance['social'] ) ? $instance['social'] : '';
+		$single = ! empty( $instance['single'] ) ? $instance['single'] : '';
+		$page = ! empty( $instance['page'] ) ? $instance['page'] : '';
 
 		/* Determine whether or not to display the widget. */
 
@@ -101,18 +101,15 @@ class Woo_Widget_Subscribe extends WP_Widget {
 	----------------------------------------*/
 
 	function update ( $new_instance, $old_instance ) {
+		$settings = array();
 
-		$instance = $old_instance;
+		foreach ( array( 'title', 'form', 'social', 'single', 'page' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = sanitize_text_field( $new_instance[$setting] );
+			}
+		}
 
-		/* Strip tags for title and name to remove HTML (important for text inputs). */
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['form'] = esc_attr( $new_instance['form'] );
-		$instance['social'] = esc_attr( $new_instance['social'] );
-		$instance['single'] = esc_attr( $new_instance['single'] );
-		$instance['page'] = esc_attr( $new_instance['page'] );
-
-		return $instance;
-
+		return $settings;
 	} // End update()
 
    /*----------------------------------------

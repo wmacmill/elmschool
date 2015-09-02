@@ -80,12 +80,15 @@ class Woo_Widget_Component extends WP_Widget {
 		/* Display the widget title if one was input (before and after defined by themes). */
 		if ( $title ) { echo $before_title . $title . $after_title; }
 
+		$component = ! empty( $instance['component'] ) ? $instance['component'] : '';
+		$slide_group = ! empty( $instance['slide_group'] ) ? $instance['slide_group'] : '';
+
 		/* Widget content. */
 		// Add actions for plugins/themes to hook onto.
 		do_action( $this->woo_widget_cssclass . '_top' );
 
-		if ( in_array( $instance['component'], array_keys( $this->woo_widget_componentslist ) ) ) {
-			$this->load_component( esc_attr( $instance['component'] ), esc_attr( $instance['slide_group'] ) );
+		if ( in_array( $component, array_keys( $this->woo_widget_componentslist ) ) ) {
+			$this->load_component( esc_attr( $component ), esc_attr( $slide_group ) );
 		}
 
 		// Add actions for plugins/themes to hook onto.
@@ -103,18 +106,18 @@ class Woo_Widget_Component extends WP_Widget {
 	 * @return array               Updated settings.
 	 */
 	public function update ( $new_instance, $old_instance ) {
-		$instance = $old_instance;
+		$settings = array();
 
 		/* Strip tags for title and name to remove HTML (important for text inputs). */
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$settings['title'] = strip_tags( $new_instance['title'] );
 
-		/* The select box is returning a text value, so we escape it. */
-		$instance['component'] = esc_attr( $new_instance['component'] );
+		foreach ( array( 'component', 'slide_group' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = sanitize_text_field( $new_instance[$setting] );
+			}
+		}
 
-		/* The select box is returning a text value, so we escape it. */
-		$instance['slide_group'] = esc_attr( $new_instance['slide_group'] );
-
-		return $instance;
+		return $settings;
 	} // End update()
 
 	/**

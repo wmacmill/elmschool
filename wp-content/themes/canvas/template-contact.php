@@ -45,7 +45,7 @@ if( isset( $_POST['submitted'] ) ) {
 		if( trim( $_POST['email'] ) === '' )  {
 			$emailError = __( 'You forgot to enter your email address.', 'woothemes' );
 			$hasError = true;
-		} else if ( ! preg_match( "^[A-Z0-9._%-]+@[A-Z0-9._%-]+\.[A-Z]{2,4}$", trim( $_POST['email'] ) ) ) {
+		} else if ( ! is_email( sanitize_email( $_POST['email'] ) ) ) {
 			$emailError = __( 'You entered an invalid email address.', 'woothemes' );
 			$hasError = true;
 		} else {
@@ -66,10 +66,9 @@ if( isset( $_POST['submitted'] ) ) {
 			$emailTo = get_option( 'woo_contactform_email' );
 			$subject = __( 'Contact Form Submission from ', 'woothemes' ).$name;
 
-			$sendCopy = trim( $_POST['sendCopy'] );
-
-			if ( ! isset( $sendCopy ) || '' == $sendCopy ) {
-				$sendCopy = false;
+			$sendCopy = false;
+			if ( isset( $_POST['sendCopy'] ) && $_POST['sendCopy'] !== '' ) {
+				$sendCopy = true;
 			}
 
 			$body = sprintf( __( "Name: %s \n\nEmail: %s \n\nComments: %s", 'woothemes' ), $name, $email, $comments );

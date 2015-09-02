@@ -117,7 +117,8 @@ class ub_Login_Image {
                     $width = $login_image_width;
                     $height = $login_image_height;
                 } else {
-                    list($width, $height) = getimagesize( $this->get_absolute_url( $login_image ) );
+
+                    list($width, $height) = getimagesize( set_url_scheme( $this->get_absolute_url( $login_image ), is_ssl() ? "https" : "http" ) );
                 }
             } else {
                 $response = wp_remote_head(admin_url() . 'images/wordpress-logo.svg');
@@ -240,15 +241,6 @@ class ub_Login_Image {
                                 $login_image_src = wp_get_attachment_image_src($login_image_id, $login_image_size, $icon = false);
                             }
                             $login_image = $login_image_src[0];
-                            $width = $login_image_src[1];
-                            $height = $login_image_src[2];
-                        } else if ($login_image) {
-                            if ($login_image_width && $login_image_height) {
-                                $width = $login_image_width;
-                                $height = $login_image_height;
-                            } else {
-                                list($width, $height) = getimagesize( $this->get_absolute_url( $login_image ) );
-                            }
                         } else {
                             $response = wp_remote_head(admin_url() . 'images/wordpress-logo.svg');
                             if (!is_wp_error($response) && !empty($response['response']['code']) && $response['response']['code'] == '200') {//support for 3.8+
@@ -283,7 +275,7 @@ class ub_Login_Image {
 
     protected function  get_absolute_url( $url ){
         if( $this->is_relative( $url ) ){
-            return trailingslashit( get_home_url() ) . ltrim( $url, '/\\' ); ;
+            return trailingslashit( get_home_url() ) . ltrim( $url, '/\\' );
         }
         return $url;
     }

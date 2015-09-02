@@ -1504,7 +1504,7 @@ if ( ! function_exists( 'woo_slider_biz_view' ) ) {
 					<?php woo_image( 'width=' . $args['width'] . '&link=img&noheight=true' ); ?>
 					<?php if ( '' != $url ): ?></a><?php endif; ?>
 
-					<?php if ( 'true' == $woo_options['woo_slider_biz_title'] || '' != get_the_excerpt() ): ?>
+					<?php if ( 'true' == $woo_options['woo_slider_biz_title'] || '' != get_the_content() ): ?>
 					<div class="content">
 
 						<?php if ( 'true' == $woo_options['woo_slider_biz_title'] ): ?>

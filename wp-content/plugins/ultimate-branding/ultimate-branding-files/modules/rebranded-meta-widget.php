@@ -64,10 +64,20 @@ function ub_rmw_manage_output() {
 
 class ub_WP_Widget_Rebranded_Meta extends WP_Widget {
 
-	function ub_WP_Widget_Rebranded_Meta() {
+	function __construct() {
 		$widget_ops = array('classname' => 'widget_meta', 'description' => __( "Log in/out, admin, feed and powered-by links", 'ub' ) );
-		$this->WP_Widget('meta', __('Meta', 'ub'), $widget_ops);
+		parent::__construct('meta', __('Meta', 'ub'), $widget_ops);
+
 	}
+
+    /**
+     * Provide back-compat
+     *
+     *
+     */
+    function ub_WP_Widget_Rebranded_Meta(){
+        $this->__construct();
+    }
 
 	function widget( $args, $instance ) {
 
@@ -119,5 +129,3 @@ class ub_WP_Widget_Rebranded_Meta extends WP_Widget {
 <?php
 	}
 }
-
-?>

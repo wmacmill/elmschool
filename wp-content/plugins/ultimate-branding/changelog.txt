@@ -5,6 +5,14 @@ Author: Marko Miljus (Incsub), Barry (Incsub), Andrew Billits, Ulrich Sossou, Ve
 Change Log: 
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+DATE: 22 Aug, 2015  - VERSION: 1.8.1.7
+==================================
+- Fixed: Bug in setting favicon for the main site only ( Custom Multisite Favicons )
+
+DATE: 21 Aug, 2015  - VERSION: 1.8.1.6
+==================================
+- Fixed: Deprecation nag coming with WordPress 4.3
+
 DATE: 24 June, 2015  - VERSION: 1.8.1.5
 ==================================
 - Fixed: Support for language translation
@@ -266,4 +274,4 @@ DATE: 09 JUN, 2012 - VERSION: 1
 - Initial release of the Ultimate Branding plugin
 
 
-161579-1435170543-au
+161579-1441222954-au

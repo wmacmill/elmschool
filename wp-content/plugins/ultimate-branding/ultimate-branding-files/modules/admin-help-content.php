@@ -168,7 +168,7 @@ class ub_Ahc_AdminHelpContent {
 	function register_settings () {
 		register_setting('admin_help_content', 'ub');
 		add_settings_section('admin_help_content_setting_section', __('Help Content', 'ub'), '__return_false', 'admin_help_content');
-		add_settings_field('admin_help_content_old', __('Existing Help Items', 'ub'), array(&$this, 'help_content_existing_elements'), 'admin_help_content', 'admin_help_content_setting_section');
+		add_settings_field('admin_help_content_old', __('Existing Help Items', 'ub'), array(&$this, 'help_content_existing_elements'), 'admin_help_content', 'admin_help_content_setting_section');	 	  		 	 		 		 	 
 		add_settings_field('admin_help_content_new', __('Add New Help Item', 'ub'), array(&$this, 'help_content_new_element'), 'admin_help_content', 'admin_help_content_setting_section');
 		if ($this->_has_sidebar()) {
 			add_settings_field('admin_help_sidebar', __('Help Sidebar', 'ub'), array(&$this, 'help_sidebar_element'), 'admin_help_content', 'admin_help_content_setting_section');

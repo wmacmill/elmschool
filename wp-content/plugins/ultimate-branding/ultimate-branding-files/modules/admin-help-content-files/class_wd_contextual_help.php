@@ -65,7 +65,7 @@ if(!class_exists('WpmuDev_ContextualHelp')) {
 		 */
 		public function add_tab ($screen_id, $tab=array()) {
 			if (!is_array($tab)) return false;
-			$this->_pages[] = isset($this->_pages[$screen_id]) ? $this->_pages[$screen_id] : array();	 	  		 	 		 		 	 
+			$this->_pages[] = isset($this->_pages[$screen_id]) ? $this->_pages[$screen_id] : array();
 			@$this->_pages[$screen_id]['tabs'][] = $tab;
 		}
 
