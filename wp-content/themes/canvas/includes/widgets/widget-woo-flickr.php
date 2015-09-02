@@ -30,7 +30,7 @@ class Woo_Widget_Flickr extends WP_Widget {
 	  * The constructor. Sets up the widget.
 	----------------------------------------*/
 
-	function Woo_Widget_Flickr () {
+	function __construct() {
 
 		/* Widget settings. */
 		$widget_ops = array( 'classname' => 'widget_woo_flickr', 'description' => __( 'This Flickr widget populates photos from a Flickr ID.', 'woothemes' ) );
@@ -59,11 +59,11 @@ class Woo_Widget_Flickr extends WP_Widget {
 		/* Our variables from the widget settings. */
 		$title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base );
 
-		$number = $instance['number']; if ( ! intval( $number ) ) { $number = 5; }
-		$id = $instance['id'];
-		$sorting = $instance['sorting'];
-		$type = $instance['type'];
-		$size = $instance['size'];
+		$number = ! empty( $instance['number'] ) ? $instance['number'] : 5;
+		$id = ! empty( $instance['id'] ) ? $instance['id'] : '';
+		$sorting = ! empty( $instance['sorting'] ) ? $instance['sorting'] : '';
+		$type = ! empty( $instance['type'] ) ? $instance['type'] : '';
+		$size = ! empty( $instance['size'] ) ? $instance['size'] : '';
 
 		/* Before widget (defined by themes). */
 		echo $before_widget;
@@ -87,11 +87,11 @@ class Woo_Widget_Flickr extends WP_Widget {
 
 		/* Construct the remainder of the query string, using only the non-empty fields. */
 		$fields = array(
-						'count' => $number,
-						'display' => $sorting,
-						'source' => $type,
-						$type => $id,
-						'size' => $size
+						'count'		=> $number,
+						'display'	=> $sorting,
+						'source'	=> $type,
+						$type		=> $id,
+						'size'		=> $size
 					);
 
 		$query_string = '';
@@ -131,19 +131,21 @@ class Woo_Widget_Flickr extends WP_Widget {
 	----------------------------------------*/
 
 	function update ( $new_instance, $old_instance ) {
+		$settings = array();
 
-		$instance = $old_instance;
+		foreach ( array( 'title', 'id', 'type', 'sorting', 'size' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = sanitize_text_field( $new_instance[$setting] );
+			}
+		}
 
-		/* Strip tags for title and name to remove HTML (important for text inputs). */
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['id'] = strip_tags( $new_instance['id'] );
-		$instance['number'] = intval( esc_attr( $new_instance['number'] ) );
-		$instance['type'] = esc_attr( $new_instance['type'] );
-		$instance['sorting'] = esc_attr( $new_instance['sorting'] );
-		$instance['size'] = esc_attr( $new_instance['size'] );
+		foreach ( array( 'number' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = absint( $new_instance[$setting] );
+			}
+		}
 
-		return $instance;
-
+		return $settings;
 	} // End update()
 
    /*----------------------------------------

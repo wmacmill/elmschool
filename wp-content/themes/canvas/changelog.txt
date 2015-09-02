@@ -1,5 +1,15 @@
 *** Canvas Changelog ***
 
+2015.08.24 - version 5.9.11
+ * Fix - Fixes the shortcodes display in the Business slider.
+   includes/theme-actions.php
+
+ * Fix - Fixes email validation issue.
+   template-contact.php
+
+ * Fix - Ensures all widgets use an updated PHP5-style class constructor.
+   includes/widgets/
+
 2015.07.27 - version 5.9.10
  * Fix - Replaces get_cart_total() with get_cart_subtotal().
    includes/integrations/woocommerce/template.php

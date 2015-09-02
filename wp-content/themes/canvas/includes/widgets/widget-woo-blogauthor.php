@@ -30,7 +30,7 @@ class Woo_Widget_BlogAuthorInfo extends WP_Widget {
 	  * The constructor. Sets up the widget.
 	----------------------------------------*/
 
-	function Woo_Widget_BlogAuthorInfo () {
+	function __construct() {
 
 		/* Widget settings. */
 		$widget_ops = array( 'classname' => 'widget_woo_blogauthorinfo', 'description' => __( 'This is a WooThemes Blog Author Info widget.', 'woothemes' ) );
@@ -39,7 +39,7 @@ class Woo_Widget_BlogAuthorInfo extends WP_Widget {
 		$control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => 'woo_blogauthorinfo' );
 
 		/* Create the widget. */
-		parent::__construct( 'woo_blogauthorinfo', __('Woo - Blog Author Info', 'woothemes' ), $widget_ops, $control_ops );
+		parent::__construct( 'woo_blogauthorinfo', __( 'Woo - Blog Author Info', 'woothemes' ), $widget_ops, $control_ops );
 
 	} // End Constructor
 
@@ -59,13 +59,13 @@ class Woo_Widget_BlogAuthorInfo extends WP_Widget {
 		/* Our variables from the widget settings. */
 		$title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base );
 
-		$bio = $instance['bio'];
-		$custom_email = $instance['custom_email'];
-		$avatar_size = $instance['avatar_size']; if ( ! $avatar_size ) { $avatar_size = 48; }
-		$avatar_align = $instance['avatar_align']; if ( ! $avatar_align ) { $avatar_align = 'left'; }
-		$read_more_text = $instance['read_more_text'];
-		$read_more_url = $instance['read_more_url'];
-		$page = $instance['page'];
+		$bio = ! empty( $instance['bio'] ) ? $instance['bio'] : '';
+		$custom_email = ! empty( $instance['custom_email'] ) ? $instance['custom_email'] : '';
+		$avatar_size = ! empty( $instance['avatar_size'] ) ? $instance['avatar_size'] : 48;
+		$avatar_align = ! empty( $instance['avatar_align'] ) ? $instance['avatar_align'] : 'left';
+		$read_more_text = ! empty( $instance['read_more_text'] ) ? $instance['read_more_text'] : '';
+		$read_more_url = ! empty( $instance['read_more_url'] ) ? $instance['read_more_url'] : '';
+		$page = ! empty( $instance['page'] ) ? $instance['page'] : '';
 
 		/* Determine whether or not to display the widget, depending on the "page" setting. */
 		$display_widget = false;
@@ -134,23 +134,22 @@ class Woo_Widget_BlogAuthorInfo extends WP_Widget {
 	  * - Array $old_instance
 	----------------------------------------*/
 
-	function update ( $new_instance, $old_instance ) {
-
-		$instance = $old_instance;
-
-		/* Strip tags for title and name to remove HTML (important for text inputs). */
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['bio'] = wp_kses_post( $new_instance['bio'] );
-		$instance['custom_email'] = esc_attr( $new_instance['custom_email'] );
-		$instance['avatar_size'] = esc_attr( $new_instance['avatar_size'] );
-		$instance['avatar_align'] = esc_attr( $new_instance['avatar_align'] );
-		$instance['read_more_text'] = esc_attr( $new_instance['read_more_text'] );
-		$instance['read_more_url'] = esc_attr( $new_instance['read_more_url'] );
-		$instance['page'] = esc_attr( $new_instance['page'] );
-
-		return $instance;
-
-   } // End update()
+	function update( $new_instance, $old_instance ) {
+		$settings = array();
+		foreach ( array( 'title', 'bio', 'custom_email', 'avatar_size', 'avatar_align', 'read_more_text', 'read_more_url', 'page' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = strip_tags( $new_instance[$setting] );
+			} else {
+				$settings[$setting] = strip_tags( $old_instance[$setting] );
+			}
+		}
+		$settings['bio'] = wp_kses_post( $new_instance['bio'] );
+		$settings['avatar_size'] = absint( $new_instance['avatar_size'] );
+		if ( $new_instance['avatar_size'] < 1 ) {
+			$settings['avatar_size'] = '';
+		}
+		return $settings;
+	} // End update()
 
 	/*----------------------------------------
 	  form()

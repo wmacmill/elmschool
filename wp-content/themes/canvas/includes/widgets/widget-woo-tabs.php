@@ -30,7 +30,7 @@ class Woo_Widget_WooTabs extends WP_Widget {
 	  * The constructor. Sets up the widget.
 	----------------------------------------*/
 
-	function Woo_Widget_WooTabs () {
+	function __construct() {
 
 		/* Widget settings. */
 		$widget_ops = array( 'classname' => 'widget_woo_tabs', 'description' => __( 'This widget is the Tabs that classically goes into the sidebar. It contains the Popular posts, Latest Posts, Recent comments and a Tag cloud.', 'woothemes' ) );
@@ -39,7 +39,7 @@ class Woo_Widget_WooTabs extends WP_Widget {
 		$control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => 'woo_tabs' );
 
 		/* Create the widget. */
-		parent::__construct( 'woo_tabs', __('Woo - Tabs', 'woothemes' ), $widget_ops, $control_ops );
+		parent::__construct( 'woo_tabs', __( 'Woo - Tabs', 'woothemes' ), $widget_ops, $control_ops );
 
 	} // End Constructor
 
@@ -131,20 +131,21 @@ class Woo_Widget_WooTabs extends WP_Widget {
 	----------------------------------------*/
 
 	function update ( $new_instance, $old_instance ) {
+		$settings = array();
 
-		$instance = $old_instance;
+		foreach ( array( 'number', 'thumb_size', 'days' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = absint( $new_instance[$setting] );
+			}
+		}
 
-		$instance['number'] = intval( $new_instance['number'] );
-		$instance['thumb_size'] = intval( $new_instance['thumb_size'] );
-		$instance['days'] = intval( $new_instance['days'] );
-		$instance['order'] = esc_attr( $new_instance['order'] );
-		$instance['pop'] = esc_attr( $new_instance['pop'] );
-		$instance['latest'] = esc_attr( $new_instance['latest'] );
-		$instance['comments'] = esc_attr( $new_instance['comments'] );
-		$instance['tags'] = esc_attr( $new_instance['tags'] );
+		foreach ( array( 'order', 'pop', 'latest', 'comments', 'tags' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = sanitize_text_field( $new_instance[$setting] );
+			}
+		}
 
-		return $instance;
-
+		return $settings;
 	} // End update()
 
    /*----------------------------------------

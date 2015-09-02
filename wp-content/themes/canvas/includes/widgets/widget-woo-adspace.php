@@ -30,7 +30,7 @@ class Woo_Widget_AdSpace extends WP_Widget {
 	  * The constructor. Sets up the widget.
 	----------------------------------------*/
 
-	function Woo_Widget_AdSpace () {
+	function __construct() {
 
 		/* Widget settings. */
 		$widget_ops = array( 'classname' => 'adspace-widget', 'description' => __( 'Use this widget to add any type of Ad as a widget.', 'woothemes' ) );
@@ -39,7 +39,7 @@ class Woo_Widget_AdSpace extends WP_Widget {
 		$control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => 'adspace-widget' );
 
 		/* Create the widget. */
-		parent::__construct( 'adspace-widget', __('Woo - Adspace Widget', 'woothemes' ), $widget_ops, $control_ops );
+		parent::__construct( 'adspace-widget', __( 'Woo - Adspace Widget', 'woothemes' ), $widget_ops, $control_ops );
 
 	} // End Constructor
 
@@ -57,12 +57,12 @@ class Woo_Widget_AdSpace extends WP_Widget {
 		extract( $args, EXTR_SKIP );
 
 		/* Our variables from the widget settings. */
-		$title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base );
+		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
 
-		$adcode = $instance['adcode'];
-		$image = $instance['image'];
-		$href = $instance['href'];
-		$alt = $instance['alt'];
+		$adcode = ! empty( $instance['adcode'] ) ? $instance['adcode'] : '';
+		$image = ! empty( $instance['image'] ) ? $instance['image'] : '';
+		$href = ! empty( $instance['href'] ) ? $instance['href'] : '';
+		$alt = ! empty( $instance['alt'] ) ? $instance['alt'] : '';
 
 		/* Before widget (defined by themes). */
 		echo $before_widget;
@@ -122,23 +122,20 @@ class Woo_Widget_AdSpace extends WP_Widget {
 	  * - Array $old_instance
 	----------------------------------------*/
 
-	function update ( $new_instance, $old_instance ) {
-
-		$instance = $old_instance;
-
-		/* Strip tags for title and name to remove HTML (important for text inputs). */
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['adcode'] =  $new_instance['adcode'];
-		$instance['image'] = esc_url( $new_instance['image'] );
-		$instance['href'] = esc_url( $new_instance['href'] );
-		$instance['alt'] = esc_attr( $new_instance['alt'] );
-
-		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			$instance['adcode'] = $old_instance['adcode'];
+	function update( $new_instance, $old_instance ) {
+		$settings = array();
+		foreach ( array( 'title', 'alt', 'image', 'href' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = strip_tags( $new_instance[$setting] );
+			}
 		}
-
-		return $instance;
-
+		// Users without unfiltered_html cannot update this arbitrary HTML field
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			$settings['adcode'] = $old_instance['adcode'];
+		} else {
+			$settings['adcode'] = $new_instance['adcode'];
+		}
+		return $settings;
 	} // End update()
 
 	/*----------------------------------------

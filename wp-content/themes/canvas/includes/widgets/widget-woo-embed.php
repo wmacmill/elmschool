@@ -31,7 +31,7 @@ class Woo_Widget_Embed extends WP_Widget {
 	  * The constructor. Sets up the widget.
 	----------------------------------------*/
 
-	function Woo_Widget_Embed () {
+	function __construct() {
 
 		/* Widget settings. */
 		$widget_ops = array( 'classname' => 'widget_woo_embed', 'description' => __( 'This is a WooThemes standardized embed widget. It displays the video embed codes from your posts in a tab-like fashion.', 'woothemes' ) );
@@ -54,18 +54,19 @@ class Woo_Widget_Embed extends WP_Widget {
 	function widget( $args, $instance ) {
 
 		extract( $args );
-		$title = $instance['title'];
-		$limit = $instance['limit'];
-		$width = $instance['width'];
 
-		$cat_id = $instance['cat_id'];
-		$tag = $instance['tag'];
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : '';
+		$limit = ! empty( $instance['limit'] ) ? $instance['limit'] : '';
+		$width = ! empty( $instance['width'] ) ? $instance['width'] : '';
 
+		$cat_id = ! empty( $instance['cat_id'] ) ? $instance['cat_id'] : '';
+		$tag = ! empty( $instance['tag'] ) ? $instance['tag'] : '';
 
-		if(!empty($tag))
+		if( ! empty( $tag ) ) {
 			$myposts = get_posts( "numberposts=$limit&tag=$tag" );
-		else
+		} else {
 			$myposts = get_posts( "numberposts=$limit&cat=$cat_id" );
+		}
 
 		$post_list = '';
 		$count = 0;
@@ -133,17 +134,21 @@ class Woo_Widget_Embed extends WP_Widget {
 	----------------------------------------*/
 
 	function update ( $new_instance, $old_instance ) {
+		$settings = array();
 
-		$instance = $old_instance;
+		foreach ( array( 'title', 'tag' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = sanitize_text_field( $new_instance[$setting] );
+			}
+		}
 
-		/* Strip tags for title and name to remove HTML (important for text inputs). */
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['limit'] = intval( $new_instance['limit'] );
-		$instance['cat_id'] = esc_attr( $new_instance['cat_id'] );
-		$instance['tag'] = esc_attr( $new_instance['tag'] );
-		$instance['width'] = esc_attr( $new_instance['width'] );
-		return $instance;
+		foreach ( array( 'limit', 'cat_id', 'width' ) as $setting ) {
+			if ( isset( $new_instance[$setting] ) ) {
+				$settings[$setting] = absint( $new_instance[$setting] );
+			}
+		}
 
+		return $settings;
 	} // End update()
 
    /*----------------------------------------
