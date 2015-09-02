@@ -7,11 +7,11 @@
 Plugin Name: LearnDash LMS
 Plugin URI: http://www.learndash.com
 Description: LearnDash LMS Plugin - Turn your WordPress site into a learning management system.
-Version: 2.0.6.7
+Version: 2.0.6.8
 Author: LearnDash
 Author URI: http://www.learndash.com
 */
-define("LEARNDASH_VERSION", "2.0.6.7");
+define("LEARNDASH_VERSION", "2.0.6.8");
 require_once(dirname(__FILE__).'/sfwd_cpt.php');
 require_once(dirname(__FILE__).'/course_progress.php');
 require_once(dirname(__FILE__).'/course_list_shortcode.php');
@@ -1292,17 +1292,7 @@ if ( !class_exists( 'SFWD_CPT_Instance' ) ) {
 			add_action( 'admin_menu', Array( &$this, 'admin_menu') );
 			add_shortcode( $this->post_type, Array( $this, 'shortcode' ) );
 			add_action( 'init', Array( $this, 'add_post_type' ) );
-			$classname = ( strtr( $post_name, ' ', '_' ) ) . '_Widget';
-			if($post_type != "sfwd-topic") {
-			if ( !class_exists( $classname )) {
-				eval("class $classname extends SFWD_CPT_Widget {
-					public function __construct( \$post_type = '$post_type', \$post_name = '$post_name', \$args = Array() ) {
-						parent::__construct( \$post_type, \$post_name, \$args );
-					}
-				}");
-			}
-			add_action( 'widgets_init', create_function( '', 'return register_widget( "' . $classname . '" );' ) );
-			}
+
 			$this->update_options();
 			if ( !is_admin() ) {
 				add_action( 'pre_get_posts', Array( $this, 'pre_posts' ) );
