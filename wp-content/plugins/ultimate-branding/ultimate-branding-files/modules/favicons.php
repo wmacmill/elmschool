@@ -329,7 +329,8 @@ class ub_favicons {
 		/**
 		 * If it's the main site return the main fav
 		 */
-		if( empty( $blog_id ) && is_main_site( $blog_id ) )
+
+		if( empty( $blog_id ) || is_main_site( $blog_id ) )
 			return self::get_main_favicon( $add_tail );
 
 		$tail = $add_tail ? '?' . md5(time()) : "";
