@@ -246,6 +246,24 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
 
 }
 
+//adding filters for other file types in media library
+function modify_post_mime_types( $post_mime_types ) {
+ 
+    // select the mime type, here: 'application/pdf'
+    // then we define an array with the label values
+ 
+    $post_mime_types['application/pdf'] = array( __( 'PDFs' ), __( 'Manage PDFs' ), _n_noop( 'PDF', 'PDF' ) );
+    $post_mime_types['application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'] = array( __( 'XLSs' ), __( 'Manage XLSs' ), _n_noop( 'Excel', 'Excel' ) );
+    $post_mime_types['application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'] = array( __( 'Words' ), __( 'Manage Words' ), _n_noop( 'Word', 'Word' ) );
+    $post_mime_types['application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation'] = array( __( 'PPTs' ), __( 'Manage PPTs' ), _n_noop( 'PPT', 'PPTs' ) );
+    // then we return the $post_mime_types variable
+    return $post_mime_types;
+ 
+}
+ 
+// Add Filter Hook
+add_filter( 'post_mime_types', 'modify_post_mime_types' );
+
 /**
 * This is the end. Ensure the file closes with a php tag ?>
 *
