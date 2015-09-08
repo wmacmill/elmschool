@@ -562,7 +562,7 @@ UBSTYLE;
 		if( is_array( $menus ) && !empty( $menus )){
 			foreach( $menus as $menu ){
 				$menu_roles = isset( $menu->menu->menu_roles ) ? $menu->menu->menu_roles : array();
-				if( is_user_logged_in() || $menu_roles === array() || self::user_has_access($menu_roles, true)) {
+                if( is_user_logged_in() && self::user_has_access($menu_roles, true)) {
 					$wp_admin_bar->add_menu(array(
 							'id' => "ub_admin_bar_" . $menu->id,
 							'title' => $menu->title_image,
@@ -609,7 +609,12 @@ UBSTYLE;
 			global $wp_admin_bar;
 			$wproles = ub_get_option("wdcab");
 
-			if( !is_user_logged_in() || !isset( $wproles['wp_menu_roles'] ) || ( isset( $wproles['wp_menu_roles'], $current_user ) && is_array( $wproles['wp_menu_roles'] ) &&  count( array_intersect( $wproles['wp_menu_roles'], (array) $current_user->roles) ) ) ) {
+            $hide_from_subscriber = count( $current_user->roles ) === 0 && in_array( "subscriber",  $wproles['wp_menu_roles'] );
+            if( !is_user_logged_in() || !isset( $wproles['wp_menu_roles'] ) || ( isset( $wproles['wp_menu_roles'], $current_user )
+                 && is_array( $wproles['wp_menu_roles'] )
+                 && (!current_user_can('manage_network') && ( $hide_from_subscriber || count( array_intersect( $wproles['wp_menu_roles'], (array) $current_user->roles) ) ) )
+                || (current_user_can('manage_network') && in_array('super', $wproles['wp_menu_roles']) ) )
+            ) {
 				$opts = ub_get_option('wdcab');
 				$disabled = is_array($opts['disabled_menus']) ? $opts['disabled_menus'] : array();
 				foreach ($disabled as $id) {
@@ -630,18 +635,20 @@ UBSTYLE;
 	function user_has_access($roles, $keys = false) {
 		$user = wp_get_current_user();
 
-		if (empty($user) || !is_array($roles)) {
+        if(empty($user) || !is_array($roles)) {
 			return false;
 		}
 
-		if(!$keys && array_intersect($roles, $user->roles)) {
+        if(!$keys && (!current_user_can('manage_network') && array_intersect($roles, $user->roles))
+            || current_user_can('manage_network') && in_array('super', $roles)){
 			return true;
 		} elseif($keys) {
 			foreach($roles as $key => $val) {
 				$val = $key;
 				$roles[$key] = $val;
 			}
-			if(array_intersect($roles, $user->roles)) {
+            if((!current_user_can('manage_network') && array_intersect($roles, $user->roles))
+                || current_user_can('manage_network') && in_array('super', $roles)){
 				return true;
 			}
 		}

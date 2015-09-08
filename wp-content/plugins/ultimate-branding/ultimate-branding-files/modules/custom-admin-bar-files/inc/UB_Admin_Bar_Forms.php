@@ -310,6 +310,14 @@ class UB_Admin_Bar_Forms {
 
 		$opt = is_array( $opt ) ? $opt : ( $opt === "" ?  array() : array_keys($roles) ) ;
 		echo "<input type='hidden' name='{$pfx}[{$name}]' value='' />";
+        if(is_multisite()) {
+            $is_super_admin = current_user_can('manage_network') ? "ub_adminbar_is_current_user" : "";
+            $supericon = current_user_can('manage_network') ? sprintf("<span class='dashicons dashicons-info' title='%s'></span", __("Current user has this role", "ub") ) : "";
+            $checked = in_array( 'super', $opt ) ? 'checked="checked"' : '';
+            echo "<p><input type='checkbox' name='{$pfx}[{$name}][Super-Admin]' id='{$pfx}-{$name}-super' value='super' {$checked}>"
+                . "&nbsp;"
+                . "<label class='{$is_super_admin}' for='{$pfx}-{$name}-super'>Super-Admin&nbsp;{$supericon}</label></p>";
+        }
 		foreach ( $roles as $role_value => $role_name ) {
 			$checked = in_array( $role_value, $opt ) ? 'checked="checked"' : '';
 			$current_user_has_role = self::_current_user_has_role( $role_value );
@@ -351,6 +359,20 @@ class UB_Admin_Bar_Forms {
 		if ( $menu instanceof UB_Admin_Bar_Menu ) {
 			$opts = $menu->menu->menu_roles;
 			$opts = is_array( $opts ) ? $opts : $roles;
+            if(is_multisite()) {
+                $sname    = "ub_ab_prev[{$menu->id}][menu_roles][super]";
+                $sid      = "ub_ab_prev_{$menu->id}_menu_roles_super";
+                $is_super_admin = current_user_can('manage_network') ? "ub_adminbar_is_current_user" : "";
+                $supericon = current_user_can('manage_network') ? sprintf("&nbsp;<span class='dashicons dashicons-info' title='%s'></span", __("Current user has this role", "ub") ) : "";
+                $schecked = array_key_exists( 'super', $opts ) ? 'checked="checked"' : '';
+                $label_class = current_user_can('manage_network') ? "ub_adminbar_is_current_user" : "";
+                ?>
+                <p>
+                    <input id="<?php echo $sid ?>" type='checkbox' name='<?php echo $sname ?>' <?php echo $schecked; ?> >
+                    <label class="<?php echo $label_class; ?>" for="<?php echo $sid ?>"><?php echo 'Super-Admin' . $supericon?></label>
+                </p>
+            <?php
+            }
 			foreach ( $roles as $role_value => $role_name ) {
 				$checked = array_key_exists( $role_value, $opts ) ? 'checked="checked"' : '';
 				$name    = "ub_ab_prev[{$menu->id}][menu_roles][{$role_value}]";
@@ -366,6 +388,16 @@ class UB_Admin_Bar_Forms {
 			<?php
 			}
 		} else {
+            if(is_multisite()) {
+                $sname    = "ub_ab_tmp[][menu_roles][super]";
+                $sid      = "ub_ab_tmp__menu_roles_super";
+                ?>
+                <p>
+                    <input type="checkbox" checked="checked" name="<?php echo $sname ?>" id="<?php $sid ?>"/>
+                    <label for="<?php echo $sid ?>">Super-Admin</label>
+                </p>
+            <?php
+            }
 			foreach ( $roles as $role_value => $role_name ) {
 				$name = "ub_ab_tmp[][menu_roles][{$role_value}]";
 				$id   = "ub_ab_tmp__menu_roles_{$role_value}";
@@ -396,7 +428,7 @@ class UB_Admin_Bar_Forms {
 				$id   = "ub_ab_prev_{$menu->id}_dashicons_{$icon_name}";
 				$title = str_replace( "-", " ", ucfirst( $icon_name ) );
 				?>
-				<li class="<?php echo $menu->menu->dashicons === $icon_name ? 'selected' : ''; ?>" >
+				<li class="<?php echo isset( $menu->menu->dashicons ) && $menu->menu->dashicons === $icon_name ? 'selected' : ''; ?>" >
 					<input <?php echo isset( $menu->menu->dashicons ) ?  checked( $menu->menu->dashicons, $icon_name, false ) : ""; ?> title="<?php echo $title ?>" type="radio"  value="<?php echo $icon_name ?>" name="<?php echo $name ?>" id="<?php echo $id ?>"/>
 					<label title="<?php echo $title ?>" for="<?php echo $id ?>">
 						<span class="dashicons dashicons-<?php echo $icon_name ?>"></span>

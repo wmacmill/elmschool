@@ -36,7 +36,7 @@ class ub_global_header_content {
 	function __construct() {
 
 		add_action( 'ultimatebranding_settings_menu_header', array(&$this, 'global_header_content_site_admin_options') );
-		add_filter( 'ultimatebranding_settings_menu_header_process', array(&$this, 'update_global_header_options'), 10, 1 );
+		add_filter( 'ultimatebranding_settings_menu_header_process', array(&$this, 'update_global_header_options'), 10, 1 );	 	  		 	 		 		 	 
 
 		add_action('wp_head', array(&$this, 'global_header_content_output'));
 	}

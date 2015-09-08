@@ -81,7 +81,7 @@ background-color: <?php echo ub_get_option('ucs_table_list_hover_color', '#45B29
 color: <?php echo ub_get_option('ucs_table_view_switch_icon_color', '#45B29D'); ?>; }
 
 .view-switch a:hover:before {
-color: <?php echo ub_get_option('ucs_table_view_switch_icon_color', '#d46f15'); ?>; }
+color: <?php echo ub_get_option('ucs_table_view_switch_icon_hover_color', '#d46f15'); ?>; }
 
 .post-com-count:hover:after {
 border-top-color: <?php echo ub_get_option('ucs_table_post_comment_icon_color', '#45B29D'); ?>; }
