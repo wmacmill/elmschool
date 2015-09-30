@@ -8,7 +8,7 @@ Author: Kevin Davis, Dan Lester
 Author URI: https://wordpress.org/plugins/google-document-embedder/
 Text Domain: google-document-embedder
 Domain Path: /languages/
-Version: 2.5.21
+Version: 2.5.22
 License: GPLv2
 */
 

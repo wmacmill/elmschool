@@ -667,7 +667,7 @@ function gde_mce_addbuttons() {
 
 function gde_add_tinymce_plugin( $plugin_array ) {
 	// load the TinyMCE plugin
-	$plugin_array['google-document-embedder'] = GDE_PLUGIN_URL . 'js/editor_plugin.js';
+	$plugin_array['gde'] = GDE_PLUGIN_URL . 'js/editor_plugin.js';
 	return $plugin_array;
 }
 

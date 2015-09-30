@@ -198,6 +198,13 @@ p {
    
 }
 
+/*making previous & next into buttons*/
+#learndash_next_prev_link > a {
+  border: 1px solid !important;
+  border-radius: 5px !important;
+  padding: 8px !important;
+}
+
 
 /*
 *

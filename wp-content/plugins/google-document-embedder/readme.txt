@@ -151,6 +151,10 @@ More common questions are answered on the GDE web site [here](http://www.davistr
 
 (E) Enhanced Viewer
 
+= 2.5.22 =
+
+Post editor button fixed - was removed in previous version.
+
 = 2.5.21 =
 
 Changed the name of text domain from 'gde' to 'google-document-embedder'. 
