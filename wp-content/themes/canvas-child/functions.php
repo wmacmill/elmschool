@@ -266,12 +266,12 @@ add_filter( 'post_mime_types', 'modify_post_mime_types' );
 
 function will_modify_comments () {
     if ( get_post_type () == 'sfwd-assignment' ) {
-        echo '
+        /*echo '
         <style type="text/css">
         #comments {
             display: block !important;
         }
-        </style>';
+        </style>';*/
     }
     else {
         return;
