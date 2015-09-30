@@ -264,6 +264,20 @@ function modify_post_mime_types( $post_mime_types ) {
 // Add Filter Hook
 add_filter( 'post_mime_types', 'modify_post_mime_types' );
 
+add_action ('wp', 'will_hide_comments_courses_lessons_topics');
+
+function will_hide_comments_courses_lessons_topics () {
+    $post_type = get_post_type ();
+    if ( $post_type == 'sfwd-courses' || 'sfwd-lessons' || 'swfd-topic' ) {
+        echo '
+        <style type="text/css">
+        #comments {
+            display:none !important;
+        }
+        </style>';
+    }
+}
+
 /**
 * This is the end. Ensure the file closes with a php tag ?>
 *
