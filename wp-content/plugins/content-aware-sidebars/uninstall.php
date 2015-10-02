@@ -13,8 +13,22 @@ global $wpdb;
 // Remove db version
 delete_option('cas_db_version');
 
-//Remove sidebars, sidebar groups and (if not null) their terms and metadata
-$wpdb->query("DELETE p.*,pm.*,tr.* FROM $wpdb->posts AS p LEFT JOIN $wpdb->postmeta AS pm ON p.ID = pm.post_id LEFT JOIN $wpdb->term_relationships AS tr ON p.ID = tr.object_id WHERE p.post_type = 'sidebar' OR p.post_type = 'sidebar_group'");
+//Remove all sidebars, groups, meta and terms.
+$sidebars = get_posts(array(
+	"post_type"      => "sidebar",
+	"posts_per_page" => -1
+));
+foreach ($sidebars as $sidebar) {
+	$groups = get_posts(array(
+		"post_parent"    => $sidebar->ID,
+		"post_type"      => "condition_group",
+		"posts_per_page" => -1
+	));
+	foreach($groups as $group) {
+		wp_delete_post($group->ID,true);
+	}
+	wp_delete_post($sidebar->ID,true);
+}
 
 // Remove user meta
-$wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key IN('metaboxhidden_sidebar','closedpostboxes_sidebar')");
+$wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key IN('metaboxhidden_sidebar','closedpostboxes_sidebar','managesidebarcolumnshidden','".$wpdb->prefix."_ca_cas_tour')");

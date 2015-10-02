@@ -12,20 +12,21 @@ if (!defined('ContentAwareSidebars::DB_VERSION')) {
 
 /**
  * Run updates
- * @param  float $current_version 
+ * 
+ * @param  string   $current_version 
  * @return boolean
  */
 function cas_run_db_update($current_version) {
 
 	if(current_user_can('update_plugins')) {
 		// Get current plugin db version
-		$installed_version = get_option('cas_db_version',0);
+		$installed_version = get_option('cas_db_version','0');
 
 		// Database is up to date
 		if($installed_version == $current_version)
 			return true;
 
-		$versions = array('0.8','1.1','2.0');
+		$versions = array('0.8','1.1','2.0','3.0');
 
 		//Launch updates
 		foreach($versions as $version) {
@@ -49,8 +50,87 @@ function cas_run_db_update($current_version) {
 }
 
 /**
+ * Version 2.0 -> 3.0
+ * Data key prefices will use that from WP Content Aware Engine
+ * Condition group post type made generic
+ * Module id convention made consistent
+ *
+ * @since  3.0
+ * @return boolean
+ */
+function cas_update_to_30() {
+	global $wpdb;
+
+	// Get all sidebars
+	$posts = get_posts(array(
+		'numberposts'     => -1,
+		'post_type'       => 'sidebar',
+		'post_status'     => 'publish,pending,draft,future,private,trash'
+	));
+
+	if(!empty($posts)) {
+
+		$wpdb->query("
+			UPDATE $wpdb->posts
+			SET post_type = 'condition_group', post_status = 'publish'
+			WHERE post_type = 'sidebar_group'
+		");
+
+		$metadata = array(
+			'post_types'     => 'post_type',
+			'taxonomies'     => 'taxonomy',
+			'authors'        => 'author',
+			'page_templates' => 'page_template',
+			'static'         => 'static',
+			'bb_profile'     => 'bb_profile',
+			'bp_member'      => 'bp_member',
+			'date'           => 'date',
+			'language'       => 'language',
+			'exposure'       => 'exposure',
+			'handle'         => 'handle',
+			'host'           => 'host',
+			'merge-pos'      => 'merge_pos'
+		);
+		
+		foreach($metadata as $old_key => $new_key) {
+			$wpdb->query("
+				UPDATE $wpdb->postmeta 
+				SET meta_key = '_ca_".$new_key."' 
+				WHERE meta_key = '_cas_".$old_key."'
+			");
+			switch($new_key) {
+				case "author":
+				case "page_template":
+					$wpdb->query("
+						UPDATE $wpdb->postmeta 
+						SET meta_value = '".$new_key."' 
+						WHERE meta_key = '_ca_".$new_key."' 
+						AND meta_value = '".$old_key."'
+					");
+					break;
+				case "post_type":
+				case "taxonomy":
+					$wpdb->query("
+						UPDATE $wpdb->postmeta 
+						SET meta_value = REPLACE(meta_value, '_cas_sub_', '_ca_sub_') 
+						WHERE meta_key = '_ca_".$new_key."' 
+						AND meta_value LIKE '_cas_sub_%'
+					");
+					break;
+			}
+		}
+
+		// Clear cache for new meta keys
+		wp_cache_flush();
+	}
+
+	return true;
+}
+
+/**
  * Version 1.1 -> 2.0
  * Moves module data for each sidebar to a condition group
+ * 
  * @author Joachim Jensen <jv@intox.dk>
  * @since  2.0
  * @return boolean
@@ -72,7 +152,7 @@ function cas_update_to_20() {
 	// Get all sidebars
 	$posts = get_posts(array(
 		'numberposts'     => -1,
-		'post_type'       => ContentAwareSidebars::TYPE_SIDEBAR,
+		'post_type'       => 'sidebar',
 		'post_status'     => 'publish,pending,draft,future,private,trash'
 	));
 	if(!empty($posts)) {
@@ -81,7 +161,7 @@ function cas_update_to_20() {
 			//Create new condition group
 			$group_id = wp_insert_post(array(
 				'post_status'           => $post->post_status, 
-				'post_type'             => ContentAwareSidebars::TYPE_CONDITION_GROUP,
+				'post_type'             => 'sidebar_group',
 				'post_author'           => $post->post_author,
 				'post_parent'           => $post->ID,
 			));
@@ -92,7 +172,7 @@ function cas_update_to_20() {
 				$wpdb->query("
 					UPDATE $wpdb->postmeta 
 					SET post_id = '".$group_id."' 
-					WHERE meta_key IN ('".ContentAwareSidebars::PREFIX.implode("','".ContentAwareSidebars::PREFIX,$module_keys)."')
+					WHERE meta_key IN ('_cas_".implode("','_cas_",$module_keys)."')
 					AND post_id = '".$post->ID."'
 				");
 
@@ -115,6 +195,7 @@ function cas_update_to_20() {
 /**
  * Version 0.8 -> 1.1
  * Serialized metadata gets their own rows
+ * 
  * @return boolean 
  */
 function cas_update_to_11() {
@@ -131,7 +212,7 @@ function cas_update_to_11() {
 	// Get all sidebars
 	$posts = get_posts(array(
 		'numberposts'     => -1,
-		'post_type'       => ContentAwareSidebars::TYPE_SIDEBAR,
+		'post_type'       => 'sidebar',
 		'post_status'     => 'publish,pending,draft,future,private,trash'
 	));
 	
@@ -139,11 +220,11 @@ function cas_update_to_11() {
 		foreach($posts as $post) {
 			foreach($moduledata as $field) {
 				// Remove old serialized data and insert it again properly
-				$old = get_post_meta($post->ID, ContentAwareSidebars::PREFIX.$field, true);
+				$old = get_post_meta($post->ID, '_cas_'.$field, true);
 				if($old != '') {
-					delete_post_meta($post->ID, ContentAwareSidebars::PREFIX.$field, $old);
+					delete_post_meta($post->ID, '_cas_'.$field, $old);
 					foreach((array)$old as $new_single) {
-						add_post_meta($post->ID, ContentAwareSidebars::PREFIX.$field, $new_single);
+						add_post_meta($post->ID, '_cas_'.$field, $new_single);
 					}
 				}
 			}
@@ -156,6 +237,7 @@ function cas_update_to_11() {
 /**
  * Version 0 -> 0.8
  * Introduces database version management, adds preficed keys to metadata
+ * 
  * @global object $wpdb
  * @return boolean 
  */
@@ -179,7 +261,7 @@ function cas_update_to_08() {
 		SELECT ID 
 		FROM $wpdb->posts 
 		WHERE post_type = %s
-	",ContentAwareSidebars::TYPE_SIDEBAR));
+	",'sidebar'));
 
 	//Check if there is any
 	if(!empty($posts)) {
@@ -187,7 +269,7 @@ function cas_update_to_08() {
 		foreach($metadata as $meta) {
 			$wpdb->query("
 				UPDATE $wpdb->postmeta 
-				SET meta_key = '".ContentAwareSidebars::PREFIX.$meta."' 
+				SET meta_key = '_cas_".$meta."' 
 				WHERE meta_key = '".$meta."' 
 				AND post_id IN(".implode(',',$posts).")
 			");
@@ -196,7 +278,7 @@ function cas_update_to_08() {
 		wp_cache_flush();
 	}
 
-	return true;    
-}     
+	return true;
+}
 
 //eol
