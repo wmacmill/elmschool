@@ -1,10 +1,10 @@
 === BadgeOS LearnDash Add-on ===
-Contributors: credly, webdevstudios, sc0ttkclark
+Contributors: badgeos, learningtimes, webdevstudios
 Donate link: http://badgeos.org/contribute/donate/
-Tags: learndash, badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, API, open credit, credit
+Tags: learndash, badge, badges, openbadges, learningtimes, OBI, mozilla, open badges, achievement, award, reward, engagement, submission, nomination, API, open credit, credit
 Requires at least: WordPress 3.5 & BadgeOS 1.2
-Tested up to: 3.6
-Stable tag: 1.0.0
+Tested up to: 4.3.1
+Stable tag: 1.0.1
 License: GNU AGPLv3
 License URI: http://www.gnu.org/licenses/agpl-3.0.html
 
@@ -30,7 +30,7 @@ In addition to all of the out-of-the-box features in BadgeOS core, the BadgeOS L
 *   **Courses:**
 
    *   Complete a specific Course
-   *   Complete any Course   
+   *   Complete any Course
    *   Complete a course from a specific Tag
 
 *   **Lessons:**
@@ -61,7 +61,7 @@ In addition to all of the out-of-the-box features in BadgeOS core, the BadgeOS L
 
 **Display Badges on User Profiles with Free Community Add-on **
 
-*   Activate the free "[BadgeOS Community Add-On](http://wordpress.org/plugins/badgeos-community-add-on/ "BadgeOS Community Add-on")" and "[BuddyPress](http://wordpress.org/plugins/buddypress/ "BuddyPress")" plugins to add a range of user community functions, including the ability to display earned badges and achievements on user profiles for others to see. 
+*   Activate the free "[BadgeOS Community Add-On](http://wordpress.org/plugins/badgeos-community-add-on/ "BadgeOS Community Add-on")" and "[BuddyPress](http://wordpress.org/plugins/buddypress/ "BuddyPress")" plugins to add a range of user community functions, including the ability to display earned badges and achievements on user profiles for others to see.
 
 
 = Extensibility and Additional BadgeOS Add-ons =
@@ -74,13 +74,12 @@ In addition to all of the out-of-the-box features in BadgeOS core, the BadgeOS L
 
 = Stay Connected / Helpful Links =
 
-BadgeOS is made available by [Credly, LLC](https://credly.com/ "Credly web site"). Here are some ways to stay connected and to see what else we are up to:
+BadgeOS is made available by [LearningTimes, LLC](http://www.LearningTimes.com/ "LearningTimes web site"). Here are some ways to stay connected and to see what else we are up to:
 
 * [BadgeOS.org](http://badgeos.org/ "BadgeOS web site") - Contact Us, Video Tutorials, Examples, News
-* [Credly.com](https://credly.com/ "Credly web site") - Manage lifelong credentials that matter
-* [Credly Knowledgebase](http://support.credly.com/ "Credly FAQ and Support") - Credly FAQ
-* [Facebook](https://www.facebook.com/Credly "Credly on Facebook") - Credly on Facebook
-* [Twitter](https://twitter.com/credly "Credly on Facebook") - Credly Tweets
+* [LearningTimes](http://www.learningtimes.com/ "LearningTimes web site") - Bringing people together through engaging online conferences, events and activities.
+* [Facebook](https://www.facebook.com/LearningTimes "LearningTimes on Facebook") - LearningTimes on Facebook
+* [Twitter](https://twitter.com/LearningTimes "LearningTimes on Facebook") - LearningTimes Tweets
 * [E-Mailing List](https://http://badgeos.org/join-list/ "BadgeOS Occasional Mailing List - No spam!") - Occasional updates via e-mail
 * [GitHub](https://github.com/opencredit/badgeos "BadgeOS on GitHub") - Report issues, contribute code
 
@@ -120,10 +119,6 @@ The ideal place for bug and issue reporting is on the [GitHub](https://github.co
 
 Thanks for asking!  Please do share back code modifications or enhancements you make for inclusion in BadgeOS core or as add-ons. (Functions that are specialized for just some users are likely best as add-on plugins to BadgeOS. We can help figure that out with you.) Visit us on [GitHub](https://github.com/opencredit/badgeos "BadgeOS on GitHub") to share your code with the BadgeOS LearnDash.
 
-= Credly is really cool. How can I learn more about it? =
-
-[Credly](https://credly.com/ "Credly web site") is the universal way to recognize, store and share life's achievements. We've integrated Credly into BadgeOS because it's downright the easiest, most fun way to collect evidence of all your achievements in one place and then share them out when and where it matters most. There are a rapidly growing number of platforms and apps that are using the Credly "Open Credit" API to enable sharable badges; the BadgeOS WordPress integration is just one great example! Visit us [Credly.com](https://credly.com "Credly on the Web") to learn more or [contact](https://credly.com/contact "Contact us") us for guidance with using the free Open Credit API in your own projects or applications.
-
 
 == Screenshots ==
 
@@ -136,11 +131,19 @@ Thanks for asking!  Please do share back code modifications or enhancements you 
 
 == Changelog ==
 
+= 1.0.1 =
+* Fixed: Issues with LearnDash steps UI not hiding when switching to non-LearnDash based step type.
+* Fixed: Step count field not re-enabling when switching to non-LearnDash based step type.
+
 = 1.0 =
 * BadgeOS LearnDash Add-on says "hello learndash", earns "Hello LearnDash" badge.
 
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+* Fixed: Issues with LearnDash steps UI not hiding when switching to non-LearnDash based step type.
+* Fixed: Step count field not re-enabling when switching to non-LearnDash based step type.
 
 = 1.0 =
 * Initial release
