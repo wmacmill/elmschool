@@ -205,6 +205,12 @@ p {
   padding: 8px !important;
 }
 
+/*changing the hover color on forward and backwards links in courses*/
+#learndash_next_prev_link > a:hover {
+  color: #fff !important;
+  text-decoration: none;
+  background-color: #428bca;
+}
 
 /*
 *

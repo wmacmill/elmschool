@@ -264,21 +264,7 @@ function modify_post_mime_types( $post_mime_types ) {
 // Add Filter Hook
 add_filter( 'post_mime_types', 'modify_post_mime_types' );
 
-/*function will_modify_comments () {
-    if ( get_post_type () == 'sfwd-assignment' ) {
-        echo '
-        <style type="text/css">
-        #comments {
-            display: block !important;
-        }
-        </style>';
-    }
-    else {
-        return;
-    }
-}
 
-add_action ( 'wp', 'will_modify_comments' )*/
 /**
 * This is the end. Ensure the file closes with a php tag ?>
 *
