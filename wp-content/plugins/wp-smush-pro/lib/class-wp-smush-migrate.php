@@ -100,7 +100,7 @@ class WpSmushMigrate {
 
 		if( $new_message["stats"]['percent'] !== -1 && $new_message["stats"]['bytes'] !== -1){
 			$new_message["stats"]['size_before'] = ( $new_message["stats"]['bytes'] * 100 ) / $new_message["stats"]['percent'];
-			$new_message["stats"]['size_after'] = ( 100 - $new_message["stats"]['percent']  ) * $new_message["stats"]['size_before'] / 100;	     		   	  	  				
+			$new_message["stats"]['size_after'] = ( 100 - $new_message["stats"]['percent']  ) * $new_message["stats"]['size_before'] / 100;
 		}
 
 		return $new_message;
