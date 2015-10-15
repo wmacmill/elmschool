@@ -1,5 +1,12 @@
 *** Canvas Changelog ***
 
+2015.09.29 - version 5.9.12
+ * Fix - Fixes undefined PHP notice.
+   includes/integrations/sensei/template.php
+
+ * Fix - Updates broken link in the Subscribe & Connect section.
+   includes/theme-options.php
+
 2015.08.24 - version 5.9.11
  * Fix - Fixes the shortcodes display in the Business slider.
    includes/theme-actions.php

@@ -1,5 +1,17 @@
 *** WooThemes Framework Changelog ***
 
+2015.10.02 - version 6.2.1
+ * Fix - woo_image() override filter added 'woo_image_override'
+   admin-functions.php
+ * Fix - warning notices for PHP7
+   classes/class-wf-settings.php
+ * Fix - PHP warning notice for style key
+   admin-functions.php
+ * Fix - windows directory path output correction
+   js/shortcode-generator/js/dialog-js.php
+ * Fix - Fixes the shortcode generator window content overflow issue.
+   css/shortcode-generator.css
+
 2015.05.07 - version 6.2.0
  * Fix - Ensurs woo_get_video_image() supports HTTPS.
  * Fix - Ensurs the "Custom CSS" setting correctly interprets \ and > in CSS.

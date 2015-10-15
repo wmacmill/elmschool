@@ -1653,7 +1653,7 @@ if ( get_option( $shortname . '_woo_tumblog_switch' ) == "true" ) {
 						"type" => "text");
 
 	$options[] = array( "name" => __( 'Subscribe By E-mail to MailChimp', 'woothemes' ),
-						"desc" => sprintf( __( 'If you have a MailChimp account you can enter the <a href="%s" target="_blank">MailChimp List Subscribe URL</a> to allow your users to subscribe to a MailChimp List.', 'woothemes' ), 'http://woochimp.heroku.com' ),
+						"desc" => sprintf( __( 'If you have a MailChimp account you can enter the <a href="%s" target="_blank">MailChimp List Subscribe URL</a> to allow your users to subscribe to a MailChimp List.', 'woothemes' ), 'http://docs.woothemes.com/document/canvas/#section-20' ),
 						"id" => $shortname."_connect_mailchimp_list_url",
 						"std" => '',
 						"type" => "text");

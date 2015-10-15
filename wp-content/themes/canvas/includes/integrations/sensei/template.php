@@ -52,7 +52,7 @@ if ( ! function_exists( 'woo_sensei_content_wrap_end' ) ) {
 if ( ! function_exists( 'sensei_breadcrumbs' ) ) {
 	function sensei_breadcrumbs() {
 		global  $woo_options;
-		if ( $woo_options['woo_breadcrumbs_show'] == 'true' ) {
+		if ( isset( $woo_options['woo_breadcrumbs_show'] ) && 'true' == $woo_options['woo_breadcrumbs_show'] ) {
 			woo_breadcrumbs();
 		}
 	}
