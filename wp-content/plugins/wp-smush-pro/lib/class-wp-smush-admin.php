@@ -272,7 +272,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		function init_settings() {
 			$this->settings = array(
 				'auto'     => __( 'Smush images on upload', 'wp-smushit' ),
-				'original' => __( 'Smush Original Image', 'wp-smushit' ) . ' <small>(' . __( 'Skipped if Large size is available', 'wp-smushit' ) . ')</small>',
+				'original' => __( 'Smush Original Image', 'wp-smushit' ) . '<span class="dashicons dashicons-info smush-original" title="' . __( "For very large dimension images like those taken with a digital camera, the original full size image is almost never embedded (and really shouldn't be). Because of this WP Smush preserves it unaltered by default. Check this box to smush every image size.", 'wp-smushit' ) . '"></span>',
 				'lossy'    => __( 'Super-Smush images', 'wp-smushit' ) . ' <small>(' . __( 'Lossy Image Compression', 'wp-smushit' ) . ')</small>',
 				'backup'   => __( 'Backup Original Images', 'wp-smushit' ) . ' <small>(' . __( 'Will nearly double the size of your Uploads Directory', 'wp-smushit' ) . ')</small>'
 			);
@@ -385,7 +385,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 						}
 
 						//Smush Original
-						printf( "<div class='wp-smush-setting-row%5\$s'><label><input type='checkbox' name='%1\$s' id='%1\$s' value='1' %2\$s %3\$s>%4\$s</label></div>", esc_attr( $opt_original ), checked( $opt_original_val, 1, false ), $disabled, $this->settings['original'], $feature_class );
+						printf( "<div class='wp-smush-setting-row%5\$s'><label><input type='checkbox' name='%1\$s' id='%1\$s' value='1' %2\$s %3\$s>%4\$s</label></div>", esc_attr( $opt_original ), checked( $opt_original_val, 1, false ), $disabled, $this->settings['original'], $feature_class );	     		   	  	  				
 
 						//Lossy
 						printf( "<div class='wp-smush-setting-row%5\$s'><label><input type='checkbox' name='%1\$s' id='%1\$s' value='1' %2\$s %3\$s>%4\$s</label></div>", esc_attr( $opt_lossy ), checked( $opt_lossy_val, 1, false ), $disabled, $this->settings['lossy'], $feature_class );
@@ -1176,7 +1176,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 				<div class="wp-smpushit-features updated">
 					<h3><?php _e( 'Thanks for using WP Smush Pro! You now can:', 'wp-smushit' ) ?></h3>
 					<ol>
-						<li><?php _e( 'Smush Full size Image, It is skipped by default, if large size is available for a image', 'wp-smushit' ); ?></li>
+						<li><?php _e( 'Smush the original Full image sizes that are normally skipped by default.', 'wp-smushit' ); ?></li>
 						<li><?php _e( '"Super-Smush" your images with our intelligent multi-pass lossy compression. Get 2&times; more compression than lossless with almost no noticeable quality loss!', 'wp-smushit' ); ?></li>
 						<li><?php _e( 'Get the best lossless compression. We try multiple methods to squeeze every last byte out of your images.', 'wp-smushit' ); ?></li>
 						<li><?php _e( 'Smush images up to 32MB.', 'wp-smushit' ); ?></li>
@@ -1188,7 +1188,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 				<div class="wp-smpushit-features error">
 					<h3><?php _e( 'Upgrade to WP Smush Pro to:', 'wp-smushit' ) ?></h3>
 					<ol>
-						<li><?php _e( 'Smush Full size Image, It is skipped by default, if large size is available for a image', 'wp-smushit' ); ?></li>
+						<li><?php _e( 'Smush the original Full image sizes that are normally skipped by default.', 'wp-smushit' ); ?></li>
 						<li><?php _e( '"Super-Smush" your images with our intelligent multi-pass lossy compression. Get 2&times; more compression than lossless with almost no noticeable quality loss!', 'wp-smushit' ); ?></li>
 						<li><?php _e( 'Get the best lossless compression. We try multiple methods to squeeze every last byte out of your images.', 'wp-smushit' ); ?></li>
 						<li><?php _e( 'Smush images greater than 1MB.', 'wp-smushit' ); ?></li>
