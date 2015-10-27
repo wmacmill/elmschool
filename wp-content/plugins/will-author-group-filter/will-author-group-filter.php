@@ -15,9 +15,19 @@ Domain Path:
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 add_action('init', 'learndash_groups_add_author');
-	function learndash_groups_add_author() {
-		add_post_type_support( 'groups', 'author' );
+
+function learndash_groups_add_author() {
+	add_post_type_support( 'groups', 'author' );
 }
+
+add_action('admin_init', 'remove_group_write_panels');
+
+function remove_group_write_panels () {
+	if ( !current_user_can ( 'manage_options' ) ) {
+		remove_post_type_support( 'groups', 'editor' );	
+	}
+	
+} 
 
 /* Stop Adding Functions Below this Line */
 ?>
