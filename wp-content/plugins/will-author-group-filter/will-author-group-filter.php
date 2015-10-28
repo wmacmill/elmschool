@@ -50,8 +50,10 @@ function modify_groups() {
         $wp_rewrite->add_rewrite_tag("%groups%", '(.+?)', $args->query_var ? "{$args->query_var}=" : "post_type=groups=");
         
     }
+
 }
 add_action( 'init', 'modify_groups' );
+
 
 /* Stop Adding Functions Below this Line */
 ?>
