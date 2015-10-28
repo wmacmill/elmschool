@@ -55,5 +55,15 @@ function modify_groups() {
 add_action( 'init', 'modify_groups' );
 
 
+add_filter('page_row_actions','my_action_row', 10, 2);
+
+function my_action_row($actions, $post){
+    //check for your post type
+    if ($post->post_type =="groups" && !current_user_can( 'manage_options' ) ) {
+        return array(); //returns an empty array to remove them all if not admin
+    }
+    return $actions;
+}
+
 /* Stop Adding Functions Below this Line */
 ?>
