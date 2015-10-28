@@ -265,6 +265,23 @@ function modify_post_mime_types( $post_mime_types ) {
 add_filter( 'post_mime_types', 'modify_post_mime_types' );
 
 
+/*
+* This code sets the default "per page" for groups to 100 so the nested look works 
+*/
+function filter_edit_posts_per_page( $per_page, $post_type ) {
+    global $pagenow;
+
+    if ( ( $pagenow == 'edit.php' ) && ($_GET['post_type'] == 'groups') ) {
+        $per_page = 100;
+    }
+
+    return $per_page;
+};
+        
+// add the filter
+add_filter( 'edit_posts_per_page', 'filter_edit_posts_per_page', 10, 2 );
+
+
 /**
 * This is the end. Ensure the file closes with a php tag ?>
 *
