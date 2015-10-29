@@ -212,6 +212,12 @@ p {
   background-color: #428bca;
 }
 
+/*button styling for help menu*/
+#menu-item-1960 > a {
+    background: #1abc9c none repeat scroll 0 0;
+    color: #fff !important;
+}
+
 /*
 *
 *
