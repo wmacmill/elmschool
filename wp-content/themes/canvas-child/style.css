@@ -218,6 +218,15 @@ p {
     color: #fff !important;
 }
 
+/*making the hover of nav menus white*/
+ul.nav li a:hover {
+  color: #fff;
+}
+
+ul.nav li.current_page_item a {
+  color: #fff;
+}
+
 /*
 *
 *
