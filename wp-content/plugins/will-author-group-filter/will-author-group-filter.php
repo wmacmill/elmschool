@@ -65,5 +65,30 @@ function my_action_row($actions, $post){
     return $actions;
 }
 
+//*************testing making parent leaders of children*********************
+function make_parent_leaders_all_down () {
+    
+    //this goes through and builds the array of child groups in the $child_pages variable
+    global $post;
+    $my_wp_query = new WP_Query();
+    $all_wp_pages = $my_wp_query->query(array('post_type' => 'groups', 'posts_per_page' => -1));
+    $group_id = $post->ID;//The parent post you want it to run on - default to current group
+    $child_pages = get_page_children( $group_id, $all_wp_pages ); //array of the child pages is here
+    
+    $group_leaders = learndash_get_groups_administrator_ids($group_id); //array of group leader user ids
+
+    //goes through each child group
+    foreach ( $child_pages as $child_id ) {
+        $child_id_meta = 'learndash_group_leaders_' . $child_id->ID;
+        //for each group leader in the parent group update the leaders user meta with the info for child group
+        foreach ( $group_leaders as $group_leader ) {
+            update_user_meta ( $group_leader, $child_id_meta , $child_id->ID );
+        }
+    }
+
+}
+
+add_action( 'save_post', 'make_parent_leaders_all_down');
+
 /* Stop Adding Functions Below this Line */
 ?>
