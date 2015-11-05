@@ -264,7 +264,7 @@ margin-right: 10px;
 	text-decoration: none !important;
 	font-weight: 100;
 	font-size: 12px;
-	font-family: 'Verdana';
+	font-family: 'Verdana', 'Geneva', sans-serif;
 }
 .learndash .completed, #learndash_profile .completed {
 	background: url(images/completed.png) no-repeat;
@@ -629,6 +629,7 @@ dd.course_progress div.course_progress_blue {
 .quiz_title {
 	width: 55%;
 	line-height: 25px;
+	padding-left: 12px !important;
 }
 .certificate {
 	width: 15%;
@@ -652,4 +653,29 @@ dd.course_progress div.course_progress_blue {
 }
 #ld_categorydropdown span {
 	font-weight: bold;
+}
+#learndash_course_certificate {
+	margin: 10px 0;
+}
+.wpProQuiz_content {
+	position: relative;
+}
+.wpProQuiz_spinner {
+	  position: absolute;
+	  left: -2%;
+	  top: -2%;
+	  width: 104%;
+	  height: 104%;
+	  background: white;
+	  z-index: 10000;
+	  opacity: 0.9;
+	  filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+.wpProQuiz_spinner > div {
+  background-image: url(images/spinner.gif);
+  position: relative;
+  margin: auto;
+  width: 128px;
+  height: 128px;
+  top: 30%;
 }
