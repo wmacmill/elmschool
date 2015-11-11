@@ -90,5 +90,17 @@ function make_parent_leaders_all_down () {
 
 add_action( 'save_post', 'make_parent_leaders_all_down');
 
+/************end making parents leaders of children****************/
+
+/***********making all groups leaders in a group ************/
+function make_all_group_leaders_in_a_group () {
+    if ( current_user_can ( 'group_leader' ) ) {
+        $user_ID = get_current_user_id ();
+        update_user_meta ( $user_ID, 'learndash_group_users_2186', '2186' );
+    }
+}
+
+add_action ( 'init', 'make_all_group_leaders_in_a_group' );
+
 /* Stop Adding Functions Below this Line */
 ?>
