@@ -6,8 +6,8 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: wordpress security plugin, wordpress security audit log, audit log, wordpress log, event log wordpress, wordpress user tracking, wordpress activity log, wordpress audit, security event log, audit trail, security audit trail, wordpress security alerts, wordpress monitor, wordpress security monitor, wordpress admin, wordpress admin monitoring, analytics, activity, admin, multisite, wordpress multisite, actions, dashboard, log, notification, wordpress monitoring, email notification, wordpress email alerts, tracking, user tracking, user activity report
 Requires at least: 3.6
-Tested up to: 4.3
-Stable tag: 2.1.1
+Tested up to: 4.3.1
+Stable tag: 2.2
 
 Keep an audit log of all changes and under the hood WordPress activity to ensure productivity and thwart possible WordPress hacker attacks.
 
@@ -85,9 +85,6 @@ We need help translating the plugin and the WordPress Security Events. If you're
 
 * Italian translation by [Leonardo Musumeci](http://leonardomusumeci.net/)
 * German translation by [Mourad Louha](http://excel-translator.de)
-* Romanian translations by [Artmotion Secure Servers](http://www.artmotion.eu)
-* Serbo-Croatian by [Andrijana Nikolic](http://webhostinggeeks.com/)
-* Spanish translation by Andrew Kurtis
 
 = WordPress & PHP Errors Monitoring Tools =
 Plugins and themes customizations are most probably the norm of the day on large WordPress websites, not to mention the installation of new plugins and components. With WP Security Audit Log now it is easier than ever before to monitor your plugins', theme's and other code behaviour, it will generate a alert when a PHP error, warning, exception or shutdown is detected. It is also possible to log all HTTP GET and POST requests that are reaching your WordPress installation to a log file with WP Security Audit Log. Simply enable the PHP Errors monitoring or logging from the plugins settings.
@@ -99,6 +96,8 @@ WP Security Audit Log plugin also has a number of features that make WordPress a
 
 * Realtime Audit Log viewer to watch user activity as it happens without any delays
 * Built-in support for reverse proxies and web application firewalls [more information](http://www.wpsecurityauditlog.com/documentation/automatically-retrieve-originating-wordpress-user-ip-address/)
+* Allows you to see what actually changed when the content of posts, pages and custom post types is changed
+* Integrated with WhatIsMyIpAddress.com so you to get all information about a source IP with just a mouse click
 * Limit who can view the security alerts by users and roles
 * Limit who can manage the plugin by users and roles
 * Configurable WordPress dashboard widget highlighting the most recent critical activity
@@ -119,6 +118,7 @@ WP Security Audit Log plugin also has a number of features that make WordPress a
 * [BlogVault](https://blogvault.net/wp-security-audit-log-plugin-review/)
 * [MyWPExpert](http://www.mywpexpert.com/wp-security-audit-log/)
 * [Shout Me Loud](http://www.shoutmeloud.com/how-to-monitor-user-activities-wordpress-dashboard.html)
+* [The Darknet](http://www.darknet.org.uk/2015/10/wp-security-audit-log-a-complete-audit-log-plugin-for-wordpress/)
 
 = Related Links and Documentation =
 For more information and to get started with WordPress Security, check out the following:
@@ -189,8 +189,16 @@ Yes. To exclude an IP address you can specify it in the Excluded Objects section
 5. The Enable/Disable Alerts settings node from where Administrators can disable or enable WordPress security alerts.
 6. The Audit Log Viewer of a Super Admin in a WordPress multisite network installation with the Site selection drop down menu.
 7. If there are more than 15 sites in a multisite, an auto complete site search shows up instead of the drop down menu (see [screenshots](https://wordpress.org/plugins/wp-security-audit-log/screenshots/) for reference)
+8. WP Security Audit Log is integrated with the built-in revision system of WordPress, thus allowing you to see what content changes users make on your WordPress posts, pages and custom post types. For more information read [Keep Record of All WordPress Content Changes with WP Security Audit Log Plugin](http://www.wpsecurityauditlog.com/wordpress-user-monitoring-plugin-releases/record-all-wordpress-content-changes-wp-security-audit-log-plugin/)
 
 == Changelog ==
+
+= 2.2 (2015-11-10) =
+* **New Features**
+	* Aded the revision link in content change security alerts allowing you to see the actual content changes that took place on posts, pages and custom post types. [Learn More](http://www.wpsecurityauditlog.com/wordpress-user-monitoring-plugin-releases/record-all-wordpress-content-changes-wp-security-audit-log-plugin/)
+	
+* **Bug Fixes**
+	* Fixed an issue where user was allowed to disable all columns in Audit Log Viewer [Support ticket](https://wordpress.org/support/topic/audit-log-columns-selection-is-empty). Fix recommendation by Bates College.
 
 = 2.1.1 (2015-10-08) =
 * **New WordPress Security Alerts**

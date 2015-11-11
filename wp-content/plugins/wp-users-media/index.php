@@ -3,7 +3,7 @@
  * Plugin Name: WP Users Media
  * Plugin URI: -
  * Description: WP Users Media is a WordPress plugin that displays only the current users media files and attachments in WP Admin.
- * Version: 3.0.2
+ * Version: 3.0.3
  * Author: Damir Calusic
  * Author URI: https://www.damircalusic.com/
  * License: GPLv2
@@ -27,7 +27,7 @@
 */
 
 /* Define the version of the plugin */
-define('WPUSERSMEDIA_VERSION', '3.0.1');
+define('WPUSERSMEDIA_VERSION', '3.0.3');
 
 /* Load plugin languages */
 load_plugin_textdomain('wpusme', false, basename( dirname( __FILE__ ) ) . '/languages');
@@ -126,15 +126,18 @@ function wpusme_shortcut(){
 function um_filter_media_files($wp_query){
 	global $current_user;
 	$wp_query = $wp_query;
-		
-	if(get_option('wpusmeadminself') == '1'){
-		if(current_user_can('manage_options') && (is_admin() && $wp_query->query['post_type'] === 'attachment')){
+	
+	// Check so the $wp_query->query['post_type'] isset
+	if(isset($wp_query->query['post_type'])){
+		if(get_option('wpusmeadminself') == '1'){
+			if(current_user_can('manage_options') && (is_admin() && $wp_query->query['post_type'] === 'attachment')){
+				$wp_query->set('author', $current_user->ID);
+			}
+		}
+	
+		if(!current_user_can('manage_options') && (is_admin() && $wp_query->query['post_type'] === 'attachment')){
 			$wp_query->set('author', $current_user->ID);
 		}
-	}
-
-	if(!current_user_can('manage_options') && (is_admin() && $wp_query->query['post_type'] === 'attachment')){
-		$wp_query->set('author', $current_user->ID);
 	}
 }
 

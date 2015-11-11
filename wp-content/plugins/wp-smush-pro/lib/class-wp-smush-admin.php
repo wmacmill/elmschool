@@ -310,7 +310,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 				$smush_orgnl_txt = esc_html__( 'Smush all images, including originals.', 'wp_smushit' );
 			} else {
 				$count           = count( get_intermediate_image_sizes() );
-				$smush_orgnl_txt = sprintf( esc_html__( "When you upload an image to WordPress it automatically creates %s thumbnail sizes that are commonly used in your pages. WordPress also stores the original full-size image, but because these are not usually embedded on your site we don’t Smush them. Pro users can override this.", 'wp_smushit' ), $count );	     		   	  	  				
+				$smush_orgnl_txt = sprintf( esc_html__( "When you upload an image to WordPress it automatically creates %s thumbnail sizes that are commonly used in your pages. WordPress also stores the original full-size image, but because these are not usually embedded on your site we don’t Smush them. Pro users can override this.", 'wp_smushit' ), $count );
 			}
 			$this->settings = array(
 				'auto'     => __( 'Smush images on upload', 'wp-smushit' ),
@@ -1335,15 +1335,11 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		}
 
 		/**
-		 * Delete Site transient, stored for api status
+		 * Delete Site Option, stored for api status
 		 */
 		function refresh_status() {
-			global $WpSmush;
 
-			$api_key = $WpSmush->_get_api_key();
-			$key     = "wp-smush-premium-" . substr( $api_key, - 5, 5 );
-
-			delete_site_transient( $key );
+			delete_site_option('wp_smush_api_auth');
 		}
 	}
 
