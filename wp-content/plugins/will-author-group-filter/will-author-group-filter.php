@@ -102,5 +102,19 @@ function make_all_group_leaders_in_a_group () {
 
 add_action ( 'init', 'make_all_group_leaders_in_a_group' );
 
+/*filtering the user permissions - gives access to all editors to all courses including previews*/
+add_filter ( 'sfwd_lms_has_access', 'make_all_editors_access_all_courses', 10, 2);
+
+function make_all_editors_access_all_courses ( $post_id, $user_id ) {
+    $user_id = get_current_user_id();
+
+    if ( user_can( $user_id, 'edit_others_courses' ) ) {
+        return true;
+    }
+
+    $not_editor = sfwd_lms_has_access_fn( $post_id, $user_id );
+    return $not_editor;
+}
+
 /* Stop Adding Functions Below this Line */
 ?>
