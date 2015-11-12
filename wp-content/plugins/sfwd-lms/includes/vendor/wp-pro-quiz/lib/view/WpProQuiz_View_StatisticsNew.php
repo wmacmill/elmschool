@@ -53,7 +53,7 @@ tr:hover .wpProQuiz_actions {
 
 	<div class="wrap wpProQuiz_statisticsNew">
 		<input type="hidden" id="quizId" value="<?php echo $this->quiz->getId(); ?>" name="quizId">
-		<h2><?php printf(__('Quiz: %s - Statistics', 'wp-pro-quiz'), $this->quiz->getName()); ?></h2>
+		<h1><?php printf(__('Quiz: %s - Statistics', 'wp-pro-quiz'), $this->quiz->getName()); ?></h1>
 		<br>		
 		<?php if(!$this->quiz->isStatisticsOn()) { ?>
 		<p style="padding: 30px; background: #F7E4E4; border: 1px dotted; width: 300px;">
@@ -90,7 +90,7 @@ tr:hover .wpProQuiz_actions {
 			
 			<div id="poststuff">
 				<div class="postbox">
-					<h3 class="hndle"><?php _e('Filter', 'wp-pro-quiz'); ?></h3>
+					<h2 class="hndle"><?php _e('Filter', 'wp-pro-quiz'); ?></h2>
 					<div class="inside">
 						<ul>
 							<li>

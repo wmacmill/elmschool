@@ -13,7 +13,7 @@ class WpProQuiz_View_QuestionOverall extends WpProQuiz_View_View {
 }
 </style>
 <div class="wrap wpProQuiz_questionOverall">
-	<h2>Quiz: <?php echo $this->quiz->getName(); ?></h2>
+	<h1>Quiz: <?php echo $this->quiz->getName(); ?></h1>
 	<div id="sortMsg" class="updated" style="display: none;"><p><strong><?php _e('Questions sorted', 'wp-pro-quiz'); ?></strong></p></div>
 	<br>
 	<p>
@@ -90,7 +90,7 @@ class WpProQuiz_View_QuestionOverall extends WpProQuiz_View_View {
 	</p>
 	<div class="wpProQuiz_questionCopy">
 		<form action="admin.php?page=ldAdvQuiz&module=question&quiz_id=<?php echo $this->quiz->getId(); ?>&action=copy_question" method="POST">
-			<h3 style="margin-top: 0;"><?php _e('Copy questions from another Quiz', 'wp-pro-quiz'); ?></h3>
+			<h2 style="margin-top: 0;"><?php _e('Copy questions from another Quiz', 'wp-pro-quiz'); ?></h2>
 			<p><?php echo __('Here you can copy questions from another quiz into this quiz. (Multiple selection enabled)', 'wp-pro-quiz'); ?></p>
 			
 			<div style="padding: 20px; display: none;" id="loadDataImg">

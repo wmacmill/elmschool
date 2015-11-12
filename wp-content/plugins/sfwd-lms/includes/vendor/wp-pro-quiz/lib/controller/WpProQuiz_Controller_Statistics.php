@@ -675,8 +675,7 @@ class WpProQuiz_Controller_Statistics extends WpProQuiz_Controller_Controller {
 			}
 			
 			$o = &$output[$statistic->getCategoryId()];
-			
-			$o['questions'][] = array(
+			$question_item = array(
 				'correct' => $statistic->getCorrectCount(),
 				'incorrect' => $statistic->getIncorrectCount(),
 				'hintCount' => $statistic->getIncorrectCount(),
@@ -688,6 +687,43 @@ class WpProQuiz_Controller_Statistics extends WpProQuiz_Controller_Controller {
 				'questionAnswerData' => $statistic->getQuestionAnswerData(),
 				'answerType' => $statistic->getAnswerType()
 			);
+			
+			
+			// For the sort_answer items. This worked correctly with LD 2.0.6.8. But in 2.1.x there was a change where
+			// the stored value for 'statistcAnswerData' was not simply keys to match 'questionAnswerData' but md5 value.
+			// This causes a mis-match when viewing statistics data. To complicate things we will have a mix of LD 2.0.6.8
+			// quiz values and 2.1.x quiz values. 
+			if (($question_item['answerType'] == 'sort_answer') || ($question_item['answerType'] == 'matrix_sort_answer')) {
+				
+				if ((isset($question_item['questionAnswerData'])) && (!empty($question_item['questionAnswerData'])) 
+				 && (isset($question_item['statistcAnswerData'])) && (!empty($question_item['statistcAnswerData']))) {
+					
+					// So first we check the value of the first item from 'statistcAnswerData'. If the value 
+					// is a simple int then we can move on. If not, then we have some work to do. 
+					$statistcAnswerData_item = $question_item['statistcAnswerData'][0];
+					if (($statistcAnswerData_item == -1 ) 
+					 || (strcmp($statistcAnswerData_item, intval($statistcAnswerData_item)) !== 0)) {
+						
+						$questionId = $statistic->getQuestionId();
+
+						// Next we loop over the 'questionAnswerData' items. 
+						foreach($question_item['questionAnswerData'] as $q_k => $q_v) { 
+
+							// Take the item key and encode it. 
+							$datapos = LD_QuizPro::datapos($questionId, intval($q_k));
+							
+							// If we find that encoded value in the 'statistcAnswerData' we update the value.
+							$s_pos = array_search($datapos, $question_item['statistcAnswerData'], true);
+							
+							if ($s_pos !== false) {
+								$question_item['statistcAnswerData'][$s_pos] = intval($q_k);
+							} 
+						}
+					} 
+				}
+			}
+			
+			$o['questions'][] = $question_item;
 		}
 		
 		$view = new WpProQuiz_View_StatisticsAjax();
