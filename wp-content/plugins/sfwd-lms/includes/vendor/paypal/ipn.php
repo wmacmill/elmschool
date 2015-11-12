@@ -6,7 +6,7 @@
 /*NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
 You cannot rely on setting up some details here and then using them in your success page.
  */
-
+/*
 ini_set( 'log_errors', true );
 ini_set( 'error_log', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'ipn_errors.log' );
 
@@ -21,12 +21,13 @@ if ( ! function_exists( 'ld_debug' ) ) {
 	function ld_debug( $msg) {
 		global $ld_lms_processing_id;
 
-		if ( isset( $_GET['debug'] ) ) {
+		//if ( isset( $_GET['debug'] ) ) {
 			error_log( "[$ld_lms_processing_id] " . $msg );
-		}
+			//}
 		//Comment This line to stop logging debug messages.
 	}
 }
+*/
 
 ld_debug( print_r( $_REQUEST, true ) );
 
@@ -74,6 +75,34 @@ try {
 	ld_debug( 'Found Exception. Ending Script.' );
 	exit(0);
 }
+
+if ( ( isset( $_REQUEST['item_number'] ) ) && ( !empty( $_REQUEST['item_number'] ) ) ) {
+	$course_id = $_REQUEST['item_number'];
+	$meta = get_post_meta( $course_id, '_sfwd-courses', true );
+	//ld_debug('course meta:<pre>'. print_r($meta, true) .'</pre>');
+	
+	if ( isset( $_REQUEST['mc_gross'] ) ) {
+		if ( ( isset( $meta['sfwd-courses_course_price_type'] ) ) && ( $meta['sfwd-courses_course_price_type'] == 'paynow' ) ) {
+			if ( ( isset( $meta['sfwd-courses_course_price'] ) ) && ( !empty( $meta['sfwd-courses_course_price'] ) ) ) {
+				if ( number_format( floatval( $meta['sfwd-courses_course_price'] ), 2 ) != number_format( floatval( $_REQUEST['mc_gross'] ), 2  ) ) {
+					ld_debug( "Error: IPN Price mismatch: IPN Price [". number_format( floatval( $_REQUEST['mc_gross'] ), 2 ) ."] Course Price [". number_format( floatval( $meta['sfwd-courses_course_price'] ), 2 ) ."]" );
+					$verified = false;
+				} else {
+					ld_debug( "IPN Price match: IPN Price [". number_format( floatval( $_REQUEST['mc_gross'] ), 2 ) ."] Course Price [". number_format( floatval( $meta['sfwd-courses_course_price'] ), 2 ) ."]" );
+					
+				}
+			}
+		}
+	} else {
+		ld_debug( "Error: Missing 'mc_gross' in IPN data" );
+		$verified = false;
+	}
+} else {
+	ld_debug( "Error: Missing 'item_number' in IPN data" );
+	$verified = false;
+}
+
+
 
 $YOUR_NOTIFICATION_EMAIL_ADDRESS = get_option( 'admin_email' );
 $seller_email = $paypal_email;
@@ -194,6 +223,7 @@ if ( $verified ) {
 		ld_debug( 'Starting to give course access...' );
 
 		$course_id = $_REQUEST['item_number'];
+		
 		/*$meta = get_post_meta( $course_id, '_sfwd-courses', true );
 		$access_list = $meta['sfwd-courses_course_access_list'];
 		ld_debug('Current Access List for Course ID:'.$course_id. ' Access List:'. $access_list);

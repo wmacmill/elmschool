@@ -169,10 +169,12 @@ function learndash_courseinfo( $attr ) {
 
 			$scores = array();
 
-			foreach ( $quizdata as $data ) {
-				if ( in_array( $data['quiz'], $quizzes ) ) {
-					if ( empty( $scores[ $data['quiz'] ] ) || $scores[ $data['quiz'] ] < $data[ $field ] ) {
-						$scores[ $data['quiz'] ] = $data[ $field ];
+			if ( ( !empty( $quizdata ) ) && ( is_array( $quizdata ) ) ) {
+				foreach ( $quizdata as $data ) {
+					if ( in_array( $data['quiz'], $quizzes ) ) {
+						if ( empty( $scores[ $data['quiz'] ] ) || $scores[ $data['quiz'] ] < $data[ $field ] ) {
+							$scores[ $data['quiz'] ] = $data[ $field ];
+						}
 					}
 				}
 			}
@@ -212,10 +214,12 @@ function learndash_courseinfo( $attr ) {
 
 			$scores = array();
 			
-			foreach ( $quizdata as $data ) {
-				if ( in_array( $data['quiz'], $quizzes ) ) {
-					if ( empty( $scores[ $data['quiz'] ] ) || $scores[ $data['quiz'] ] < $data[ $field ] ) {
-						$scores[ $data['quiz'] ] = $data[ $field ];
+			if ( ( !empty( $quizdata ) ) && ( is_array( $quizdata ) ) ) {
+				foreach ( $quizdata as $data ) {
+					if ( in_array( $data['quiz'], $quizzes ) ) {
+						if ( empty( $scores[ $data['quiz'] ] ) || $scores[ $data['quiz'] ] < $data[ $field ] ) {
+							$scores[ $data['quiz'] ] = $data[ $field ];
+						}
 					}
 				}
 			}

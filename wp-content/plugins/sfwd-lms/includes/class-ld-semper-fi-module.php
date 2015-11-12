@@ -1497,8 +1497,8 @@ if ( ! class_exists( 'Semper_Fi_Module' ) ) {
 
 		?>
 		<div id="dropmessage" class="updated" style="display:none;"></div>
-			<div class="wrap">
-				<h2><?php echo $name;?></h2>
+			<div id="learndash-settings" class="wrap">
+				<h1><?php echo $name;?></h1>
 
 				<?php
 					/**
@@ -1567,7 +1567,7 @@ if ( ! class_exists( 'Semper_Fi_Module' ) ) {
 								'Submit_Default' => array(
 									'type' => 'submit',
 									'class' => 'button-primary',
-									'value' => sprintf( __( 'Reset %s Settings to Defaults', 'learndash' ), $name ) . ' &raquo;',
+									'value' => __( 'Reset to Defaults', 'learndash' ) . ' &raquo;',
 								),
 							);
 

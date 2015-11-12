@@ -530,7 +530,7 @@ function learndash_admin_tabs() {
 	}
 
 	if ( ! empty( $admin_tabs_on_page[ $current_page_id ] ) && count( $admin_tabs_on_page[ $current_page_id ] ) ) {
-		echo '<h2 class="nav-tab-wrapper">';
+		echo '<h1 class="nav-tab-wrapper">';
 		$tabid = 0;
 		foreach ( $admin_tabs_on_page[ $current_page_id] as $admin_tab_id ) {
 			if ( ! empty( $admin_tabs[ $admin_tab_id ]['id'] ) ) {
@@ -540,7 +540,7 @@ function learndash_admin_tabs() {
 				echo '<a href="'.$url.'" class="'.$class.' nav-tab-'.$admin_tabs[ $admin_tab_id ]['id'].'"  '.$target.'>'.$admin_tabs[ $admin_tab_id ]['name'].'</a>';
 			}
 		}
-		echo '</h2>';
+		echo '</h1>';
 	}
 
 	foreach ( $admin_tabs as $admin_tab ) {
@@ -592,7 +592,7 @@ function learndash_admin_bar_link() {
 function learndash_lms_reports_page() {
 	?>
 		<div  id="learndash-reports"  class="wrap">
-			<h2><?php _e( 'User Reports', 'learndash' ); ?></h2>
+			<h1><?php _e( 'User Reports', 'learndash' ); ?></h1>
 			<br>
 			<div class="sfwd_settings_left">
 				<div class=" " id="sfwd-learndash-reports_metabox">
@@ -1117,7 +1117,7 @@ function learndash_certificate_shortcodes_page() {
 function learndash_course_shortcodes_page() {
 	?>
 	<div  id='course-shortcodes'  class='wrap'>
-		<h2><?php _e('Course Shortcodes', 'learndash' ); ?></h2>
+		<h1><?php _e('Course Shortcodes', 'learndash' ); ?></h1>
 		<div class='sfwd_options_wrapper sfwd_settings_left'>
 			<div class='postbox ' id='sfwd-course_metabox'>
 				<div class='inside'>

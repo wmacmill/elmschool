@@ -1447,6 +1447,16 @@
 							results[data.id].correct = Number(result.c);
 							results[data.id].data = result.s;
 							
+							// If the sort_answer or matrix_sort_answer question type is not 100% correct then the returned
+							// result.s object will be empty. So in order to pass the user's answers to the server for the 
+							// sendCompletedQuiz AJAX call we need to grab the result.e.r object and store into results. 
+							if (jQuery.isEmptyObject(results[data.id].data)) {
+								if ((result.e.type != undefined) && ((result.e.type == 'sort_answer') || (result.e.type == 'matrix_sort_answer'))) {
+									results[data.id].data = result.e.r;
+								}
+							}
+							
+							
 							results['comp'].points += result.p;
 							
 							catResults[data.catId] += result.p;
@@ -1465,7 +1475,7 @@
 								if(typeof result.e.AnswerMessage != "undefined")
 								$this.find('.wpProQuiz_incorrect').find(".wpProQuiz_AnswerMessage").html(result.e.AnswerMessage);
 								$this.find('.wpProQuiz_incorrect').show();
-							}
+							}							
 							
 							$this.find('.wpProQuiz_responsePoints').text(result.p);
 							

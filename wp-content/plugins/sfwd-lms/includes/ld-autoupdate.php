@@ -438,7 +438,7 @@ class nss_plugin_updater_sfwd_lms {
 		</style>
 		<div class=wrap>
 			<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
-				<h2><?php echo __( 'License Settings', 'learndash' ); ?></h2>
+				<h1><?php echo __( 'License Settings', 'learndash' ); ?></h1>
 				<br>
 				<?php
 				if ( ! isset( $_POST[ 'update_nss_plugin_license_'.$code ] ) ):
@@ -451,7 +451,7 @@ class nss_plugin_updater_sfwd_lms {
 					endif;
 				endif;
 				?>
-				<h3><?php _e( 'Email:', 'learndash' ); ?></h3>
+				<p><label for="nss_plugin_license_email_<?php echo $code; ?>"><?php _e( 'Email:', 'learndash' ); ?></label><br />
 
 				<?php
 				/**
@@ -463,10 +463,10 @@ class nss_plugin_updater_sfwd_lms {
 				 * @param  string $email 'nss_plugin_license_email_' appended with this object property $code
 				 */
 				?>
-				<input name="nss_plugin_license_email_<?php echo $code; ?>" style="min-width:30%" value="<?php echo _e( apply_filters( 'format_to_edit', $email ), 'learndash' ) ?>" />
+				<input id="nss_plugin_license_email_<?php echo $code; ?>" name="nss_plugin_license_email_<?php echo $code; ?>" style="min-width:30%" value="<?php echo _e( apply_filters( 'format_to_edit', $email ), 'learndash' ) ?>" /></p>
 
-				<h3><?php _e( 'License Key:', 'learndash' ); ?></h3>
-				<input name="nss_plugin_license_<?php echo $code; ?>" style="min-width:30%" value="<?php echo _e( apply_filters( 'format_to_edit', $license ), 'learndash' ) ?>" />
+				<p><label ><?php _e( 'License Key:', 'learndash' ); ?></label><br />
+				<input id="nss_plugin_license_<?php echo $code; ?>" name="nss_plugin_license_<?php echo $code; ?>" style="min-width:30%" value="<?php echo _e( apply_filters( 'format_to_edit', $license ), 'learndash' ) ?>" /></p>
 
 				<div class="submit">
 					<input type="submit" name="update_nss_plugin_license_<?php echo $code; ?>" value="<?php _e( 'Update License', 'learndash' ) ?>" class="button button-primary"/>

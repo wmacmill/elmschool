@@ -223,7 +223,7 @@ function learndash_all_group_leaders() {
 	if ( $group_user_objects === false ) {
 	
 		$user_query_args = array(
-			'capability'=>	'group_leader',
+			'role'		=>	'group_leader',
 			'orderby'	=>	'display_name',
 			'order'		=>	'ASC'
 		);

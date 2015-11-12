@@ -88,7 +88,7 @@ function make_parent_leaders_all_down () {
 
 }
 
-add_action( 'save_post', 'make_parent_leaders_all_down');
+//add_action( 'save_post', 'make_parent_leaders_all_down');
 
 /************end making parents leaders of children****************/
 
@@ -100,10 +100,10 @@ function make_all_group_leaders_in_a_group () {
     }
 }
 
-add_action ( 'init', 'make_all_group_leaders_in_a_group' );
+//add_action ( 'init', 'make_all_group_leaders_in_a_group' );
 
 /*filtering the user permissions - gives access to all editors to all courses including previews*/
-add_filter ( 'sfwd_lms_has_access', 'make_all_editors_access_all_courses', 10, 2);
+//add_filter ( 'sfwd_lms_has_access', 'make_all_editors_access_all_courses', 10, 2);
 
 function make_all_editors_access_all_courses ( $post_id, $user_id ) {
     $user_id = get_current_user_id();
