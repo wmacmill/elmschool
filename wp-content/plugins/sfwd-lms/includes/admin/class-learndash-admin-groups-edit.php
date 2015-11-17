@@ -109,7 +109,7 @@ if (!class_exists('Learndash_Admin_Groups_Edit')) {
 						<?php endforeach; ?>
 					</select>
 				</h2> 
-
+				<div class="learndash-group-leader-admin-section">
 				<h2><?php _e( 'Group Leaders', 'learndash' ); ?> </h2> 
 				<?php 
 					if ( ! empty( $all_group_leaders ) ) : ?>
@@ -144,14 +144,13 @@ if (!class_exists('Learndash_Admin_Groups_Edit')) {
 										<?php endforeach; ?>
 									<select>
 								</td>
-
 							</tr>
 						</table>		
 				<?php else : ?>
 						<?php _e( 'Please add some users with Group Leader role', 'learndash' ); ?>
 				<?php endif; ?>
 				<br><br>
-
+			</div>
 				<h2><?php _e( 'Assign Users', 'learndash' ); ?> </h2>	
 	
 				<label for="search_group"><?php _e( 'Search Users:', 'learndash' ); ?>
