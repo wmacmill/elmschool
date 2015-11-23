@@ -2,8 +2,8 @@
 Contributors: danlester
 Tags: doc, docx, pdf, office, powerpoint, google, document, embed, intranet
 Requires at least: 3.3
-Tested up to: 4.3
-Stable tag: 2.2.5
+Tested up to: 4.4
+Stable tag: 2.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,6 +22,9 @@ PDFs are embedded within your existing WordPress pages so we have full control o
 Even if other plugins use similar technology, they will insert the PDF itself into an 'iframe' which means they do not get the flexibility over sizing.
 
 There is no button for users to download the PDF in the free version of the plugin, but this is available in the Premium versions along with other extra features.
+Hyperlinks in your PDF will only be clickable in the Premium versions.
+
+**Now translation-ready!** Please contribute your translations.
 
 = Usage =
 
@@ -54,6 +57,15 @@ This means that your PDF is unlikely to be shared outside your site where you ha
 
 See our website [wp-pdf.com](http://wp-pdf.com/secure/?utm_source=PDF%20Readme%20Secure&utm_medium=freemium&utm_campaign=Freemium) for more details and purchase options.
 
+= Extra Premium Features =
+
+Download button in the toolbar.
+
+Hyperlinks are fully functional.
+
+Edit page number to jump straight to page.
+
+Removes wp-pdf.com attribution from the toolbar.
 
 == Screenshots ==
 
@@ -111,6 +123,17 @@ See our website [wp-pdf.com](http://wp-pdf.com/secure/?utm_source=PDF%20Readme%2
 
 This is possible only in the Premium version.
 
+= Are Hyperlinks supported? =
+
+The Premium versions allow functioning hyperlinks - both internal links within the document, and links to external websites.
+
+= Can I remove the wp-pdf.com link from the viewer toolbar? =
+
+The easiest way is to upgrade to our Premium version, but if you know how to add entries to your database then you can add a line to the wp_options table
+with option_name 'pdfemb_poweredby' and option_value '1'.
+
+For more information on Premium versions visit [wp-pdf.com](http://wp-pdf.com/?utm_source=PDF%20Readme%20FAQ%20Bottom&utm_medium=freemium&utm_campaign=Freemium).
+
 == Installation ==
 
 Easiest way:
@@ -127,6 +150,15 @@ the Plugins section of your Wordpress admin
 1. Follow the instructions from step 4 above
 
 == Changelog ==
+
+= 2.4 =
+
+Now translation-ready! Your language contributions are welcome.
+Compatibility with WordPress 4.4
+
+Contains information about new features in Premium version:
+Functioning hyperlinks
+Jump to page number
 
 = 2.2.5 =
 
