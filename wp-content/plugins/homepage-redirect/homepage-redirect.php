@@ -12,15 +12,15 @@ Domain Path:
 /* Start Adding Functions Below this Line */
 
 
-function homepage_redirect () {
+function will_homepage_redirect () {
 	//This will check if they're logged in - if they are redirect to the profile page
 	if (is_user_logged_in() && is_front_page() ) {
-		wp_redirect('/profile');
-	exit;
+		wp_redirect('/profile/');
+		exit;
 	}
 }
 
-add_action('wp_head', 'homepage_redirect');
+add_action('template_redirect', 'will_homepage_redirect');
 
 
 
