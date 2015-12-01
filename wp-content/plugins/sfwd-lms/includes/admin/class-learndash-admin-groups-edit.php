@@ -94,7 +94,7 @@ if (!class_exists('Learndash_Admin_Groups_Edit')) {
 						<option value=''><?php _e( '-- Select a Course --', 'learndash' ); ?></option>
 						<?php foreach ( $ld_course_list as $course ) : ?>
 							<?php if ( ! in_array($course->ID, $group_enrolled_courses ) ) : ?>
-								<option value="<?php echo $course->ID; ?>"><?php echo $course->post_title; ?></option>;
+								<option value="<?php echo $course->ID; ?>"><?php echo in_category( 'Full Time', $course->ID ) ? 'Full Time: ' . $course->post_title : $course->post_title; ?></option>;
 							<?php endif; ?>
 						<?php endforeach; ?>
 					</select>
