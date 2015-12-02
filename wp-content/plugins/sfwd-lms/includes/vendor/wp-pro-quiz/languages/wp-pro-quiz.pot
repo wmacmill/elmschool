@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Pro-Quiz 0.28\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-pro-quiz\n"
-"POT-Creation-Date: 2015-10-15 08:40-0500\n"
+"POT-Creation-Date: 2015-11-29 10:50-0600\n"
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -273,13 +273,13 @@ msgstr ""
 
 #: lib/controller/WpProQuiz_Controller_Statistics.php:571
 #: lib/controller/WpProQuiz_Controller_Statistics.php:618
-#: lib/controller/WpProQuiz_Controller_Statistics.php:698
+#: lib/controller/WpProQuiz_Controller_Statistics.php:734
 #: lib/view/WpProQuiz_View_StatisticsAjax.php:606
 msgid "Anonymous"
 msgstr ""
 
 #: lib/controller/WpProQuiz_Controller_Statistics.php:620
-#: lib/controller/WpProQuiz_Controller_Statistics.php:706
+#: lib/controller/WpProQuiz_Controller_Statistics.php:742
 msgid "Deleted user"
 msgstr ""
 

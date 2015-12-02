@@ -242,6 +242,8 @@ function learndash_payment_buttons( $course ) {
 		return '';
 	}
 
+	$button_text = __( 'Take this Course', 'learndash' );
+
 	if ( ! empty( $course_price_type ) && $course_price_type == 'closed' ) {
 
 		if ( empty( $custom_button_url) ) {
@@ -251,7 +253,7 @@ function learndash_payment_buttons( $course ) {
 				$custom_button_url = 'http://'.$custom_button_url;
 			}
 
-			$custom_button = '<a class="btn-join" href="'.$custom_button_url.'" id="btn-join">'.__( 'Take this Course', 'learndash' ).'</a>';
+			$custom_button = '<a class="btn-join" href="'.$custom_button_url.'" id="btn-join">'. $button_text .'</a>';
 		}
 
 		$payment_params = array(
@@ -297,11 +299,33 @@ function learndash_payment_buttons( $course ) {
 		 * 
 		 * @param  string  $paypal_button
 		 */
+		
 		$payment_buttons = apply_filters( 'learndash_payment_button', $paypal_button, $payment_params );
-
+		
 		if ( ! empty( $payment_buttons ) ) {
-			return '<div class="learndash_checkout_buttons">'.$payment_buttons.'</div>';
-		}		
+		
+			if ( ( !empty( $paypal_button ) ) && ( $payment_buttons != $paypal_button ) ) {
+
+				$button = 	'';
+				$button .= 	'<div class="learndash_checkout_buttons">';
+				$button .= 		'<a class="btn-join button learndash_checkout_button" href="#" data-jq-dropdown="#jq-dropdown-1">'. $button_text .'</a>';
+				$button .= 	'</div>';
+			
+				global $dropdown_button;
+				$dropdown_button .= 	'<div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip checkout-dropdown-button">';
+				$dropdown_button .= 		'<ul class="jq-dropdown-menu">';
+				$dropdown_button .= 		'<li>';
+				$dropdown_button .= 			str_replace($button_text, __('Paypal', 'learndash'), $payment_buttons);
+				$dropdown_button .= 		'</li>';
+				$dropdown_button .= 		'</ul>';
+				$dropdown_button .= 	'</div>';
+			
+				return $button;
+				
+			} else {
+				return '<div class="learndash_checkout_buttons">'. $payment_buttons .'</div>';					
+			}
+		}
 	} else {
 		$join_button = '<div class="learndash_join_button"><form method="post">
 							<input type="hidden" value="'.$course->ID.'" name="course_id">
@@ -327,6 +351,16 @@ function learndash_payment_buttons( $course ) {
 
 }
 
+// Yes, global var here. This var is set within the payment button processing. The var will contain HTML for a fancy dropdown
+$dropdown_button = '';
+add_action("wp_footer", 'ld_footer_payment_buttons');
+function ld_footer_payment_buttons() {
+	global $dropdown_button;
+	
+	if (!empty($dropdown_button)) {
+		echo $dropdown_button;
+	}
+}
 
 
 /**

@@ -220,13 +220,13 @@ class WpProQuiz_View_QuestionEdit extends WpProQuiz_View_View {
 						<ul class="answerList">
 							<?php $this->sortingChoice($this->data['sort_answer']); ?>
 						</ul>
-						<input type="button" class="button-primary addAnswer" value="<?php _e('Add new answer', 'wp-pro-quiz'); ?>">
+						<input type="button" class="button-primary addAnswer" data-default-value="<?php echo LEARNDASH_LMS_DEFAULT_ANSWER_POINTS ?>" value="<?php _e('Add new answer', 'wp-pro-quiz'); ?>">
 					</div>
 					<div class="classic_answer">
 						<ul class="answerList">
 							<?php $this->singleMultiCoice($this->data['classic_answer']); ?>	
 						</ul>
-						<input type="button" class="button-primary addAnswer" value="<?php _e('Add new answer', 'wp-pro-quiz'); ?>">
+						<input type="button" class="button-primary addAnswer" data-default-value="<?php echo LEARNDASH_LMS_DEFAULT_ANSWER_POINTS ?>" value="<?php _e('Add new answer', 'wp-pro-quiz'); ?>">
 					</div>
 					<div class="matrix_sort_answer">
 						<p class="description">
@@ -248,7 +248,7 @@ class WpProQuiz_View_QuestionEdit extends WpProQuiz_View_View {
 						<ul class="answerList">
 							<?php $this->matrixSortingChoice($this->data['matrix_sort_answer']); ?>
 						</ul>
-						<input type="button" class="button-primary addAnswer" value="<?php _e('Add new answer', 'wp-pro-quiz'); ?>">
+						<input type="button" class="button-primary addAnswer" data-default-value="<?php echo LEARNDASH_LMS_DEFAULT_ANSWER_POINTS ?>" value="<?php _e('Add new answer', 'wp-pro-quiz'); ?>">
 					</div>
 					<div class="cloze_answer">
 						<?php $this->clozeChoice($this->data['cloze_answer']); ?>

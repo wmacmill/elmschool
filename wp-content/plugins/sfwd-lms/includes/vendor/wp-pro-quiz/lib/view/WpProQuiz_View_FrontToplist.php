@@ -8,7 +8,7 @@ class WpProQuiz_View_FrontToplist extends WpProQuiz_View_View {
 	<h2><?php _e('Leaderboard', 'wp-pro-quiz'); ?>: <?php echo $this->quiz->getName(); ?></h2>
 	<?php } ?>
 	<table class="wpProQuiz_toplistTable">
-		<caption><?php printf(__('maximum of %s points', 'wp-pro-quiz'), $this->points); ?></caption>
+		<caption><?php printf(__('maximum of %s points', 'wp-pro-quiz'), '<span class="wpProQuiz_max_points">'. $this->points .'</span>'); ?></caption>
 		<thead>
 			<tr>
 				<th style="width: 40px;"><?php _e('Pos.', 'wp-pro-quiz'); ?></th>

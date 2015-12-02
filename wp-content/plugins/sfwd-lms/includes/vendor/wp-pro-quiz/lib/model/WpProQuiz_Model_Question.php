@@ -11,7 +11,7 @@ class WpProQuiz_Model_Question extends WpProQuiz_Model_Model {
 	protected $_correctSameText = false;
 	protected $_tipEnabled = false;
 	protected $_tipMsg = '';
-	protected $_points = 1;
+	protected $_points = LEARNDASH_LMS_DEFAULT_QUESTION_POINTS;
 	protected $_showPointsInBox = false;
 	
 	//0.19

@@ -2177,12 +2177,15 @@ jQuery(document).ready(function($) {
 					$('.deleteAnswer').click(methode.answerRemove);
 					
 					$('.addAnswer').click(function() {
+						var default_value = $(this).attr('data-default-value');
+						if (default_value == undefined) default_value = 0;
+						
 						var ul = $(this).siblings('ul');
 						var clone = ul.find('li:eq(0)').clone();
 						
 						clone.find('.wpProQuiz_checkbox').removeAttr('checked');
 						clone.find('.wpProQuiz_text').val('');
-						clone.find('.wpProQuiz_points').val(1);
+						clone.find('.wpProQuiz_points').val(default_value);
 						clone.find('.deleteAnswer').click(methode.answerRemove);
 						clone.find('.addMedia').click(methode.addMediaClick);
 						

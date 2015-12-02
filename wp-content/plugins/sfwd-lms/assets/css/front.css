@@ -130,3 +130,65 @@ ul.responses li.correct p span {
  .wpProQuiz_cloze > input[type=text] {
     max-width: 99%;
  }
+ 
+
+ /* Single Course Payment methods fancy dropdown */
+.checkout-dropdown-button button, 
+.checkout-dropdown-button input[type="submit"] {
+ border-radius: 0 !important;
+ font-size: 16px !important;
+ margin: 0;
+ text-align: center;
+ width: 100%;
+}
+
+.checkout-dropdown-button ul {
+padding: 0 !important;
+}
+
+.checkout-dropdown-button .btn-join,
+.checkout-dropdown-button #btn-join {
+ background-color: #FFFFFF !important;
+ color: #333333 !important;
+}
+
+.checkout-dropdown-button .btn-join:hover,
+.checkout-dropdown-button #btn-join:hover {
+ background-color: #F5F5F5 !important;
+ color: #000000 !important;
+}
+
+/**
+* jQUery Dropdown
+*/
+
+body .jq-dropdown.jq-dropdown-tip:before {
+ position: absolute;
+ top: -7px;
+ left: 9px;
+ content: '';
+ border-left: 7px solid;
+ border-right: 7px solid;
+ border-bottom: 7px solid;
+ border-color: transparent transparent #DDD transparent;
+ display: inline-block;
+ z-index: 99;
+}
+
+body .jq-dropdown.jq-dropdown-tip:after {
+ position: absolute;
+ top: -5px;
+ left: 9px;
+ content: '';
+ border-left: 7px solid;
+ border-right: 7px solid;
+ border-bottom: 7px solid;
+ border-color: transparent transparent white transparent;
+ display: inline-block;
+ z-index: 99;
+}
+
+.jq-dropdown .jq-dropdown-menu, 
+.jq-dropdown .jq-dropdown-panel {
+ border-radius: 0;
+} 

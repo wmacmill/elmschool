@@ -35,6 +35,11 @@ function learndash_the_content_load_resources( $content ) {
 	if ( empty( $post->post_type) ) {
 		return $content;
 	}
+	
+	if (is_singular('sfwd-courses')) {
+		wp_enqueue_script( 'jquery-dropdown-js', LEARNDASH_LMS_PLUGIN_URL . 'assets/js/jquery.dropdown.min.js', array( 'jquery' ) );
+		wp_enqueue_style( 'jquery-dropdown-css', LEARNDASH_LMS_PLUGIN_URL . 'assets/css/jquery.dropdown.min.css' );
+	}
 
 	wp_enqueue_style( 'sfwd_front_css', plugins_url( 'assets/css/front.css', dirname( __FILE__ ) ) );
 	$filepath = locate_template( array( 'learndash/learndash_template_style.css' ) );

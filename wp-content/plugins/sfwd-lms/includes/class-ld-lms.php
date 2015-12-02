@@ -593,6 +593,7 @@ if ( ! class_exists( 'SFWD_LMS' ) ) {
 						'capabilities' => $course_capabilities, 
 						'map_meta_cap' => true,
 					),
+					'options_page_title' => __( 'Lesson Options', 'learndash' ),
 					'fields' => array(
 						'course' => array( 
 							'name' => __( 'Associated Course', 'learndash' ), 
@@ -683,6 +684,7 @@ if ( ! class_exists( 'SFWD_LMS' ) ) {
 						'capabilities' => $course_capabilities, 
 						'map_meta_cap' => true
 					),
+					'options_page_title' => __( 'Quiz Settings', 'learndash' ),
 					'fields' => array(
 						'repeats' => array( 
 							'name' => __( 'Repeats', 'learndash' ), 
@@ -753,6 +755,7 @@ if ( ! class_exists( 'SFWD_LMS' ) ) {
 						'map_meta_cap' => true,
 						'taxonomies' => array( 'post_tag'),
 					),
+					'options_page_title' => __( 'Lesson Topis Options', 'learndash' ),
 					'fields' => array(
 						'course' => array( 
 							'name' => __( 'Associated Course', 'learndash' ), 
@@ -843,6 +846,7 @@ if ( ! class_exists( 'SFWD_LMS' ) ) {
 				'post_type' => 'sfwd-certificates',
 				'template_redirect' => false,
 				'fields' => array(),
+				'options_page_title' => __( 'Certificates Options', 'learndash' ),
 				'default_options' => $cert_defaults,
 				'cpt_options' => array( 
 					'exclude_from_search' => true, 
@@ -861,6 +865,7 @@ if ( ! class_exists( 'SFWD_LMS' ) ) {
 					'slug_name' => 'transactions',
 					'post_type' => 'sfwd-transactions',
 					'template_redirect' => false,
+					'options_page_title' => __( 'Transactions Options', 'learndash' ),
 					'cpt_options' => array( 
 						'supports' => array ( 'title', 'custom-fields' ), 
 						'exclude_from_search' => true, 

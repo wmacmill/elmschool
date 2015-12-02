@@ -2,7 +2,7 @@
 class WpProQuiz_Model_AnswerTypes extends WpProQuiz_Model_Model {
 	protected $_answer = '';
 	protected $_html = false;
-	protected $_points = 1;
+	protected $_points = LEARNDASH_LMS_DEFAULT_ANSWER_POINTS;
 	
 	protected $_correct = false;
 	

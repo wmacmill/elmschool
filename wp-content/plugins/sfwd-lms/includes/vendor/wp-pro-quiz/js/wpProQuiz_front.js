@@ -1841,7 +1841,6 @@
 						quizId: config.quizId
 					}
 				}, function(json) {
-					
 					config.globalPoints = json.globalPoints;
 					config.catPoints = json.catPoints;
 					config.json = json.json;
@@ -1849,6 +1848,8 @@
 					globalElements.quiz.remove();
 					
 					$e.find('.wpProQuiz_quizAnker').after(json.content);
+					
+					$('table.wpProQuiz_toplistTable caption span.wpProQuiz_max_points').html(config.globalPoints);
 					
 					//Reinit globalElements
 					globalElements = {
