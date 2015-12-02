@@ -116,5 +116,122 @@ function make_all_editors_access_all_courses ( $post_id, $user_id ) {
     return $not_editor;
 }
 
-/* Stop Adding Functions Below this Line */
+/*
+* This code sets the default "per page" for groups to 100 so the nested look works 
+*/
+function filter_edit_posts_per_page( $per_page, $post_type ) {
+    global $pagenow;
+
+    if ( ( $pagenow == 'edit.php' ) && ($_GET['post_type'] == 'groups') ) {
+        $per_page = 100;
+    }
+
+    return $per_page;
+};
+        
+// add the filter
+add_filter( 'edit_posts_per_page', 'filter_edit_posts_per_page', 10, 2 );
+
+/*
+* this section is meant to remove full time courses from Franchisee access by restricting group leaders access to them 
+* while also creating a warning message when a franchisee is enrolled in a full time course
+*/
+
+/*modifies the post titles on full time courses*/
+function modify_group_titles_of_courses ( $title, $id ) {
+
+    if ( get_post_type ( $id ) == 'sfwd-courses' && in_category( 'Full Time', $id ) ) {
+        $title = 'Full Time: ' . $title;
+    }
+
+    return $title;
+};
+
+add_filter ( 'the_title', 'modify_group_titles_of_courses', 10, 2 );
+
+
+/*create a pop up warning if assinging full time courses to franchisee*/
+function add_warning_if_franchisee_in_group_with_fulltime_course () {
+    global $pagenow;
+
+    if ( $pagenow == 'post.php' && get_post_type() == 'groups' ) {
+
+        $group_id = get_the_id();
+        $group_enrolled_courses = learndash_group_enrolled_courses ( $group_id );
+        
+        foreach ( $group_enrolled_courses as $course ) {
+            if ( in_category( 'Full Time', $course) )
+        
+            $group_user_ids = learndash_get_groups_user_ids ( $group_id );
+            
+            foreach ( $group_user_ids as $user ) {
+                if ( user_can ( $user , 'subscriber' ) ) {
+                    
+                    ?>
+                    <div class="update-nag notice">
+                      <p><?php _e( '<strong>WARNING: </strong>You have enrolled a full time course in a group that contains franchisees. Please ensure you mean to do this as full time courses contain content that is not geared toward franchisees.', 'my_plugin_textdomain' );?></p>
+                    </div>
+                    <?php        
+
+                    return;
+                }
+            }
+        }
+    
+    }
+}
+
+
+add_action ( 'admin_notices', 'add_warning_if_franchisee_in_group_with_fulltime_course' );
+
+/*this will become a catch all for admins to see which ones have them enrolled
+function add_admin_error_for_groups () {
+    if ( get_post_type () == 'groups' && current_user_can ( 'edit_others_groups' ) ) {
+        
+        $group_id = get_the_id();
+        $group_enrolled_courses = learndash_group_enrolled_courses ( $group_id );
+        
+        foreach ( $group_enrolled_courses as $course ) {
+            if ( in_category( 'Full Time', $course) )
+        
+            $group_user_ids = learndash_get_groups_user_ids ( $group_id );
+            
+            foreach ( $group_user_ids as $user ) {
+                if ( user_can ( $user , 'subscriber' ) ) {
+                    
+                    ?>
+                    <div class="update-nag notice">
+                      <p><?php _e( '<strong>WARNING: </strong>The following groups have franchisees enrolled in Full Time Courses: ', 'my_plugin_textdomain' ); echo get_the_title($group_id);?></p>
+                    </div>
+                    <?php        
+
+                    //return;
+                }
+            }
+        }
+    
+    }
+
+}
+
+add_action ( 'admin_notices', 'add_admin_error_for_groups' );
+*/
+
+//this specifically removes the "Full Time" courses from the dropdown on the back end for anyone who can't write a course
+function remove_full_time_courses_from_group_leaders () {
+    global $pagenow;
+
+    if ( $pagenow == 'post.php' && get_post_type() == 'groups' && !current_user_can ( 'publish_courses' ) ) {
+        wp_enqueue_script(
+            'ld-group-ft-course-remove', // name your script so that you can attach other scripts and de-register, etc.
+            plugins_url( '/js/ld-group-ft-course-remove.js', __FILE__ ), // this is the location of your script file
+            array('jquery') // this array lists the scripts upon which your script depends
+        );
+    }
+}
+
+add_action ( 'admin_footer', 'remove_full_time_courses_from_group_leaders', 9999 );
+
+/******* Stop Adding Functions Below this Line *************/
+
 ?>
