@@ -3,7 +3,7 @@ Contributors: danlester
 Tags: doc, docx, pdf, office, powerpoint, google, document, embed, intranet
 Requires at least: 3.3
 Tested up to: 4.4
-Stable tag: 2.4
+Stable tag: 2.4.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ Upload PDFs and embed them straight into your site - just like adding images! PD
 
 The plugin has a unique method for embedding PDFs, using Javascript only, and _not_ using iframes or third-party services. This gives a lot of flexibility over the appearance of your document.
 
-The viewer currently has Next/Prev buttons to page through the document, and zoom buttons.
+The free viewer currently has Next/Prev buttons to page through the document, and zoom buttons.
 
 PDFs are embedded within your existing WordPress pages so we have full control over appearance, and all Javascript and other files are served by your own server
 (not by Google or any other third-party who may not be able to guarantee their own reliability).
@@ -38,6 +38,18 @@ You can change the default appearance - e.g. width, and toolbar position/appeara
 
 To override your site-wide defaults on an individual embed, see the [Plugin Instructions](http://wp-pdf.com/free-instructions/?utm_source=PDF%20Readme%20Instructions&utm_medium=freemium&utm_campaign=Freemium) for information about sizing options plus other ways to customize the shortcodes.
 
+> **Extra Premium Features**
+>
+> * Download button in the toolbar.
+> * Hyperlinks are fully functional.
+> * Edit page number to jump straight to page.
+> * Track number of downloads and views.
+> * Removes wp-pdf.com attribution from the toolbar.
+> * Mobile-friendly.
+> * Secure option - difficult to download original PDF.
+>
+> See [wp-pdf.com](http://wp-pdf.com/?utm_source=PDF%20Readme%20Box&utm_medium=freemium&utm_campaign=Freemium) for details!
+
 = Mobile-friendly embedding using PDF Embedder Premium =
 
 The free version of the plugin should work on most mobile browsers, but it will be cumbersome for users with small screens - it is difficult to position the document entirely within the screen, and your users' fingers may catch the entire browser page when they're trying only to move about the document...
@@ -56,16 +68,6 @@ download or print the original PDF document.
 This means that your PDF is unlikely to be shared outside your site where you have no control over who views, prints, or shares it.
 
 See our website [wp-pdf.com](http://wp-pdf.com/secure/?utm_source=PDF%20Readme%20Secure&utm_medium=freemium&utm_campaign=Freemium) for more details and purchase options.
-
-= Extra Premium Features =
-
-Download button in the toolbar.
-
-Hyperlinks are fully functional.
-
-Edit page number to jump straight to page.
-
-Removes wp-pdf.com attribution from the toolbar.
 
 == Screenshots ==
 
@@ -150,6 +152,11 @@ the Plugins section of your Wordpress admin
 1. Follow the instructions from step 4 above
 
 == Changelog ==
+
+= 2.4.1 =
+
+Code placeholders for tracking views/downloaders - available only in premium versions.
+Updated languages.
 
 = 2.4 =
 

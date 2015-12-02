@@ -4,7 +4,7 @@
  * Plugin Name: PDF Embedder
  * Plugin URI: http://wp-pdf.com/
  * Description: Embed PDFs straight into your posts and pages, with flexible width and height. No third-party services required. 
- * Version: 2.4
+ * Version: 2.4.1
  * Author: Dan Lester
  * Author URI: http://wp-pdf.com/
  * License: GPL3
@@ -15,7 +15,7 @@ require_once( plugin_dir_path(__FILE__).'/core/core_pdf_embedder.php' );
 
 class pdfemb_basic_pdf_embedder extends core_pdf_embedder {
 
-	protected $PLUGIN_VERSION = '2.4';
+	protected $PLUGIN_VERSION = '2.4.1';
 	
 	protected function useminified() {
 		/* using-minified */ return true;
@@ -77,7 +77,21 @@ class pdfemb_basic_pdf_embedder extends core_pdf_embedder {
 		<span>
         <label for="pdfemb_download" class="checkbox plain"><?php esc_html_e('Check to provide PDF download button on toolbar - only available in premium versions', 'pdf-embedder'); ?></label>
         </span>
-		<?php
+
+		<br class="clear" />
+		<br class="clear" />
+
+		<label for="pdfemb_tracking" class="textinput"><?php esc_html_e('Track Views/Downloads', 'pdf-embedder'); ?></label>
+		<span>
+        <label for="pdfemb_tracking" class="checkbox plain"><?php esc_html_e('Check to count number of views and downloads - only available in premium versions', 'pdf-embedder'); ?></label>
+        </span>
+
+        <br class="clear" />
+
+        <p><?php printf(__('Find out more about <a href="%s" target="_blank">Premium Versions of the plugin on our website</a>.', 'pdf-embedder'),
+                'http://wp-pdf.com/premium/?utm_source=PDF%20Settings%20PremiumFindOut&utm_medium=freemium&utm_campaign=Freemium'); ?></p>
+
+        <?php
 	}
 	
 	protected function pdfemb_mobilesection_text()
@@ -114,6 +128,7 @@ class pdfemb_basic_pdf_embedder extends core_pdf_embedder {
                     <li>Download Button</li>
                     <li>Working Hyperlinks</li>
                     <li>Jump to page number</li>
+					<li>Track views and downloads</li>
                     <li>Remove link to wp-pdf.com</li>
                     <li>Secure - prevent downloads</li>
                 </ul>
@@ -136,6 +151,17 @@ class pdfemb_basic_pdf_embedder extends core_pdf_embedder {
 	protected function get_translation_array() {
 		return array_merge(parent::get_translation_array(),
 				Array('poweredby' => get_site_option(self::$poweredby_optionname, false)));
+	}
+
+	public function pdfemb_attachment_fields_to_edit($form_fields, $post) {
+		if ($post->post_mime_type == 'application/pdf') {
+			$form_fields['pdfemb-upgrade'] = array(
+					'input' => 'html',
+					'html' => sprintf(__('Track downloads and views with <a href="%s" target="_blank">PDF Embedder Premium</a>','pdf-embedder'),
+                        'http://wp-pdf.com/premium/?utm_source=Media%20Library&utm_medium=freemium&utm_campaign=Freemium'),
+					'label' => __( 'Downloads/Views', 'pdf-embedder' ));
+		}
+		return $form_fields;
 	}
 
 	// AUX

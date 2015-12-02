@@ -507,8 +507,17 @@ class core_pdf_embedder {
 		add_filter( 'media_send_to_editor', array($this, 'pdfemb_media_send_to_editor'), 20, 3 );
 		
 		register_setting( $this->get_options_pagename(), $this->get_options_name(), Array($this, 'pdfemb_options_validate') );
+
+		add_filter( 'attachment_fields_to_edit', array($this, 'pdfemb_attachment_fields_to_edit'), 10, 2 );
+
+		wp_enqueue_style( 'pdfemb_admin_other_css', $this->my_plugin_url().'css/pdfemb-admin-other.css' );
 	}
-	
+
+	// Override in Basic and Commercial
+	public function pdfemb_attachment_fields_to_edit($form_fields, $post) {
+		return $form_fields;
+	}
+
 	// Override in Premium
 	public function pdfemb_init() {
 	}
