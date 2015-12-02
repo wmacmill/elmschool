@@ -1,5 +1,16 @@
 *** Canvas Changelog ***
 
+2015.11.20 - version 5.9.14
+ * Fix - Fix comment display.
+   comments.php
+
+ * Tweak - Additional styling for new elements in Sensei 1.9
+   includes/integrations/sensei/css/sensei.css
+
+2015.11.02 - version 5.9.13
+ * Tweak - Optimizes the woothemes.png file using grunt-contrib-imagemin.
+   images/woothemes.png
+
 2015.09.29 - version 5.9.12
  * Fix - Fixes undefined PHP notice.
    includes/integrations/sensei/template.php
