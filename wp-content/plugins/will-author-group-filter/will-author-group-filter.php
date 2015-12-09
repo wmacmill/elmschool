@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action('init', 'learndash_groups_add_author');
 
 function learndash_groups_add_author() {
-	add_post_type_support( 'groups', 'author' );
+	add_post_type_support( 'groups' , 'author' );
 	remove_post_type_support ( 'groups', 'menu_order' );
 }
 
