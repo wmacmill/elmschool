@@ -254,6 +254,10 @@ if ( ! function_exists( 'wooframework_wc_placeholder_img_src' ) ) {
 		$settings = array( 'placeholder_url' => get_template_directory_uri() . '/images/wc-placeholder.gif' );
 		$settings = woo_get_dynamic_values( $settings );
 
+		if( $settings['placeholder_url'] == '' ) {
+			$settings['placeholder_url'] = $src;
+		}
+
 		return esc_url( $settings['placeholder_url'] );
 	} // End wooframework_wc_placeholder_img_src()
 }

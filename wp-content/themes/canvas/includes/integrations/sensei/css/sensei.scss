@@ -10,19 +10,19 @@
 
 // General Sensei elements
 .clearfix {
-      &:before, &:after {
-          content: "";
-          display: table;
-      }
-      &:after {
-          clear: both;
-      }
+			&:before, &:after {
+					content: "";
+					display: table;
+			}
+			&:after {
+					clear: both;
+			}
 }
 
 .sensei-pagination{
-  .page-numbers li{
-    display: inline-block;
-  }
+	.page-numbers li{
+		display: inline-block;
+	}
 }
 
 .meter {
@@ -204,33 +204,33 @@ a.sensei-certificate-link {
 }
 
 .sensei-ordering {
-  margin: 0 0 1em 0;
+	margin: 0 0 1em 0;
 }
 
 .sensei-course-filters {
-  margin: 0 0 2em 0;
-  padding: 0;
-    li {
-      float: left;
-      list-style: none;
-        a {
-          display: block;
-          border: 2px solid #ddd;
-          margin-right: 5px;
-          padding: 0.5em 1em;
-          background: #eee;
-            &:hover {
-              background: #fff;
-              text-decoration: none;
-              border-color: #ccc;
-            }
-            &.active {
-              border-color: #ddd;
-              background: #fff;
-              cursor: default;
-            }
-        }
-    }
+	margin: 0 0 2em 0;
+	padding: 0;
+		li {
+			float: left;
+			list-style: none;
+				a {
+					display: block;
+					border: 2px solid #ddd;
+					margin-right: 5px;
+					padding: 0.5em 1em;
+					background: #eee;
+						&:hover {
+							background: #fff;
+							text-decoration: none;
+							border-color: #ccc;
+						}
+						&.active {
+							border-color: #ddd;
+							background: #fff;
+							cursor: default;
+						}
+				}
+		}
 }
 
 .course-container {
@@ -615,6 +615,13 @@ a.sensei-certificate-link {
 		.view-quiz {
 			float: right;
 		}
+		.next-lesson {
+			text-decoration: none;
+			float:right;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 }
 
@@ -646,10 +653,10 @@ a.sensei-certificate-link {
 
 /* RESPOND */
 @media only screen and (min-width: 768px)  {
-  /* Course Archives */
-  .sensei-ordering {
-    text-align: right;
-    float: right;
-    margin: 0;
-  }
+	/* Course Archives */
+	.sensei-ordering {
+		text-align: right;
+		float: right;
+		margin: 0;
+	}
 }

@@ -1,5 +1,11 @@
 *** Canvas Changelog ***
 
+2015.12.14 - version 5.9.15
+ * Fix - Fixes the WooCommerce placeholder display.
+   includes/integrations/woocommerce/template.php
+ * Fix - fixes security issue for anonymous functions.
+   includes/woo-meta/classes/woo-meta.class.php
+
 2015.11.20 - version 5.9.14
  * Fix - Fix comment display.
    comments.php

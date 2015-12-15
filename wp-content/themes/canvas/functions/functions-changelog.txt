@@ -1,5 +1,18 @@
 *** WooThemes Framework Changelog ***
 
+2015.12.10 - version 6.2.3
+ * Fix - woo_breadcrumbs() WP 4.4 compatibility fix for get_the_terms() on pages.
+   admin-functions.php
+
+2015.11.09 - version 6.2.2
+ * Fix - Ninja forms conflict for get_current_screen
+   classes/class-wf-meta.php
+ * Deprecated - removal of deprecated JS files
+   js/jquery.maskedinput.js,
+   js/nicEdit.js,
+   js/php.js,
+   js/tumblog-ajax.js
+
 2015.10.02 - version 6.2.1
  * Fix - woo_image() override filter added 'woo_image_override'
    admin-functions.php

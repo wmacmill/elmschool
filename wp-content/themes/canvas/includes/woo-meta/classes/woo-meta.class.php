@@ -355,17 +355,29 @@ class Woo_Meta {
 						_doing_it_wrong( __METHOD__, 'Attempting to add invalid filter: ' . $k, 'woothemes' );
 						continue;
 					}
-					$new_string = $v;
-
-					$new_string = str_replace( '\"', '"', $new_string );
-
-					$content = '';
-
-					add_filter( $k, create_function( "$content", "return wp_kses_post( '$new_string' );" ), 12 );
+					add_filter( $k, array( $this, 'do_filter' ), 12 );
 				}
 			}
 		}
 	} // End create_filters()
+
+	/**
+	 * Run the desired custom filter.
+	 * @access public
+	 * @param  mixed $value Filter value.
+	 * @return mixed        Modified filter value.
+	 */
+	public function do_filter( $value ) {
+		$current_filter = current_filter();
+
+		// TODO: helper function for this would be nice
+		$stored_meta = get_option( $this->plugin_prefix . 'stored_meta' );
+		$new_value = isset( $stored_meta[ $current_filter ] ) ? $stored_meta[ $current_filter ] : '';
+
+		$new_value = stripcslashes( $new_value );
+
+		return wp_kses_post( $new_value );
+	}
 
 	/**
 	 * Make sure a specified meta key is valid.

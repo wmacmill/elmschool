@@ -2544,7 +2544,7 @@ function woo_breadcrumbs( $args = array() ) {
 		}
 
 		/* Display terms for specific post type taxonomy if requested. */
-		if ( isset( $args["singular_{$post_type}_taxonomy"] ) ) {
+		if ( isset( $args["singular_{$post_type}_taxonomy"] ) && $post_type != 'page' ) {
 			$raw_terms = get_the_terms( $post_id, $args["singular_{$post_type}_taxonomy"] );
 
 			if ( is_array( $raw_terms ) && 0 < count( $raw_terms ) && ! is_wp_error( $raw_terms ) ) {

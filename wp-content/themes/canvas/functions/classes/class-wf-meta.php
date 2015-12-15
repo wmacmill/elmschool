@@ -137,6 +137,10 @@ class WF_Meta {
 	public function meta_box_save ( $post_id ) {
 		global $post, $messages;
 
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+
 		$screen = get_current_screen();
 
 		if ( 'nav-menus' != $screen->base ) {
