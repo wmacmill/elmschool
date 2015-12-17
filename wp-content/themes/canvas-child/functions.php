@@ -264,6 +264,128 @@ function modify_post_mime_types( $post_mime_types ) {
 // Add Filter Hook
 add_filter( 'post_mime_types', 'modify_post_mime_types' );
 
+/*
+* In this section we're doing a few things. 
+* 1. Adding support for categories to topics
+* 2. Giving permission to edit "Quebec" category courses if they are a particular user
+* 3. Cleaning up the admin backend for those peopel that get the new permissions so they only have access to what's needed
+*
+*/
+add_action('init','will_add_topic_support_for_categories', 15);
+
+function will_add_topic_support_for_categories () {
+    register_taxonomy_for_object_type ( 'category', 'sfwd-topic' );
+}
+
+
+function will_give_permissions( $allcaps, $cap, $args ) {
+   $user_id = get_current_user_id();
+   $post = $args[2];//get_post( $args[2] );
+   $post_type = get_post_type ( $post );
+
+
+   if ( $user_id = 397 && in_category ( 'quebec' , $post ) ) {
+        
+        $allcaps[$cap[0]] = true;
+        
+        return $allcaps;            
+    }
+
+    return $allcaps;
+
+}
+add_filter( 'user_has_cap', 'will_give_permissions', 0, 3 ); 
+
+function will_remove_menus_for_user_permissions () {
+    $user_ID = get_current_user_id();
+    
+    if ( $user_ID == 397 ) {
+        remove_menu_page( 'jetpack' );
+        //remove_menu_page( 'index.php' );                  //Dashboard
+        remove_menu_page( 'edit.php' );                   //Posts
+        remove_menu_page( 'upload.php' );                 //Media
+        remove_menu_page( 'edit.php?post_type=page' );    //Pages
+        remove_menu_page( 'edit-comments.php' );          //Comments
+        remove_menu_page( 'themes.php' );                 //Appearance
+        remove_menu_page( 'plugins.php' );                //Plugins
+        remove_menu_page( 'users.php' );                  //Users
+        remove_menu_page( 'tools.php' );                  //Tools
+        remove_menu_page( 'options-general.php' );        //Settings
+        remove_menu_page( 'link-manager.php' );
+        remove_menu_page( 'edit.php?post_type=acf' );
+        remove_menu_page( 'admin.php?page=branding' ); 
+        remove_menu_page( 'edit.php?post_type=sfwd-assignment' ); 
+        remove_submenu_page('edit.php?post_type=sfwd-courses', 'edit.php?post_type=sfwd-assignment' );
+      
+
+        echo '<style type="text/css">
+        .row-actions {display:none !important;}
+        #toplevel_page_branding {display:none !important;}
+        #toplevel_page_wpbi {display:none !important;}
+        #toplevel_page_gmw-add-ons {display:none !important;}
+        .nav-tab-sfwd-quiz {display:none !important;}
+        .nav-tab-edit-sfwd-quiz {display:none !important;}
+        .nav-tab-admin_page_ldAdvQuiz_globalSettings {display:none !important;}
+        .nav-tab-admin_page_ldAdvQuiz {display:none !important;}
+        .nav-tab-admin_page_ldAdvQuiz_statistics {display:none !important;}
+        .nav-tab-admin_page_ldAdvQuiz_toplist {display:none !important;}
+        #woothemes-settings {display:none !important;}
+        </style>';     
+
+        $post_type = get_post_type ( $post );
+        if ( $post_type != 'sfwd-quiz' ) {
+            echo '<style type="text/css">
+            .nav-tab-wrapper {display:none !important;}
+            </style>';
+        }     
+    }
+}
+
+add_action( 'admin_menu', 'will_remove_menus_for_user_permissions', 999 );
+
+function will_remove_support_for_this_guy () {
+    $user_ID = get_current_user_id();
+
+    if ( $user_ID == 397 ) {
+        $remove_things = array (
+                    'sfwd-topic',
+                    'sfwd-courses',
+                    'sfwd-quiz',
+                    'sfwd-lessons',
+                );
+
+            foreach ( $remove_things as $remove_thing ) {
+                remove_post_type_support ( $remove_thing , 'author' );
+                remove_post_type_support ( $remove_thing , 'comments' );
+            }
+    }
+
+}
+
+add_action ( 'admin_init' , 'will_remove_support_for_this_guy', 10 );
+
+
+function wpcodex_set_capabilities() {
+    $user_ID = get_current_user_id();
+    if( $user_ID == 397 ) {
+        $user = new WP_user ( $user_ID );
+                $caps = array(
+                    'read_assignment',
+                    'edit_assignment',
+                    'edit_assignments',
+                    'publish_assignments',
+                    'edit_published_assignments',
+                    'edit_groups',
+                    'group_leader',
+                );
+                
+                foreach ( $caps as $cap ) {
+                    $user->remove_cap ($cap); 
+                }
+    }
+}
+add_action( 'init', 'wpcodex_set_capabilities', 1000 );
+
 
 /**
 * This is the end. Ensure the file closes with a php tag ?>
