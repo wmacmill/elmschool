@@ -271,6 +271,7 @@ add_filter( 'post_mime_types', 'modify_post_mime_types' );
 * 3. Cleaning up the admin backend for those peopel that get the new permissions so they only have access to what's needed
 *
 */
+
 add_action('init','will_add_topic_support_for_categories', 15);
 
 function will_add_topic_support_for_categories () {
@@ -319,7 +320,6 @@ function will_remove_menus_for_user_permissions () {
       
 
         echo '<style type="text/css">
-        .row-actions {display:none !important;}
         #toplevel_page_branding {display:none !important;}
         #toplevel_page_wpbi {display:none !important;}
         #toplevel_page_gmw-add-ons {display:none !important;}
@@ -332,12 +332,21 @@ function will_remove_menus_for_user_permissions () {
         #woothemes-settings {display:none !important;}
         </style>';     
 
+        $post = get_the_ID();
         $post_type = get_post_type ( $post );
+
         if ( $post_type != 'sfwd-quiz' ) {
             echo '<style type="text/css">
             .nav-tab-wrapper {display:none !important;}
             </style>';
-        }     
+        }
+
+        //this isn't working for some reason - take it out for now and deal with it
+        /*if ( $post_type != 'sfwd-courses'  ) {
+            echo '<style type="text/css"> 
+            .row-actions {display:none !important;}
+            </style>';
+        }*/
     }
 }
 
@@ -377,6 +386,8 @@ function wpcodex_set_capabilities() {
                     'edit_published_assignments',
                     'edit_groups',
                     'group_leader',
+                    'delete_course',
+                    'delete_courses',
                 );
                 
                 foreach ( $caps as $cap ) {
