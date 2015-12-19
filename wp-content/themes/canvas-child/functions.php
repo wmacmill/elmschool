@@ -285,7 +285,7 @@ function will_give_permissions( $allcaps, $cap, $args ) {
    $post_type = get_post_type ( $post );
 
 
-   if ( $user_id = 397 && in_category ( 'quebec' , $post ) ) {
+   if ( $user_id === 397 && in_category ( 'quebec' , $post ) ) {
         
         $allcaps[$cap[0]] = true;
         
