@@ -233,6 +233,11 @@ ul.nav li.current_page_item a {
 }
 
 
+/*styling to fix the images on the the drag and drop tests with images*/
+
+.wpProQuiz_maxtrixSortText > img {
+  width: 100% important!;
+}
 
 /*
 *
