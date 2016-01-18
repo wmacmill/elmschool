@@ -13,10 +13,12 @@
  *   $urls
  *   $username
  *   $reason
+ *   $auto_show
  */
 
 $url_upgrade = $urls->remote_site . '#pricing';
 $url_logout = $urls->dashboard_url . '&clear_key=1';
+$url_devman = WPMUDEV_Dashboard::$site->plugin_url . '/image/devman.svg';
 
 switch ( $reason ) {
 	case 'free':
@@ -32,31 +34,39 @@ switch ( $reason ) {
 		break;
 }
 
+$classes = array();
+$classes[] = 'small';
+
+if ( $auto_show ) {
+	$classes[] = 'no-close';
+	$classes[] = 'auto-show';
+}
+
 ?>
-<dialog id="test" class="auto-show small no-close" title="<?php _e( 'Upgrade Membership', 'wpmudev' ); ?>">
+<dialog id="upgrade" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" title="<?php esc_html_e( 'Upgrade Membership', 'wpmudev' ); ?>">
 <div class="dialog-upgrade">
 	<p>
-	<?php printf( $reason_text, $username ); ?>
+	<?php printf( $reason_text, esc_html( $username ) ); ?>
 	</p>
 	<ul class="listing bold">
-	<li><?php _e( 'Access to 140+ Plugins & Upfront Themes', 'wpmudev' ); ?></li>
-	<li><?php _e( 'Access to Security, Backups, SEO and Performance Services', 'wpmudev' ); ?></li>
-	<li><?php _e( '24/7 Expert WordPress Support', 'wpmudev' ); ?></li>
+	<li><?php esc_html_e( 'Access to 140+ Plugins & Upfront Themes', 'wpmudev' ); ?></li>
+	<li><?php esc_html_e( 'Access to Security, Backups, SEO and Performance Services', 'wpmudev' ); ?></li>
+	<li><?php esc_html_e( '24/7 Expert WordPress Support', 'wpmudev' ); ?></li>
 	</ul>
 	<p>
 	<a href="<?php echo esc_url( $url_upgrade ); ?>" class="block button button-big button-cta" target="_blank">
-		<?php _e( 'Upgrade Membership', 'wpmudev' ); ?>
+		<?php esc_html_e( 'Upgrade Membership', 'wpmudev' ); ?>
 	</a>
 	</p>
 	<div class="dev-man">
-		<img src="<?php echo WPMUDEV_Dashboard::$site->plugin_url ?>/image/devman.svg" />
+		<img src="<?php echo esc_url( $url_devman ); ?>" />
 	</div>
-	<?php if ( $is_logged_in ) : ?>
+	<?php if ( $auto_show && $is_logged_in ) : ?>
 	<p class="below-dev-man">
 		<?php
 		printf(
-			__( 'or %slogout%s', 'wpmudev' ),
-			'<a href="' . $url_logout . '">',
+			esc_html__( 'or %slogout%s', 'wpmudev' ),
+			'<a href="' . esc_url( $url_logout ) . '">',
 			'</a>'
 		);
 		?>

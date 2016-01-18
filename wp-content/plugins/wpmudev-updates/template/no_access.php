@@ -18,4 +18,4 @@
 </div>
 
 <?php
-exit;	  			 				 	   	 
+exit;

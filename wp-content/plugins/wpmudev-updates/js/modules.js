@@ -56,8 +56,9 @@ jQuery(function initModules() {
 
 		// Parse the local routes after a short delay.
 		window.setTimeout(function(){
-			if ('pid' === WDP.localRoutes.action) {
-				showProjectInfo(WDP.localRoutes.param);
+			switch (WDP.localRoutes.action) {
+				case 'pid':    showProjectInfo(WDP.localRoutes.param); break;
+				case 'update': showUpdateInfo(WDP.localRoutes.param); break;
 			}
 		}, 20);
 
@@ -105,8 +106,9 @@ jQuery(function initModules() {
 
 		// Parse the local routes after a short delay.
 		window.setTimeout(function(){
-			if ('pid' === WDP.localRoutes.action) {
-				showProjectInfo(WDP.localRoutes.param);
+			switch (WDP.localRoutes.action) {
+				case 'pid':    showProjectInfo(WDP.localRoutes.param); break;
+				case 'update': showUpdateInfo(WDP.localRoutes.param); break;
 			}
 		}, 20);
 

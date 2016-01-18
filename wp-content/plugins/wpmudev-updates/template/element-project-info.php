@@ -30,10 +30,19 @@ $show_badge = false;
 $target = '_self';
 
 if ( ! $res->is_installed ) {
-	// Plugin/Theme is not installed yet.
-	// Possible Actions: Install, Download, Incompatible
+	/*
+	 * Plugin/Theme is not installed yet.
+	 * Possible Actions: Install, Download, Incompatible, Upgrade Membership.
+	 */
 
-	if ( $res->is_compatible && $res->url->install ) {
+	if ( ! $res->is_licensed ) {
+		$action = __( 'Upgrade', 'wpmudev' );
+		$action_url = '#upgrade';
+		$action_class = 'button button-cta';
+		$action_attr = array(
+			'rel="dialog"',
+		);
+	} elseif ( $res->is_compatible && $res->url->install ) {
 		$action = __( 'Install', 'wpmudev' );
 		$action_ajax = 'project-install';
 		$action_url = $res->url->install;
@@ -49,8 +58,10 @@ if ( ! $res->is_installed ) {
 		$action_class = 'disabled';
 	}
 } else {
-	// Plugin/Theme is installed.
-	// Possible Actions: Update, Activate, Deactivate, Install Upfront
+	/*
+	 * Plugin/Theme is installed.
+	 * Possible Actions: Update, Activate, Deactivate, Install Upfront.
+	 */
 
 	// 1. Check if the project can be updated.
 	if ( $res->has_update ) {
@@ -63,9 +74,8 @@ if ( ! $res->is_installed ) {
 		} else {
 			$action_class .= ' disabled';
 		}
-	}
-	// 2.a Deactivate an active plugin (not for themes!)
-	elseif ( $res->is_active ) {
+	} elseif ( $res->is_active ) {
+		// 2.a Deactivate an active plugin (not for themes!)
 		if ( 'plugin' == $res->type ) {
 			if ( $res->is_network_admin ) {
 				$action = __( 'Network Deactivate', 'wpmudev' );
@@ -79,16 +89,14 @@ if ( ! $res->is_installed ) {
 				$action_class .= ' disabled';
 			}
 		} elseif ( 'theme' == $res->type ) {
-			if ( $res->is_network_admin ) {
-				// No change for active themes in network admin mode.
-			} else {
+			if ( ! $res->is_network_admin ) {
 				// Show a badge for the active theme.
 				$show_badge = 'active-theme';
 			}
+			// Note: No change for active themes in network admin mode.
 		}
-	}
-	// 2.b Activate an inactive project (theme or plugin)
-	else {
+	} else {
+		// 2.b Activate an inactive project (theme or plugin)
 		if ( 'plugin' == $res->type ) {
 			if ( $res->is_network_admin ) {
 				$action = __( 'Network Activate', 'wpmudev' );
@@ -101,9 +109,7 @@ if ( ! $res->is_installed ) {
 				$action_class .= ' disabled';
 			}
 		} elseif ( 'theme' == $res->type ) {
-			if ( $res->is_network_admin ) {
-				// Themes can only be activated in single-site mode.
-			} else {
+			if ( ! $res->is_network_admin ) {
 				$action = __( 'Activate', 'wpmudev' );
 				$action_ajax = 'project-activate';
 
@@ -111,6 +117,7 @@ if ( ! $res->is_installed ) {
 					$action_class .= ' disabled';
 				}
 			}
+			// Note: Themes can only be activated in single-site mode.
 		}
 	}
 }
@@ -165,6 +172,7 @@ if ( $res->url->instructions ) {
 
 $attr = array(
 	'project' => $pid,
+	'licensed' => intval( $res->is_licensed ),
 	'installed' => intval( $res->is_installed ),
 	'hasupdate' => intval( $res->has_update ),
 	'incompatible' => intval( $res->is_compatible ),
@@ -177,7 +185,7 @@ $attr = array(
 );
 
 foreach ( $res->tags as $tid => $tag ) {
-	$attr['tag-' . $tid] = 1;
+	$attr[ 'tag-' . $tid ] = 1;
 }
 $url_spinner = WPMUDEV_Dashboard::$site->plugin_url . 'image/spin-grey.gif';
 if ( $action_ajax && empty( $action_url ) ) {
@@ -189,31 +197,33 @@ if ( $action_ajax && empty( $action_url ) ) {
 	id="project-<?php echo esc_attr( $pid ); ?>"
 	<?php
 	foreach ( $attr as $key => $value ) {
-		printf( 'data-%s="%s" ', $key, esc_attr( $value ) );
+		printf( 'data-%s="%s" ', esc_attr( $key ), esc_attr( $value ) );
 	}
 	?>
 >
 <div class="project-inner">
 	<div class="show-info">
-	<h4><?php echo $res->name; ?></h4>
+	<h4><?php echo esc_html( $res->name ); ?></h4>
 	<div class="project-image">
-		<span class="img" style="background-image: url(<?php echo esc_url( $res->url->thumbnail ); ?>), url(<?php echo $url_spinner; ?>);">
+		<span class="img" style="background-image: url(<?php echo esc_url( $res->url->thumbnail ); ?>), url(<?php echo esc_url( $url_spinner ); ?>);">
 		</span>
 	</div>
 	</div>
 	<div class="project-info">
-		<?php echo $res->info; ?>
+		<?php echo esc_html( $res->info ); ?>
 	</div>
 	<div class="project-action">
 		<a
 		class="button block <?php echo esc_attr( $action_class ); ?>"
 		<?php if ( $action_ajax ) : ?>
 		data-action="<?php echo esc_attr( $action_ajax ); ?>"
-		data-hash="<?php echo wp_create_nonce( $action_ajax ); ?>"
+		data-hash="<?php echo esc_attr( wp_create_nonce( $action_ajax ) ); ?>"
 		<?php endif; ?>
-		<?php if ( $action_attr && is_array( $action_attr ) ) {
+		<?php
+		if ( $action_attr && is_array( $action_attr ) ) {
 			echo implode( ' ', $action_attr );
-		} ?>
+		}
+		?>
 		href="<?php echo esc_url( $action_url ); ?>"
 		target="<?php echo esc_attr( $target ); ?>"
 		>

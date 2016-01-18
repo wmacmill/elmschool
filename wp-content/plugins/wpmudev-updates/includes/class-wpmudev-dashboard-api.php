@@ -326,7 +326,7 @@ class WPMUDEV_Dashboard_Api {
 			)
 		);
 
-		return $res;
+		return apply_filters( 'wpmudev_dashboard_get_membership_data', $res );
 	}
 
 	/**
@@ -820,10 +820,8 @@ class WPMUDEV_Dashboard_Api {
 			if ( ! $item->is_installed ) { continue; }
 			if ( ! $item->has_update ) { continue; }
 
-			// Handle silent background updates by the WPMUDEV plugin.
-			if ( WPMUDEV_Dashboard::$site->maybe_auto_upgrade( $item ) ) {
-				continue;
-			}
+			// Schedule auto-upgrade if that feature is enabled.
+			WPMUDEV_Dashboard::$site->maybe_auto_upgrade( $item );
 
 			/**
 			 * Allows excluding certain projects from update notifications.
@@ -989,7 +987,7 @@ class WPMUDEV_Dashboard_Api {
 		if ( empty( $_SERVER['HTTP_WDP_AUTH'] ) ) {
 			if ( $die_on_failure ) {
 				wp_send_json_error(
-					array( 'message' => 'Missing authentication header', 's' => $_SERVER )
+					array( 'message' => 'Missing authentication header' )
 				);
 			} else {
 				return false;

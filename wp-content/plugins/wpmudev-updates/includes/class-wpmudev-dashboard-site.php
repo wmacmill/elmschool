@@ -153,16 +153,6 @@ class WPMUDEV_Dashboard_Site {
 			array( $this, 'process_auto_upgrade' )
 		);
 
-		// Those hooks are scheduled Cron jobs by WordPress core.
-		add_action(
-			'wp_update_plugins',
-			array( $this, 'refresh_available_updates' )
-		);
-		add_action(
-			'wp_update_themes',
-			array( $this, 'refresh_available_updates' )
-		);
-
 		// Refresh after upgrade/install.
 		add_action(
 			'delete_site_transient_update_plugins',
@@ -247,9 +237,11 @@ class WPMUDEV_Dashboard_Site {
 	}
 
 
-	/* ********************************************************************** *
+	/*
+	 * *********************************************************************** *
 	 * *     INTERNAL HELPER FUNCTIONS
-	 * ********************************************************************** */
+	 * *********************************************************************** *
+	 */
 
 
 	/**
@@ -552,7 +544,6 @@ class WPMUDEV_Dashboard_Site {
 					WPMUDEV_Dashboard::$site->set_option( 'refresh_remote_flag', 1 );
 					WPMUDEV_Dashboard::$site->set_option( 'refresh_local_flag', 1 );
 					WPMUDEV_Dashboard::$site->set_option( 'refresh_profile_flag', 1 );
-
 					$this->send_json_success();
 					break;
 
@@ -1114,6 +1105,7 @@ class WPMUDEV_Dashboard_Site {
 				'is_installed' => false, // Installed on current site?
 				'is_active' => false, // WordPress state, i.e. plugin activated?
 				'is_hidden' => false, // Projects can be hidden via API.
+				'is_licensed' => false, // User has license to use this project?
 				'downloads' => 0,
 				'popularity' => 0,
 				'release_stamp' => 0,
@@ -1134,6 +1126,7 @@ class WPMUDEV_Dashboard_Site {
 				'changelog' => array(),
 				'features' => array(),
 				'tags' => array(),
+				'screenshots' => array(),
 			);
 
 			$remote = WPMUDEV_Dashboard::$api->get_project_data( $pid );
@@ -1147,7 +1140,7 @@ class WPMUDEV_Dashboard_Site {
 			// General details.
 			$res->type = ('theme' == $remote['type'] ? 'theme' : 'plugin');
 			$res->name = $remote['name'];
-			$res->info = $remote['short_description'];
+			$res->info = strip_tags( $remote['short_description'] );
 			$res->version_latest = $remote['version'];
 			$res->features = $remote['features'];
 			$res->downloads = intval( $remote['downloads'] );
@@ -1167,31 +1160,36 @@ class WPMUDEV_Dashboard_Site {
 			}
 
 			// Status details.
-			$res->is_installed = WPMUDEV_Dashboard::$site->is_project_installed( $pid );
-			$res->is_compatible = WPMUDEV_Dashboard::$site->is_project_compatible( $pid, $incompatible_reason );
-			if ( WPMUDEV_Dashboard::$api->has_key() ) {
-				$res->can_autoupdate = ('1' == $remote['autoupdate']);
-			}
-			if ( $res->is_installed ) {
-				if ( ! empty( $local['name'] ) ) { $res->name = $local['name']; }
-				$res->path = $local['path'];
-				$res->filename = $local['filename'];
-				$res->slug = $local['slug'];
-				$res->version_installed = $local['version'];
-				$res->has_update = WPMUDEV_Dashboard::$site->is_update_available( $pid );
-				$res->can_update = WPMUDEV_Dashboard::$site->user_can_install( $pid );
+			$res->can_update = WPMUDEV_Dashboard::$site->user_can_install( $pid );
+			$res->is_licensed = WPMUDEV_Dashboard::$site->user_can_install( $pid, true );
 
-				if ( 'plugin' == $res->type ) {
-					if ( $is_network_admin ) {
-						$res->is_active = is_plugin_active_for_network( $res->filename );
-					} else {
-						$res->is_active = is_plugin_active( $res->filename );
-					}
-				} elseif ( 'theme' == $res->type ) {
-					$res->need_upfront = $this->is_upfront_theme( $pid );
+			if ( $res->can_update ) {
+				// Okay, this project is licensed.
+				$res->is_installed = WPMUDEV_Dashboard::$site->is_project_installed( $pid );
+				$res->is_compatible = WPMUDEV_Dashboard::$site->is_project_compatible( $pid, $incompatible_reason );
+				if ( WPMUDEV_Dashboard::$api->has_key() ) {
+					$res->can_autoupdate = ('1' == $remote['autoupdate']);
+				}
+				if ( $res->is_installed ) {
+					if ( ! empty( $local['name'] ) ) { $res->name = $local['name']; }
+					$res->path = $local['path'];
+					$res->filename = $local['filename'];
+					$res->slug = $local['slug'];
+					$res->version_installed = $local['version'];
+					$res->has_update = WPMUDEV_Dashboard::$site->is_update_available( $pid );
 
-					if ( ! $is_network_admin ) {
-						$res->is_active = ($res->slug == get_option( 'stylesheet' ) );
+					if ( 'plugin' == $res->type ) {
+						if ( $is_network_admin ) {
+							$res->is_active = is_plugin_active_for_network( $res->filename );
+						} else {
+							$res->is_active = is_plugin_active( $res->filename );
+						}
+					} elseif ( 'theme' == $res->type ) {
+						$res->need_upfront = $this->is_upfront_theme( $pid );
+
+						if ( ! $is_network_admin ) {
+							$res->is_active = ($res->slug == get_option( 'stylesheet' ) );
+						}
 					}
 				}
 			}
@@ -1290,6 +1288,7 @@ class WPMUDEV_Dashboard_Site {
 					}
 				}
 			}
+			$res->screenshots = $remote['screenshots'];
 
 			// Performance: Only fetch changelog if needed.
 			if ( $fetch_full ) {
@@ -1835,18 +1834,22 @@ class WPMUDEV_Dashboard_Site {
 	 *
 	 * @since  1.0.0
 	 * @param  int $project_id The project to check.
+	 * @param  bool $only_license Skip permission check, only validate license.
 	 * @return bool
 	 */
-	public function user_can_install( $project_id ) {
+	public function user_can_install( $project_id, $only_license = false ) {
 		$data = WPMUDEV_Dashboard::$api->get_membership_data();
 
 		// Basic check if we have valid data.
 		if ( empty( $data['membership'] ) ) { return false; }
-		if ( ! $this->allowed_user() ) { return false; }
 		if ( empty( $data['projects'][ $project_id ] ) ) { return false; }
 
 		$project = $data['projects'][ $project_id ];
-		if ( ! $this->can_auto_install( $project['type'] ) ) { return false; }
+
+		if ( ! $only_license ) {
+			if ( ! $this->allowed_user() ) { return false; }
+			if ( ! $this->can_auto_install( $project['type'] ) ) { return false; }
+		}
 
 		$my_membership = $data['membership'];
 		$is_single = (intval( $my_membership ) > 0); // User has single license?
@@ -2046,31 +2049,35 @@ class WPMUDEV_Dashboard_Site {
 			$result = $skin->result;
 		}
 
+		$err = __( 'Update failed', 'wpmudev' );
 		if ( is_array( $result ) && ! empty( $result[ $update_file ] ) ) {
 			$plugin_update_data = current( $result );
 
 			if ( true === $plugin_update_data ) {
+				$err = implode( '<br>', $skin->get_upgrade_messages() );
 				if ( $die_on_error ) {
-					$this->send_json_error( array( 'error' => 'Update Error 1' ) );
+					$this->send_json_error( array( 'error_code' => 'U001', 'message' => $err ) );
 				} else {
-					error_log( 'WPMU DEV error: Upgrade failed - error 1' );
+					error_log( 'WPMU DEV error: Upgrade failed - U001. ' . $err );
 					return false;
 				}
 			}
 		} elseif ( is_wp_error( $result ) ) {
+			$err = $result->get_error_message();
 			if ( $die_on_error ) {
-				$this->send_json_error( array( 'error' => 'Update Error 2' ) );
+				$this->send_json_error( array( 'error_code' => 'U002', 'message' => $err ) );
 			} else {
-				error_log( 'WPMU DEV error: Upgrade failed - error 2' );
+				error_log( 'WPMU DEV error: Upgrade failed - U002. ' . $err );
 				return false;
 			}
 		} elseif ( is_bool( $result ) && ! $result ) {
 			// $upgrader->upgrade() returned false.
 			// Possibly because WordPress did not find an update for the project.
+			$err = _( 'Could not find update source', 'wpmudev' );
 			if ( $die_on_error ) {
-				$this->send_json_error( array( 'error' => 'Update Error 3' ) );
+				$this->send_json_error( array( 'error_code' => 'U003', 'message' => $err ) );
 			} else {
-				error_log( 'WPMU DEV error: Upgrade failed - error 3' );
+				error_log( 'WPMU DEV error: Upgrade failed - U003. ' . $err );
 				return false;
 			}
 		}
@@ -2177,10 +2184,14 @@ class WPMUDEV_Dashboard_Site {
 			return false;
 		}
 
+		/*
+		 * List of projects that will be automatically upgraded when the above
+		 * flag is enabled.
+		 */
 		$auto_update_projects = apply_filters(
 			'wpmudev_project_auto_update_projects',
 			array(
-				119, // This is the wpmudev dashboard plugin.
+				119, // WPMUDEV dashboard.
 			)
 		);
 

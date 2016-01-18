@@ -5,6 +5,13 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+4.0.4 - 1/18/2016 - Philipp
+----------------------------------------------------------------------
+- Important: Turn off automatic updates in Manage page to upgrade to this version!
+
+- Fixed the automatic updates feature, if you enable it. The Dashboard plugin will stay up to date from now on!
+- Our members with a Single-Membership can now use the Plugins and Themes page to install updates.
+
 4.0.3 - 1/15/2016 - Philipp
 ----------------------------------------------------------------------
 - Add a new notification in Themes page when an update for Upfront parent is available
@@ -299,4 +306,4 @@ Added option to disable admin notices.
 Initial Release.
 
 
-161579-1453126998-au
+161579-1453133939-au

@@ -11,15 +11,21 @@
 $item = WPMUDEV_Dashboard::$site->get_project_infos( $pid, true );
 
 ?>
-<dialog title="<?php printf( __( '%s changelog', 'wpmudev' ), esc_html( $item->name ) ); ?>" class="small no-margin">
+<dialog title="<?php printf( esc_attr__( '%s changelog', 'wpmudev' ), esc_html( $item->name ) ); ?>" class="small no-margin">
 <div class="wdp-changelog">
 
 <div class="title-action" data-project="<?php echo esc_attr( $pid ); ?>">
-	<?php if ( $item->is_installed && $item->has_update ) { ?>
-	<a href="#update" class="button button-small show-project-update">
-		<?php _e( 'Update available', 'wpmudev' ); ?>
-	</a>
-	<?php } ?>
+	<?php if ( $item->is_licensed ) : ?>
+		<?php if ( $item->is_installed && $item->has_update ) { ?>
+		<a href="#update" class="button button-small show-project-update">
+			<?php esc_html_e( 'Update available', 'wpmudev' ); ?>
+		</a>
+		<?php } ?>
+	<?php else : ?>
+		<a href="#upgrade" class="button button-small" rel="dialog">
+			<?php esc_html_e( 'Upgrade', 'wpmudev' ); ?>
+		</a>
+	<?php endif; ?>
 </div>
 
 <ul class="versions">

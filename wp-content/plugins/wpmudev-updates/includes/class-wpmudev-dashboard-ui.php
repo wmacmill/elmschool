@@ -859,7 +859,7 @@ class WPMUDEV_Dashboard_Ui {
 			do_action( 'wpmudev_dashboard_notice-dashboard' );
 
 			if ( $project_id ) {
-				$my_project = $data['projects'][ $type ];
+				$my_project = WPMUDEV_Dashboard::$site->get_project_infos( $project_id );
 			}
 
 			$this->load_template(
@@ -904,7 +904,7 @@ class WPMUDEV_Dashboard_Ui {
 		echo '</div>';
 
 		if ( 'full' != $data['membership'] ) {
-			$this->render_upgrade_box( 'single' );
+			$this->render_upgrade_box( 'single', false );
 		}
 	}
 
@@ -945,7 +945,7 @@ class WPMUDEV_Dashboard_Ui {
 		echo '</div>';
 
 		if ( 'full' != $data['membership'] ) {
-			$this->render_upgrade_box( 'single' );
+			$this->render_upgrade_box( 'single', false );
 		}
 	}
 
@@ -1127,8 +1127,9 @@ class WPMUDEV_Dashboard_Ui {
 	 *
 	 * @since  4.0.0
 	 * @param  string $reason The reason why the user needs to upgrade.
+	 * @param  string $auto_show If the popup should be displayed on page load.
 	 */
-	protected function render_upgrade_box( $reason ) {
+	protected function render_upgrade_box( $reason, $auto_show = true ) {
 		$is_logged_in = WPMUDEV_Dashboard::$api->has_key();
 		$urls = $this->page_urls;
 		$user = wp_get_current_user();
@@ -1143,7 +1144,7 @@ class WPMUDEV_Dashboard_Ui {
 
 		$this->load_template(
 			'popup-no-access',
-			compact( 'is_logged_in', 'urls', 'username', 'reason' )
+			compact( 'is_logged_in', 'urls', 'username', 'reason', 'auto_show' )
 		);
 	}
 

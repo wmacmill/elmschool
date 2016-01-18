@@ -27,7 +27,7 @@ if ( $item->is_installed ) {
 }
 
 if ( ! $item->is_installed ) : ?>
-<dialog title="<?php _e( 'Plugin not installed', 'wpmudev' ); ?>" class="small">
+<dialog title="<?php esc_attr_e( 'Plugin not installed', 'wpmudev' ); ?>" class="small">
 <p class="tc">
 	<?php _e( 'Something unexpected happened.<br>Please wait one moment while we refresh the page...', 'wpmudev' ); ?>
 </p>
@@ -36,26 +36,32 @@ if ( ! $item->is_installed ) : ?>
 </script>
 </dialog>
 <?php else : ?>
-<dialog title="<?php _e( 'Update Plugin', 'wpmudev' ); ?>" class="small">
+<dialog title="<?php esc_attr_e( 'Update Plugin', 'wpmudev' ); ?>" class="small">
 <div class="wdp-update" data-project="<?php echo esc_attr( $pid ); ?>">
 
 <div class="title-action">
-	<?php if ( $item->has_update && $item->url->update ) : ?>
-	<a href="<?php echo $item->url->update; ?>" class="button button-small button-yellow btn-update-ajax">
-		<?php _e( 'Update Now', 'wpmudev' ); ?>
-	</a>
+	<?php if ( $item->is_licensed ) : ?>
+		<?php if ( $item->has_update && $item->url->update ) { ?>
+		<a href="<?php echo esc_url( $item->url->update ); ?>" class="button button-small button-yellow btn-update-ajax">
+			<?php esc_html_e( 'Update Now', 'wpmudev' ); ?>
+		</a>
+		<?php } else { ?>
+		<a href="<?php echo esc_url( $item->url->download ); ?>" class="button button-small">
+			<?php esc_html_e( 'Download Now', 'wpmudev' ); ?>
+		</a>
+		<?php } ?>
 	<?php else : ?>
-	<a href="<?php echo $item->url->download; ?>" class="button button-small">
-		<?php _e( 'Download Now', 'wpmudev' ); ?>
-	</a>
+		<a href="#upgrade" class="button button-small" rel="dialog">
+			<?php esc_html_e( 'Upgrade', 'wpmudev' ); ?>
+		</a>
 	<?php endif; ?>
 </div>
 
 <table class="update-infos" cellspacing="0" cellpadding="0" border="0">
 	<tr>
-		<th class="col-1"><?php _e( 'Name', 'wpmudev' ); ?></th>
-		<th class="col-2"><?php _e( 'Release Date', 'wpmudev '); ?></th>
-		<th class="col-3"><?php _e( 'Version', 'wpmudev' ); ?></th>
+		<th class="col-1"><?php esc_html_e( 'Name', 'wpmudev' ); ?></th>
+		<th class="col-2"><?php esc_html_e( 'Release Date', 'wpmudev' ); ?></th>
+		<th class="col-3"><?php esc_html_e( 'Version', 'wpmudev' ); ?></th>
 	</tr>
 	<tr>
 		<td><?php echo esc_html( $item->name ); ?></td>
@@ -65,7 +71,7 @@ if ( ! $item->is_installed ) : ?>
 				<?php echo esc_html( $item->version_latest ); ?>
 			</span>
 			&nbsp;
-			<span tooltip="<?php _e( 'Show changelog', 'wpmudev' ); ?>" class="pointer tooltip-s tooltip-right">
+			<span tooltip="<?php esc_html_e( 'Show changelog', 'wpmudev' ); ?>" class="pointer tooltip-s tooltip-right">
 			<i class="show-project-changelog dev-icon dev-icon-info"></i>
 			</span>
 		</td>
@@ -74,23 +80,26 @@ if ( ! $item->is_installed ) : ?>
 		<td colspan="3">
 			<div class="update-complete">
 				<i class="wdv-icon wdv-icon-ok"></i>
-				<?php _e( 'Update complete!', 'wpmudev' ); ?>
+				<?php esc_html_e( 'Update complete!', 'wpmudev' ); ?>
 			</div>
 		</td>
 	</tr>
 	<tr class="before-update">
-		<th colspan="3"><?php _e( 'Notes', 'wpmudev' ); ?></th>
+		<th colspan="3"><?php esc_html_e( 'Notes', 'wpmudev' ); ?></th>
 	</tr>
 	<tr class="before-update">
 		<td colspan="3" class="col-notes"><ul>
-		<?php foreach ( $notes as $note ) {
+		<?php
+		foreach ( $notes as $note ) {
+			$note = stripslashes( $note );
 			$note = preg_replace( '/(<br ?\/?>|<p>|<\/p>)/', '', $note );
 			$note = trim( preg_replace( '/^\s*(\*|\-)\s*/', '', $note ) );
 			$note = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $note );
 			$note = preg_replace( '/`(.*?)`/', '<code>\1</code>', $note );
 			if ( empty( $note ) ) { continue; }
 			printf( '<li>%s</li>', $note );
-		} ?>
+		}
+		?>
 		</ul></td>
 	</tr>
 </table>
@@ -105,7 +114,7 @@ jQuery(function() {
 	btnUpdate.on('click', function() {
 		var data = {};
 		data.action = 'wdp-project-update';
-		data.hash = "<?php echo wp_create_nonce( 'project-update' ); ?>";
+		data.hash = "<?php echo esc_attr( wp_create_nonce( 'project-update' ) ); ?>";
 		data.pid = pid;
 		data.is_network = +(jQuery('body').hasClass('network-admin'));
 

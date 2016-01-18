@@ -17,7 +17,7 @@ $time_format = get_option( 'time_format' );
 $day_diff = date( 'Yz', time() ) - date( 'Yz', $last_check );
 if ( $day_diff < 1 ) {
 	$day_expression = __( 'today', 'wpmudev' );
-} elseif ( $day_diff == 1 ) {
+} elseif ( 1 == $day_diff ) {
 	$day_expression = __( 'yesterday', 'wpmudev' );
 } else {
 	$day_expression = sprintf( __( '%s days ago', 'wpmudev' ), $day_diff );
@@ -27,9 +27,9 @@ if ( $day_diff < 1 ) {
 <div class="refresh-infos">
 <?php
 printf(
-	_x( 'We last checked for updates %1$s at %2$s %3$sCheck again%4$s', 'Placeholders: date, time, link-open, link-close', 'wpmudev' ),
-	'<strong>' . $day_expression . '</strong>',
-	'<strong>' . date_i18n( $time_format, $last_check ) . '</strong>',
+	esc_html( _x( 'We last checked for updates %1$s at %2$s %3$sCheck again%4$s', 'Placeholders: date, time, link-open, link-close', 'wpmudev' ) ),
+	'<strong>' . esc_html( $day_expression ) . '</strong>',
+	'<strong>' . esc_html( date_i18n( $time_format, $last_check ) ) . '</strong>',
 	' - <a href="' . esc_url( $url_check ) . '" class="has-spinner"><i class="wdv-icon wdv-icon-refresh spin-on-click"></i> ',
 	' </a>'
 );

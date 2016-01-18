@@ -158,10 +158,6 @@ $this->render_header( $page_title );
 	</a>
 </div>
 <?php if ( $my_project ) : ?>
-<?php
-$pid = intval( $data['membership'] );
-$res = WPMUDEV_Dashboard::$site->get_project_infos( $pid );
-?>
 <section class="box-popular dev-box">
 	<div class="box-title">
 		<h3><?php esc_html_e( 'Purchased', 'wpmudev' ); ?></h3>
@@ -171,42 +167,75 @@ $res = WPMUDEV_Dashboard::$site->get_project_infos( $pid );
 			<li>
 			<div>
 				<span class="list-label">
-					<?php echo esc_html( $my_project['name'] ); ?>
-				</span>
-				<span class="list-detail" data-project="<?php echo esc_attr( $pid ); ?>">
 					<?php
-					if ( $res->is_active && $res->url->config ) { ?>
+					$base_url = WPMUDEV_Dashboard::$ui->page_urls->plugins_url;
+					$info_url = $base_url . '#pid=' . $my_project->pid;
+					$update_url = $base_url . '#update=' . $my_project->pid;
+					?>
+					<a href="<?php echo esc_url( $info_url ); ?>">
+						<?php echo esc_html( $my_project->name ); ?>
+					</a>
+				</span>
+				<span class="list-detail" data-project="<?php echo esc_attr( $my_project->pid ); ?>">
+				<?php if ( $my_project->is_installed ) : /* INSTALLED */ ?>
+					<?php if ( $my_project->has_update ) { ?>
 						<a
-							href="<?php echo esc_url( $res->url->config ); ?>"
+							href="<?php echo esc_url( $update_url ); ?>"
+							class="button button-yellow button-small one-click" >
+							<?php esc_html_e( 'Update', 'wpmudev' ); ?>
+						</a>
+					<?php } elseif ( $my_project->is_active && $my_project->url->config ) { ?>
+						<a
+							href="<?php echo esc_url( $my_project->url->config ); ?>"
 							class="button button-light button-small one-click" >
 							<?php esc_html_e( 'Configure', 'wpmudev' ); ?>
 						</a>
-					<?php } elseif ( $res->is_installed && ! $res->is_active && $res->can_activate ) { ?>
+					<?php } elseif ( ! $my_project->is_active && $my_project->can_activate ) { ?>
 						<a
-							href="<?php echo esc_url( $res->url->activate ); ?>"
+							href="<?php echo esc_url( $my_project->url->activate ); ?>"
 							class="button button-small one-click"
 							data-action="project-activate"
 							data-hash="<?php echo esc_attr( wp_create_nonce( 'project-activate' ) ); ?>" >
 							<?php esc_html_e( 'Activate', 'wpmudev' ); ?>
 						</a>
-					<?php } elseif ( ! $res->is_instaled ) { ?>
-						<?php if ( $res->is_compatible && $res->url->install ) { ?>
+					<?php } else { ?>
 						<a
-							href="<?php echo esc_url( $res->url->install ); ?>"
-							class="button button-green button-cta button-small one-click"
-							data-action="project-install"
-							data-hash="<?php echo esc_attr( wp_create_nonce( 'project-install' ) ); ?>" >
-							<?php esc_html_e( 'Install', 'wpmudev' ); ?>
+							href="<?php echo esc_url( $my_project->url->instructions ); ?>"
+							rel="dialog"
+							class="button button-small button-secondary"
+							data-class="small no-margin"
+							data-title="<?php printf(
+								esc_html__( '%s Instructions', 'wpmudev' ), esc_attr( $my_project->name )
+							); ?>"
+							data-height="600"
+							>
+							<?php esc_html_e( 'Instructions', 'wpmudev' ); ?>
 						</a>
-						<?php } elseif ( $res->is_compatible ) { ?>
-						<a
-							href="<?php echo esc_url( $res->url->download ); ?>"
-							class="button button-secondary button-small"
-							target="_blank" >
-							<?php esc_html_e( 'Download', 'wpmudev' ); ?>
-						</a>
-						<?php } ?>
 					<?php } ?>
+				<?php else : /* NOT INSTALLED */ ?>
+					<?php if ( $my_project->is_compatible && $my_project->url->install ) { ?>
+					<a
+						href="<?php echo esc_url( $my_project->url->install ); ?>"
+						class="button button-green button-cta button-small one-click"
+						data-action="project-install"
+						data-hash="<?php echo esc_attr( wp_create_nonce( 'project-install' ) ); ?>" >
+						<?php esc_html_e( 'Install', 'wpmudev' ); ?>
+					</a>
+					<?php } elseif ( $my_project->is_compatible ) { ?>
+					<a
+						href="<?php echo esc_url( $my_project->url->download ); ?>"
+						class="button button-secondary button-small"
+						target="_blank" >
+						<?php esc_html_e( 'Download', 'wpmudev' ); ?>
+					</a>
+					<?php } else { ?>
+					<a
+						href="#"
+						class="button disabled button-small" >
+						<?php echo esc_html( $my_project->incompatible_reason ); ?>
+					</a>
+					<?php } ?>
+				<?php endif; ?>
 				</span>
 			</div>
 			</li>

@@ -9,25 +9,19 @@
  *   $pid (project ID)
  */
 
-$data = WPMUDEV_Dashboard::$api->get_project_data( $pid );
-
-if ( ! empty( $data['thumbnail_large'] ) ) {
-	$thumbnail = $data['thumbnail_large'];
-} else {
-	$thumbnail = $data['thumbnail'];
-}
+$res = WPMUDEV_Dashboard::$site->get_project_infos( $pid );	  			 				 	   	 
 
 $gallery_items = array();
-if ( ! empty( $data['video'] ) ) {
+if ( ! empty( $res->url->video ) ) {
 	$gallery_items[] = array(
-		'thumb' => $thumbnail,
-		'full' => $data['video'],
+		'thumb' => $res->url->thumbnail,
+		'full' => $res->url->video,
 		'desc' => '',
 		'type' => 'video',
 	);
 }
-if ( is_array( $data['screenshots'] ) ) {
-	foreach ( $data['screenshots'] as $item ) {
+if ( is_array( $res->screenshots ) ) {
+	foreach ( $res->screenshots as $item ) {
 		$gallery_items[] = array(
 			'thumb' => $item['url'],
 			'full' => $item['url'],
@@ -39,8 +33,8 @@ if ( is_array( $data['screenshots'] ) ) {
 
 if ( empty( $gallery_items ) ) {
 	$gallery_items[] = array(
-		'thumb' => $thumbnail,
-		'full' => $thumbnail,
+		'thumb' => $res->url->thumbnail,
+		'full' => $res->url->thumbnail,
 		'desc' => '',
 		'type' => 'image',
 	);
@@ -51,59 +45,56 @@ if ( 1 == count( $gallery_items ) ) {
 	$slider_class = 'no-nav';
 }
 
-if ( is_array( $data['features'] ) && ! empty( $data['features'] ) ) {
+if ( is_array( $res->features ) && ! empty( $res->features ) ) {
 	$has_features = true;
-	$feature_break = count( $data['features'] ) / 2;
+	$feature_break = count( $res->features ) / 2;
 	$feature_count = 0;
 } else {
 	$has_features = false;
 }
 
-$is_installed = WPMUDEV_Dashboard::$site->is_project_installed( $pid );
-$has_update = WPMUDEV_Dashboard::$site->is_update_available( $pid );
-
-$url_autoinstall = WPMUDEV_Dashboard::$site->auto_install_url( $pid );
-$is_compatible = WPMUDEV_Dashboard::$site->is_project_compatible(
-	$pid,
-	$incompatible_reason
-);
-
 ?>
-<dialog title="<?php echo esc_attr( $data['name'] ); ?>">
+<dialog title="<?php echo esc_attr( $res->name ); ?>">
 <div class="wdp-info" data-project="<?php echo esc_attr( $pid ); ?>">
 
 <div class="title-action" data-project="<?php echo esc_attr( $pid ); ?>">
-	<?php if ( $is_installed && $has_update ) { ?>
-	<a href="#update" class="button button-small show-project-update">
-		<?php esc_html_e( 'Update available', 'wpmudev' ); ?>
-	</a>
-	<?php } elseif ( ! $is_installed ) { ?>
-		<?php if ( $url_autoinstall ) { ?>
-		<a href="<?php echo esc_url( $url_autoinstall ); ?>"
-			class="button button-small button-cta button-green"
-			data-project="<?php echo esc_attr( $pid ); ?>"
-			data-action="project-install"
-			data-hash="<?php echo esc_attr( wp_create_nonce( 'project-install' ) ); ?>">
-			<?php
-			if ( 'plugin' == $data['type'] ) {
-				esc_html_e( 'Install Plugin', 'wpmudev' );
-			} else {
-				esc_html_e( 'Install Theme', 'wpmudev' );
-			}
-			?>
+	<?php if ( $res->is_licensed ) : ?>
+		<?php if ( $res->is_installed && $res->has_update ) { ?>
+		<a href="#update" class="button button-small show-project-update">
+			<?php esc_html_e( 'Update available', 'wpmudev' ); ?>
 		</a>
-		<?php } elseif ( $is_compatible ) { ?>
-		<a href="<?php echo esc_url( $data['url'] ); ?>" target="_blank" class="button button-small button-secondary">
-			<?php
-			if ( 'plugin' == $data['type'] ) {
-				esc_html_e( 'Download Plugin', 'wpmudev' );
-			} else {
-				esc_html_e( 'Download Theme', 'wpmudev' );
-			}
-			?>
-		</a>
+		<?php } elseif ( ! $res->is_installed ) { ?>
+			<?php if ( $res->url->install ) { ?>
+			<a href="<?php echo esc_url( $res->url->install ); ?>"
+				class="button button-small button-cta button-green"
+				data-project="<?php echo esc_attr( $pid ); ?>"
+				data-action="project-install"
+				data-hash="<?php echo esc_attr( wp_create_nonce( 'project-install' ) ); ?>">
+				<?php
+				if ( 'plugin' == $res->type ) {
+					esc_html_e( 'Install Plugin', 'wpmudev' );
+				} else {
+					esc_html_e( 'Install Theme', 'wpmudev' );
+				}
+				?>
+			</a>
+			<?php } elseif ( $res->is_compatible ) { ?>
+			<a href="<?php echo esc_url( $res->url->website ); ?>" target="_blank" class="button button-small button-secondary">
+				<?php
+				if ( 'plugin' == $res->type ) {
+					esc_html_e( 'Download Plugin', 'wpmudev' );
+				} else {
+					esc_html_e( 'Download Theme', 'wpmudev' );
+				}
+				?>
+			</a>
+			<?php } ?>
 		<?php } ?>
-	<?php } ?>
+	<?php else : ?>
+		<a href="#upgrade" class="button button-small" rel="dialog">
+			<?php esc_html_e( 'Upgrade', 'wpmudev' ); ?>
+		</a>
+	<?php endif; ?>
 </div>
 
 <div class="slider <?php echo esc_attr( $slider_class ); ?>">
@@ -137,8 +128,8 @@ $is_compatible = WPMUDEV_Dashboard::$site->is_project_compatible(
 
 <section class="overview">
 	<h3><?php esc_html_e( 'Overview', 'wpmudev' ); ?></h3>
-	<p><?php echo $data['short_description']; ?></p>
-	<p><a href="<?php echo esc_url( $data['url'] ); ?>" target="_blank">
+	<p><?php echo esc_html( $res->info ); ?></p>
+	<p><a href="<?php echo esc_url( $res->url->website ); ?>" target="_blank">
 		<?php esc_html_e( 'More information on WPMU DEV', 'wpmudev' ); ?>
 		<i class="wdv-icon wdv-icon-arrow-right"></i>
 	</a></p>
@@ -148,7 +139,7 @@ $is_compatible = WPMUDEV_Dashboard::$site->is_project_compatible(
 <?php if ( $has_features ) : ?>
 	<h3><?php esc_html_e( 'Features', 'wpmudev' ); ?></h3>
 	<ul>
-		<?php foreach ( $data['features'] as $feature ) : ?>
+		<?php foreach ( $res->features as $feature ) : ?>
 			<?php if ( $feature_count++ >= $feature_break ) : ?>
 			<?php $feature_count = -2; ?>
 			</ul><ul>
