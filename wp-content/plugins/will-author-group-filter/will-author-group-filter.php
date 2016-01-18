@@ -232,6 +232,17 @@ function remove_full_time_courses_from_group_leaders () {
 
 add_action ( 'admin_footer', 'remove_full_time_courses_from_group_leaders', 9999 );
 
+//adds filter to user role editor to remove additional capabiliies from everyone other than admin
+add_filter ('ure_show_additional_capabilities_section', 'will_remove_additional_capabilities_section');
+
+function will_remove_additional_capabilities_section ( $show ) {
+    if ( !current_user_can ('manage_options') ) {
+        return false;
+    }
+}
+
+
+
 /******* Stop Adding Functions Below this Line *************/
 
 ?>
