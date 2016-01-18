@@ -2620,8 +2620,8 @@ function woo_logo () {
 <div id="logo">
 <?php
 	// Website heading/logo and description text.
-	if ( ( '' != $settings['logo'] ) ) {
-		$logo_url = $settings['logo'];
+	$logo_url = apply_filters( 'woo_logo_img', $settings['logo'] );
+	if ( ( '' != $logo_url ) ) {
 		if ( is_ssl() ) $logo_url = str_replace( 'http://', 'https://', $logo_url );
 
 		echo '<a href="' . esc_url( $site_url ) . '" title="' . esc_attr( $site_description ) . '"><img src="' . esc_url( $logo_url ) . '" alt="' . esc_attr( $site_title ) . '" /></a>' . "\n";

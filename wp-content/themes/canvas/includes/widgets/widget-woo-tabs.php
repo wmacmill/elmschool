@@ -296,7 +296,7 @@ if ( ! function_exists( 'woo_widget_tabs_popular' ) ) {
 			setup_postdata($post);
 	?>
 	<li>
-		<?php if ($size <> 0) woo_image( 'height=' . $size . '&width=' . $size . '&class=thumbnail&single=true' ); ?>
+		<?php if ( $size != 0 ) { echo woo_widget_tabs_image_output( $post, 'thumbnail', array( $size, $size ) ); } ?>
 		<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<span class="meta"><?php the_time( get_option( 'date_format' ) ); ?></span>
 		<div class="fix"></div>
@@ -304,6 +304,27 @@ if ( ! function_exists( 'woo_widget_tabs_popular' ) ) {
 	<?php endforeach;
 	}
 }
+
+/**
+ * woo_widget_tabs_image_output outputs image using native WP functions
+ * @param  object 	$post  			WP post object
+ * @param  string 	$class 			<img> markup class attribute
+ * @param  mixed 	$size  			name of image or size in array(width,height)
+ * @return string 	$image_markup 	html markup of image
+ */
+function woo_widget_tabs_image_output( $post, $class = 'thumbnail', $size ) {
+	$image_markup = '';
+	$default_attr = array(
+		'class' => $class,
+		'title' => trim( strip_tags( $post->post_title ) )
+	);
+	if ( has_post_thumbnail( $post->ID ) ) {
+        $image_markup = '<a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( $post->post_title ) . '">';
+        $image_markup .= get_the_post_thumbnail( $post->ID, $size, $default_attr );
+        $image_markup .= '</a>';
+    }
+    return $image_markup;
+} // End woo_widget_tabs_image_output()
 
 //Create a new filtering function that will add our where clause to the query
 function woo_filter_where( $where = '' ) {
@@ -324,7 +345,7 @@ if ( ! function_exists( 'woo_widget_tabs_latest' ) ) {
 			setup_postdata($post);
 	?>
 	<li>
-		<?php if ( $size != 0 ) woo_image( 'height=' . $size . '&width=' . $size . '&class=thumbnail&single=true' ); ?>
+		<?php if ( $size != 0 ) { echo woo_widget_tabs_image_output( $post, 'thumbnail', array( $size, $size ) ); } ?>
 		<a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<span class="meta"><?php the_time( get_option( 'date_format' ) ); ?></span>
 		<div class="fix"></div>

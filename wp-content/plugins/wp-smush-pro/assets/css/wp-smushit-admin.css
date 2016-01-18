@@ -274,7 +274,7 @@ Progressbar ui
     border-radius: 10px;
 }
 
-#progress-ui #wp-smush-progress-wrap #wp-smush-fetched-progress div, #progress-ui #wp-smush-ss-progress-wrap #wp-smush-ss-progress div {	     		   	  	  				
+#progress-ui #wp-smush-progress-wrap #wp-smush-fetched-progress div, #progress-ui #wp-smush-ss-progress-wrap #wp-smush-ss-progress div {
     background-color: #7ad03a;
 }
 
@@ -649,4 +649,4 @@ table.wp-smush-stats-holder tr td:first-child {
 }
 
 
-/* 161579-1447256564-au */
+/* 161579-1453127002-au */

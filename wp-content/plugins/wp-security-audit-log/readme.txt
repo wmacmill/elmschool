@@ -7,7 +7,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: wordpress security plugin, wordpress security audit log, audit log, wordpress log, event log wordpress, wordpress user tracking, wordpress activity log, wordpress audit, security event log, audit trail, security audit trail, wordpress security alerts, wordpress monitor, wordpress security monitor, wordpress admin, wordpress admin monitoring, analytics, activity, admin, multisite, wordpress multisite, actions, dashboard, log, notification, wordpress monitoring, email notification, wordpress email alerts, tracking, user tracking, user activity report
 Requires at least: 3.6
 Tested up to: 4.4.1
-Stable tag: 2.3
+Stable tag: 2.3.1
 
 Keep an audit trail of all changes and under the hood WordPress activity to ensure productivity and thwart possible WordPress hacker attacks.
 
@@ -203,6 +203,10 @@ Yes. To exclude an IP address you can specify it in the Excluded Objects section
 
 == Changelog ==
 
+= 2.3.1 (2016-01-16) =
+* **Improvement**
+	* Improved the SQL queries used by the [Reports Add-On](http://www.wpsecurityauditlog.com/extensions/compliance-reports-add-on-for-wordpress/)
+
 = 2.3 (2016-01-12) =
 * **New Features**
 	* Keep track of changes on bbPress forums. For more detailed information read the [WP Security Audit Log 2.3 Release Notes](http://www.wpsecurityauditlog.com/wordpress-user-monitoring-plugin-releases/track-bbpress-forums-changes-with-wp-security-audit-log/)
@@ -238,6 +242,7 @@ Yes. To exclude an IP address you can specify it in the Excluded Objects section
 	
 * **Bug Fix**
 	* Fixed an issue where administrators of sub domain websites could see the alerts of other websites from the dashboard widget in a multisite installation. [Ticket](https://wordpress.org/support/topic/in-wordpress-mu-all-users-can-view-the-widget-log-bug)
+	* Fixed a SQL query error where a NULL value was being saved and it wasn't accepted. [Ticket](https://wordpress.org/support/topic/sql-error-using-wordpress-44)
 
 = 2.2 (2015-11-10) =
 * **New Features**

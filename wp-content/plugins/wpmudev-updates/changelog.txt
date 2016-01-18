@@ -1,9 +1,36 @@
 Plugin Name: WPMU DEV Dashboard
-Author: Aaron Edwards
+Author: Aaron Edwards, Philipp Stracker
 
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+
+4.0.3 - 1/15/2016 - Philipp
+----------------------------------------------------------------------
+- Add a new notification in Themes page when an update for Upfront parent is available
+- Fix bug that would show dismissed Dashboard notifications again after each API sync
+- Fix incorrect message "Theme is at latest version" during theme update
+- Fix the URL of "Get Support" button on the Support page
+- Add new button to Support page to open a new ticket if no tickets are open
+- Display error message if plugin or theme installation fails
+- Fix the "Back to Dashboard" link that is displayed right after update from v 3.5
+- Fix permission check to not display notifications while logged out
+- Fix several small PHP warnings, JS errors and layout issues
+
+4.0.2 - 1/13/2016 - Philipp
+----------------------------------------------------------------------
+- Fix an incorrectly initialized dashboard setting, that could cause troubles with other WPMUDEV plugins
+- Fix several minor UI issues (borders, margins, ...)
+- Fix problem with empty dashboard after update forcing an API-refresh on first activation
+
+4.0.1 - 1/13/2016 - Philipp
+----------------------------------------------------------------------
+- Fix broken dashboard layout that was caused by certain third-party plugins.
+- Fix a typo.
+
+4.0.0 - 1/13/2016 - Philipp
+----------------------------------------------------------------------
+- Complete redesign with new UI
 
 3.5.3 - 6/05/2015 - Aaron
 ----------------------------------------------------------------------
@@ -272,4 +299,4 @@ Added option to disable admin notices.
 Initial Release.
 
 
-161579-1433776991-au
+161579-1453126998-au

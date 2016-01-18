@@ -1,5 +1,11 @@
 *** Canvas Changelog ***
 
+2016.01.15 - version 5.9.16
+ * Tweak - Adds the woo_logo_img filter.
+   includes/theme-actions.php
+ * Fix - removes woo_image() function call from tabs widget in favor of native WP function calls. Also fixes wordpress.com VIP usage.
+   includes/widgets/widget-woo-tabs.php
+
 2015.12.14 - version 5.9.15
  * Fix - Fixes the WooCommerce placeholder display.
    includes/integrations/woocommerce/template.php

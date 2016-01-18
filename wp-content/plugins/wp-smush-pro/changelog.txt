@@ -5,8 +5,11 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 2.1.3 =
+* Fixed: Compatibility with v4.0 of our Dashboard plugin, was not detecting pro status
+
 = 2.1.2 =
-* Fixed: Important fix for transient issue leading to multiple api requests
+* Fixed: Important fix for transient issue leading to mutliple api requests
 
 = 2.1.1 =
 * Fixed: Workaround for terrible bug in W3TC file based object caching
@@ -123,4 +126,4 @@ Change Log:
 - First release
 
 
-161579-1447256564-au
+161579-1453127002-au
