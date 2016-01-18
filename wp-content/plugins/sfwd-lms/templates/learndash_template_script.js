@@ -1,29 +1,35 @@
-function flip_expand_collapse(what, id) {
-    //console.log(id + ':' + document.getElementById( 'list_arrow.flippable-'+id).className);
-    if (jQuery( what + '-' + id + ' .list_arrow.flippable' ).hasClass( 'expand' ) ) {
-        jQuery( what + '-' + id + ' .list_arrow.flippable' ).removeClass( 'expand' );
-        jQuery( what + '-' + id + ' .list_arrow.flippable' ).addClass( 'collapse' );
-        jQuery( what + '-' + id + ' .flip' ).slideUp();
-    } else {
-        jQuery( what + '-' + id + ' .list_arrow.flippable' ).removeClass( 'collapse' );
-        jQuery( what + '-' + id + ' .list_arrow.flippable' ).addClass( 'expand' );
-        jQuery( what + '-' + id + ' .flip' ).slideDown();
-    }
-    return false;
+if (typeof flip_expand_collapse == 'undefined') {
+	function flip_expand_collapse(what, id) {
+	    //console.log(id + ':' + document.getElementById( 'list_arrow.flippable-'+id).className);
+	    if (jQuery( what + '-' + id + ' .list_arrow.flippable' ).hasClass( 'expand' ) ) {
+	        jQuery( what + '-' + id + ' .list_arrow.flippable' ).removeClass( 'expand' );
+	        jQuery( what + '-' + id + ' .list_arrow.flippable' ).addClass( 'collapse' );
+	        jQuery( what + '-' + id + ' .flip' ).slideUp();
+	    } else {
+	        jQuery( what + '-' + id + ' .list_arrow.flippable' ).removeClass( 'collapse' );
+	        jQuery( what + '-' + id + ' .list_arrow.flippable' ).addClass( 'expand' );
+	        jQuery( what + '-' + id + ' .flip' ).slideDown();
+	    }
+	    return false;
+	}
 }
 
-function flip_expand_all(what) {
-    jQuery( what + ' .list_arrow.flippable' ).removeClass( 'collapse' );
-    jQuery( what + ' .list_arrow.flippable' ).addClass( 'expand' );
-    jQuery( what + ' .flip' ).slideDown();
-    return false;
+if (typeof flip_expand_all == 'undefined') {
+	function flip_expand_all(what) {
+	    jQuery( what + ' .list_arrow.flippable' ).removeClass( 'collapse' );
+	    jQuery( what + ' .list_arrow.flippable' ).addClass( 'expand' );
+	    jQuery( what + ' .flip' ).slideDown();
+	    return false;
+	}
 }
 
-function flip_collapse_all(what) {
-    jQuery( what + ' .list_arrow.flippable' ).removeClass( 'expand' );
-    jQuery( what + ' .list_arrow.flippable' ).addClass( 'collapse' );
-    jQuery( what + ' .flip' ).slideUp();
-    return false;
+if (typeof flip_collapse_all == 'undefined') {
+	function flip_collapse_all(what) {
+	    jQuery( what + ' .list_arrow.flippable' ).removeClass( 'expand' );
+	    jQuery( what + ' .list_arrow.flippable' ).addClass( 'collapse' );
+	    jQuery( what + ' .flip' ).slideUp();
+	    return false;
+	}
 }
 
 String.prototype.toHHMMSS = function() {

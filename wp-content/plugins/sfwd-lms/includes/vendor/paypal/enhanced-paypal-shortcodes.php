@@ -397,7 +397,7 @@ switch($atts['type']):
         } else {
                 $code.='<input type="hidden" src="' . $buttonUrl . '" border="0" name="submit" alt="'.ALT_ADD.'" class="ppalbtn">';
         }
-		$code .= '<input type="submit" value="'.__("Take this Course", "learndash").'" class="btn-join" id="btn-join">';
+		$code .= '<input type="submit" value="'.__("Take this Course", "learndash").'" class="btn-join button" id="btn-join">';
 		
         if ($atts['noshipping'] > -1) { 
             $code.='

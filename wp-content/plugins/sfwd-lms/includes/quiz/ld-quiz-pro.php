@@ -191,6 +191,9 @@ class LD_QuizPro {
 								$correct = false;
 							}
 
+							$points = apply_filters( 'learndash_ques_multiple_answer_pts_each', $points, $questionData, $answerIndex, $correctAnswer, $userResponse );
+							$correct = apply_filters( 'learndash_ques_multiple_answer_correct_each', $correct, $questionData, $answerIndex, $correctAnswer, $userResponse );
+
 						} else {
 
 							/**
@@ -220,6 +223,9 @@ class LD_QuizPro {
 								$points = 0;
 								break;
 							}
+
+							$points = apply_filters( 'learndash_ques_multiple_answer_pts_whole', $points, $questionData, $answerIndex, $correctAnswer, $userResponse );
+							$correct = apply_filters( 'learndash_ques_multiple_answer_correct_whole', $correct, $questionData, $answerIndex, $correctAnswer, $userResponse );
 
 						}
 

@@ -308,14 +308,15 @@ function learndash_payment_buttons( $course ) {
 
 				$button = 	'';
 				$button .= 	'<div class="learndash_checkout_buttons">';
-				$button .= 		'<a class="btn-join button learndash_checkout_button" href="#" data-jq-dropdown="#jq-dropdown-1">'. $button_text .'</a>';
+				//$button .= 		'<a class="btn-join button learndash_checkout_button" href="#" data-jq-dropdown="#jq-dropdown-1">'. $button_text .'</a>';
+				$button .= 		'<input id="btn-join" class="btn-join button learndash_checkout_button" data-jq-dropdown="#jq-dropdown-1" type="button" value="'. $button_text .'" />';
 				$button .= 	'</div>';
 			
 				global $dropdown_button;
 				$dropdown_button .= 	'<div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip checkout-dropdown-button">';
 				$dropdown_button .= 		'<ul class="jq-dropdown-menu">';
 				$dropdown_button .= 		'<li>';
-				$dropdown_button .= 			str_replace($button_text, __('Paypal', 'learndash'), $payment_buttons);
+				$dropdown_button .= 			str_replace($button_text, __('Use Paypal', 'learndash'), $payment_buttons);
 				$dropdown_button .= 		'</li>';
 				$dropdown_button .= 		'</ul>';
 				$dropdown_button .= 	'</div>';

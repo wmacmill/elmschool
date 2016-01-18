@@ -554,6 +554,8 @@ small.notavailable_message {
   border-radius: 6px;
   white-space: normal;
   text-decoration: none !important;
+  height: auto !important;
+  cursor: pointer;
 }
 .btn-join:hover,
 .btn-join:focus,
@@ -678,4 +680,16 @@ dd.course_progress div.course_progress_blue {
   width: 128px;
   height: 128px;
   top: 30%;
+}
+
+.jq-dropdown .jq-dropdown-menu {
+	overflow: hidden !important;
+}
+
+.jq-dropdown .jq-dropdown-menu li {
+    list-style: none !important;
+	list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+	overflow: hidden !important;
 }

@@ -435,7 +435,7 @@ function learndash_can_attempt_again( $user_id, $quiz_id ) {
 	 */
 	$repeats = apply_filters( 'learndash_allowed_repeats', $repeats, $user_id, $quiz_id );
 
-	if ( empty( $repeats ) ) {
+	if ( $repeats == "" ) {
 		return true;
 	}
 

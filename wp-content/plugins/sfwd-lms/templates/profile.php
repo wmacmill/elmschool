@@ -131,7 +131,7 @@
 
 												<div class="scores"><?php echo round( $quiz_attempt['percentage'], 2 ); ?>%</div>
 
-												<div class="quiz_date"><?php echo date_i18n( 'd-M-Y', $quiz_attempt['time'] ); ?></div>
+												<div class="quiz_date"><?php echo date_i18n( 'd-M-Y h:i:s', $quiz_attempt['time']+(get_option('gmt_offset') * 3600) ); ?></div>
 
 											</div>
 										<?php endif; ?>
