@@ -232,7 +232,18 @@ function remove_full_time_courses_from_group_leaders () {
 
 add_action ( 'admin_footer', 'remove_full_time_courses_from_group_leaders', 9999 );
 
+//this removes the "add group" button from the groups page
+function remove_add_group_button_for_everyone () {
+    if ( get_post_type() == 'groups' && !current_user_can ( 'manage_options' ) ) {
+        wp_enqueue_script(
+            'ld-remove-group-create', // name your script so that you can attach other scripts and de-register, etc.
+            plugins_url( '/js/ld-remove-group-create.js', __FILE__ ), // this is the location of your script file
+            array('jquery') // this array lists the scripts upon which your script depends
+        );
+    }
+}
 
+add_action ( 'admin_footer', 'remove_add_group_button_for_everyone', 9999 );
 
 //adds filter to user role editor to remove additional capabiliies from everyone other than admin
 add_filter ('ure_show_additional_capabilities_section', 'will_remove_additional_capabilities_section');
