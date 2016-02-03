@@ -5,6 +5,7 @@
  * dashboard module.
  *
  * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 /**
@@ -56,7 +57,7 @@ class WPMUDEV_Dashboard_Message {
 		);
 
 		add_action(
-			'wp_ajax_wpmudev_notice_dismiss',
+			'wp_ajax_wdev_notice_dismiss',
 			array( $this, 'ajax_dismiss' )
 		);
 
@@ -383,7 +384,10 @@ class WPMUDEV_Dashboard_Message {
 		$msg = $this->choose_message();
 		if ( ! $msg ) { return; }
 
-		$this->render_message( $msg );
+		WDEV_Plugin_Ui::render_dev_notification(
+			WPMUDEV_Dashboard::$site->plugin_url . 'shared-ui/',
+			$msg
+		);
 	}
 
 	/**
@@ -399,9 +403,17 @@ class WPMUDEV_Dashboard_Message {
 		$msg = $this->get_global_message();
 		if ( ! $msg ) { return; }
 
+		$allowed = array(
+			'a' => array( 'href' => array(), 'title' => array(), 'target' => array(), 'class' => array() ),
+			'br' => array(),
+			'hr' => array(),
+			'em' => array(),
+			'strong' => array(),
+		);
+
 		printf(
 			'<div id="message" class="updated notice is-dismissible"><p>%s</p></div>',
-			$msg
+			wp_kses( $msg, $allowed )
 		);
 	}
 
@@ -452,54 +464,5 @@ class WPMUDEV_Dashboard_Message {
 		}
 
 		return $res;
-	}
-
-	/**
-	 * Output the HTML code to display the notification.
-	 *
-	 * @since  4.0.0
-	 * @param  object $msg The message details.
-	 */
-	protected function render_message( $msg ) {
-		if ( ! is_array( $msg ) ) { return; }
-		if ( ! isset( $msg['id'] ) ) { return; }
-		if ( empty( $msg['content'] ) ) { return; }
-		if ( $msg['dismissed'] ) { return; }
-
-		$plugin_url = WPMUDEV_Dashboard::$site->plugin_url;
-
-		$css_url = $plugin_url . 'css/notice.css';
-		$js_url = $plugin_url . 'js/notice.js';
-
-		if ( empty( $msg['id'] ) ) {
-			$msg_dismiss = '';
-		} else {
-			$msg_dismiss = __( 'Saving', 'wpmudev' );
-		}
-
-		$show_actions = $msg['can_dismiss'] || $msg['cta'];
-
-		?>
-		<link rel="stylesheet" type="text/css" href="<?php echo esc_url( $css_url ); ?>" />
-		<div class="notice frash-notice" style="display:none">
-			<input type="hidden" name="msg_id" value="<?php echo esc_attr( $msg['id'] ); ?>" />
-
-			<div class="frash-notice-logo"><span></span></div>
-				<div class="frash-notice-message">
-					<?php echo $msg['content']; ?>
-				</div>
-				<?php if ( $show_actions ) : ?>
-				<div class="frash-notice-cta">
-					<?php echo $msg['cta']; ?>
-					<?php if ( $msg['can_dismiss'] ) : ?>
-					<button class="frash-notice-dismiss" data-msg="<?php echo esc_attr( $msg_dismiss ); ?>">
-						<?php esc_html_e( 'Dismiss', 'wpmudev' ); ?>
-					</button>
-					<?php endif; ?>
-				</div>
-				<?php endif; ?>
-		</div>
-		<script src="<?php echo esc_url( $js_url ); ?>"></script>
-		<?php
 	}
 }

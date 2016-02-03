@@ -1,9 +1,5 @@
 /**
- * Javascript support for the Dashboard pages.
- * This file contains general functions that can be re-used on different pages.
- * All module/page-specific functions are inside file `modules.js`
- *
- * @since  4.0.0
+ * JS used for UI of WPMUDEV plugins.
  */
 
 /*
@@ -11,46 +7,46 @@
  */
 jQuery(function() {
 	// Small layout fix (changes the global background color).
-	jQuery('html').addClass('wpmud-html');
+	jQuery("html").addClass("wpmud-html");
 
 	// Add event handlers to show overlay dialogs.
-	jQuery('.wpmud').on('click', 'a[rel=dialog]', showDialog);
+	jQuery(".wpmud").on("click", "a[rel=dialog]", showDialog);
 
 	// Open any auto-show overlays.
-	jQuery('dialog.auto-show').first().each(showDialog);
+	jQuery("dialog.auto-show").first().each(showDialog);
 
 	// Select code content on click.
-	jQuery('.wpmud').on('click', 'code, pre, .sel-all', selectOnClick);
+	jQuery(".wpmud").on("click", "code, pre, .sel-all", selectOnClick);
 
 	// Disable the one-time-click buttons on first click.
-	jQuery('.wpmud').on('click', '.one-click', disableOnClick);
+	jQuery(".wpmud").on("click", ".one-click", disableOnClick);
 
 	// Start animation when clicking on spinner-icons.
-	jQuery('.wpmud').on('click', '.has-spinner', spinOnClick);
+	jQuery(".wpmud").on("click", ".has-spinner", spinOnClick);
 
 	// Make Ajax-submit buttons behave as Ajax-submit buttons.
-	jQuery('.wpmud').on('click', '.as-ajax', ajaxSubmitLink);
+	jQuery(".wpmud").on("click", ".as-ajax", ajaxSubmitLink);
 
 	// Handle close buttons inside boxes.
-	jQuery('.wpmud').on('click', '.can-close .close', closeElement);
+	jQuery(".wpmud").on("click", ".can-close .close", closeElement);
 
 	// Initialize all tab-areas.
-	jQuery('.wpmud .tabs').each(function(){
+	jQuery(".wpmud .tabs").each(function(){
 		WDP.wpmuTabs(this);
 	});
 
 	// Initialize all vertical tab-areas.
-	jQuery('.wpmud .vertical-tabs').each(function(){
+	jQuery(".wpmud .vertical-tabs").each(function(){
 		WDP.wpmuVerticalTabs(this);
 	});
 
 	// Convert all select lists to fancy WPMU Select lists.
-	jQuery('.wpmud select').each(function(){
+	jQuery(".wpmud select").each(function(){
 		WDP.wpmuSelect(this);
 	});
 
 	// Convert all all search-fields to WPMU search areas.
-	jQuery('.wpmud input[type="search"]').each(function(){
+	jQuery(".wpmud input[type=search]").each(function(){
 		WDP.wpmuSearchfield(this);
 	});
 
@@ -59,12 +55,25 @@ jQuery(function() {
 
 	// Add new jQuery function jQuery().loading(true|false)
 	jQuery.fn.extend({
-		loading: function(state) {
+		loading: function(state, message) {
 			if (undefined === state) { state = true; }
 			this.each(function() {
-				if (state) { jQuery(this).addClass('loading'); }
-				else { jQuery(this).removeClass('loading'); }
+				if (state) {
+					jQuery(this).addClass("loading");
+				} else {
+					jQuery(this).removeClass("loading");
+				}
 			});
+			if (state && message) {
+				jQuery(".wpmud-loading-info").remove();
+				message = "<p><span class='loading'></span> " + message + "</p>";
+				jQuery("<div></div>")
+					.addClass("wpmud-loading-info")
+					.appendTo("body")
+					.html(message);
+			} else if (!state) {
+				jQuery(".wpmud-loading-info").remove();
+			}
 			return this;
 		}
 	});
@@ -74,15 +83,15 @@ jQuery(function() {
 		var el = jQuery(this);
 		var args = {};
 
-		if (el.data('width')) { args.width = el.data('width'); }
-		if (el.data('height')) { args.height = el.data('height'); }
-		if (el.data('class')) { args.class = el.data('class'); }
-		if (el.data('title')) { args.title = el.data('title'); }
+		if (el.data("width")) { args.width = el.data("width"); }
+		if (el.data("height")) { args.height = el.data("height"); }
+		if (el.data("class")) { args.class = el.data("class"); }
+		if (el.data("title")) { args.title = el.data("title"); }
 
-		if (el.is('dialog')) {
-			WDP.showOverlay('#' + el.attr('id'), args);
-		} else if (el.attr('href')) {
-			WDP.showOverlay(el.attr('href'), args);
+		if (el.is("dialog")) {
+			WDP.showOverlay("#" + el.attr("id"), args);
+		} else if (el.attr("href")) {
+			WDP.showOverlay(el.attr("href"), args);
 		}
 		return false;
 	}
@@ -97,13 +106,13 @@ jQuery(function() {
 		var form, el = jQuery(this);
 
 		window.setTimeout(function() {
-			el.prop('disabled', true).addClass('disabled').loading(true);
+			el.prop("disabled", true).addClass("disabled").loading(true);
 
-			if (el.hasClass('button')) {
-				form = el.closest('form');
+			if (el.hasClass("button")) {
+				form = el.closest("form");
 				if ( form.length ) {
-					form.find(':input').prop('disabled', true).addClass('disabled');
-					form.prop('disabled', true).addClass('disabled');
+					form.find(":input").prop("disabled", true).addClass("disabled");
+					form.prop("disabled", true).addClass("disabled");
 				}
 			}
 		}, 20);
@@ -112,24 +121,24 @@ jQuery(function() {
 	// Start animating the element on click.
 	function spinOnClick(ev) {
 		var icon, el = jQuery(this);
-		if (el.hasClass('spin-on-click')) { icon = el; }
-		else { icon = el.find('.spin-on-click'); }
-		icon.addClass('spin');
+		if (el.hasClass("spin-on-click")) { icon = el; }
+		else { icon = el.find(".spin-on-click"); }
+		icon.addClass("spin");
 	}
 
 	// Submit a link as ajax request instead of refreshing the window.
 	function ajaxSubmitLink(ev) {
 		var el = jQuery(this),
-			url = el.attr('href');
+			url = el.attr("href");
 
 		if (! url) { return false; }
 
-		el.addClass('loading disabled').prop('disabled', true);
+		el.addClass("loading disabled").prop("disabled", true);
 		jQuery.post(url)
 			.always(function() {
-				el.removeClass('loading disabled').prop('disabled', false);
+				el.removeClass("loading disabled").prop("disabled", false);
 			}).fail(function() {
-				WDP.showError('message');
+				WDP.showError("message");
 				WDP.showError();
 			});
 
@@ -139,11 +148,11 @@ jQuery(function() {
 	// Parses the hash-tag in the current address bar.
 	function checkLocalRoutes() {
 		var route = window.location.hash.substr(1)
-			parts = route.split('=');
+			parts = route.split("=");
 
 		WDP.localRoutes = {
-			'action': false,
-			'param': false
+			"action": false,
+			"param": false
 		};
 		if (! route.length ) { return; }
 
@@ -155,10 +164,10 @@ jQuery(function() {
 
 	// Closes an element (i.e. hides and removes it)
 	function closeElement() {
-		var box = jQuery(this).closest('.can-close');
+		var box = jQuery(this).closest(".can-close");
 
 		box.css({height: box.outerHeight() });
-		box.addClass('animated collapse');
+		box.addClass("animated collapse");
 
 		function removeElementBox() {
 			box.remove();
@@ -393,8 +402,7 @@ WDP.prepareOverlay = function() {
 		WDP.overlay.box_title.appendTo(WDP.overlay.box);
 		WDP.overlay.box_content.appendTo(WDP.overlay.box);
 		WDP.overlay.close.appendTo(WDP.overlay.box_title);
-		WDP.overlay.wrapper.appendTo('body')
-			.css({ left: offset.left, top: offset.top });
+		WDP.overlay.wrapper.appendTo('body');
 
 		WDP.overlay.close.click(WDP.closeOverlay);
 	}
@@ -598,32 +606,32 @@ WDP.wpmuSelect = function(el) {
 	var jq = jQuery(el),
 		wrap, handle, list, value, items;
 
-	if (! jq.is('select')) { return; }
-	if (jq.closest('.select-container').length) { return; }
+	if (! jq.is("select")) { return; }
+	if (jq.closest(".select-container").length) { return; }
 
 	// Add the DOM elements to style the select list.
 	function setupElement() {
-		jq.wrap('<div class="select-container">');
+		jq.wrap("<div class='select-container'>");
 		jq.hide();
 
 		wrap = jq.parent();
-		handle = jQuery('<span class="dropdown-handle"><i class="wdv-icon wdv-icon-reorder"></i></span>').prependTo(wrap);
-		list = jQuery('<div class="select-list-container"></div>').appendTo(wrap);
-		value = jQuery('<div class="list-value">&nbsp;</div>').appendTo(list);
-		items = jQuery('<ul class="list-results"></ul>').appendTo(list);
+		handle = jQuery("<span class='dropdown-handle'><i class='wdv-icon wdv-icon-reorder'></i></span>").prependTo(wrap);
+		list = jQuery("<div class='select-list-container'></div>").appendTo(wrap);
+		value = jQuery("<div class='list-value'>&nbsp;</div>").appendTo(list);
+		items = jQuery("<ul class='list-results'></ul>").appendTo(list);
 
-		wrap.addClass(jq.attr('class'));
+		wrap.addClass(jq.attr("class"));
 	}
 
 	// Add all the options to the new DOM elements.
 	function populateList() {
 		items.empty();
-		jq.find('option').each(function onPopulateLoop() {
+		jq.find("option").each(function onPopulateLoop() {
 			var opt = jQuery(this),
 				item;
-			item = jQuery('<li></li>').appendTo(items);
+			item = jQuery("<li></li>").appendTo(items);
 			item.text(opt.text());
-			item.data('value', opt.val());
+			item.data("value", opt.val());
 
 			if (opt.val() == jq.val()) {
 				selectItem(item);
@@ -633,7 +641,7 @@ WDP.wpmuSelect = function(el) {
 
 	// Toggle the dropdown state between open/closed.
 	function stateToggle() {
-		if (! wrap.hasClass('active')) {
+		if (! wrap.hasClass("active")) {
 			stateOpen();
 		} else {
 			stateClose();
@@ -641,27 +649,32 @@ WDP.wpmuSelect = function(el) {
 	}
 
 	// Close the dropdown list.
-	function stateClose() {
-		wrap.removeClass('active');
+	function stateClose(item) {
+		if (!item) { item = wrap; }
+		item.removeClass("active");
+		item.closest("tr").removeClass("select-open");
 	}
 
 	// Open the dropdown list.
 	function stateOpen() {
-		jQuery('.select-container.active').removeClass('active');
-		wrap.addClass('active');
+		jQuery(".select-container.active").each(function() {
+			stateClose(jQuery(this));
+		});
+		wrap.addClass("active");
+		wrap.closest("tr").addClass("select-open");
 	}
 
-	// Visually mark the specified option as 'selected'.
+	// Visually mark the specified option as "selected".
 	function selectItem(opt) {
 		value.text(opt.text());
 
-		jQuery('.current', items).removeClass('current');
-		opt.addClass('current');
+		jQuery(".current", items).removeClass("current");
+		opt.addClass("current");
 		stateClose();
 
 		// Also update the select list value.
-		jq.val(opt.data('value'));
-		jq.trigger('change');
+		jq.val(opt.data("value"));
+		jq.trigger("change");
 	}
 
 	// Element constructor.
@@ -670,31 +683,31 @@ WDP.wpmuSelect = function(el) {
 
 		setupElement();
 		populateList();
-		items.on('click', function onItemClick(ev) {
+		items.on("click", function onItemClick(ev) {
 			var opt = jQuery(ev.target);
 			selectItem(opt);
 		});
 
-		handle.on('click', stateToggle);
-		value.on('click', stateToggle);
-		jq.on('focus', stateOpen);
+		handle.on("click", stateToggle);
+		value.on("click", stateToggle);
+		jq.on("focus", stateOpen);
 
 		jQuery(document).click(function onOutsideClick(ev) {
 			var jq = jQuery(ev.target),
 				sel_id;
 
-			if (jq.closest('.select-container').length) { return; }
-			if (jq.is('label') && jq.attr('for')) {
-				sel_id = jq.attr('for');
-				if (jQuery('select#' + sel_id).length) { return; }
+			if (jq.closest(".select-container").length) { return; }
+			if (jq.is("label") && jq.attr("for")) {
+				sel_id = jq.attr("for");
+				if (jQuery("select#" + sel_id).length) { return; }
 			}
 
 			stateClose();
 		});
 
-		sel_id = jq.attr('id');
+		sel_id = jq.attr("id");
 		if (sel_id) {
-			jQuery('label[for=' + sel_id + ']').on('click', stateOpen);
+			jQuery("label[for=" + sel_id + "]").on("click", stateOpen);
 		}
 	}
 
@@ -938,62 +951,78 @@ WDP.wpmuSearchfield = function(el) {
  * @since  4.0.0
  */
 WDP.showMessage = function(action) {
-	var delay = 3000,
-		msg_success = jQuery('#wdp-success'),
-		msg_error = jQuery('#wdp-error'),
-		msg = msg_success; // default message is the success message.
-
+	var me = this;
 	initDom();
 
+	// Options can also be passed in as object now :)
+	if (action instanceof Object) {
+		for (var key in action) {
+			if (!action.hasOwnProperty(key)) {continue;}
+			WDP.showMessage(key, action[key]);
+		}
+		return;
+	}
+
 	if (WDP.data._msg) {
-		msg = WDP.data._msg;
+		me.msg = WDP.data._msg;
 	}
 
 	switch (action) {
-		case 'type':
+		case "type":
 			switch ( arguments[1] ) {
-				case 'success':
-				case 'ok':
-				case 'green':
-					WDP.data._msg = msg_success;
+				case "success":
+				case "ok":
+				case "green":
+					WDP.data._msg = me.msgSuccess;
 					break;
 
-				case 'error':
-				case 'err':
-				case 'red':
-					WDP.data._msg = msg_error;
+				case "error":
+				case "err":
+				case "red":
+					WDP.data._msg = me.msgError;
 					break;
 			}
 			break;
 
-		case 'message':
+		case "message":
 			var text = arguments[1];
 			if (!text || !text.length) {
-				msg.find('.extra-text').html('');
-				msg.find('.default-text').show();
+				me.msg.find(".extra-text").html("").hide();
+				me.msg.find(".default-text").show();
 			} else {
-				msg.find('.extra-text').html(text);
-				msg.find('.default-text').hide();
+				me.msg.find(".extra-text").html(text).show();
+				me.msg.find(".default-text").hide();
 			}
 			break;
 
-		case 'delay':
+		case "delay":
 			var new_delay = parseInt( arguments[1] );
-			if (isNaN(new_delay) || new_delay < 2000) {
-				delay = 3000;
+			if (!new_delay) {
+				me.delay = 0;
+			} else if (isNaN(new_delay) || new_delay < 2000) {
+				me.delay = 3000;
 			} else {
-				delay = new_delay;
+				me.delay = new_delay;
 			}
 			break;
 
-		case 'hide':
-			hide_message();
+		case "icon":
+			if (false === arguments[1] || 0 === arguments[1]) {
+				me.msg.find(".the-msg-icon").hide();
+			} else {
+				me.msg.find(".the-msg-icon").show();
+			}
 			break;
 
-		case 'show':
+		case "hide":
+			if (false === arguments[1] || 0 === arguments[1]) { break; }
+			hideMessage();
+			break;
+
+		case "show":
 		default:
-			hide_message();
-			show_message();
+			if (false === arguments[1] || 0 === arguments[1]) { break; }
+			showMessage();
 			break;
 	}
 
@@ -1003,72 +1032,83 @@ WDP.showMessage = function(action) {
 		WDP.data._message_dom_done = true;
 
 		if (! WDP.lang.default_msg_ok) {
-			WDP.lang.default_msg_ok = 'Okay, we saved your changes!';
+			WDP.lang.default_msg_ok = "Okay, we saved your changes!";
 		}
 		if (! WDP.lang.default_msg_err) {
-			WDP.lang.default_msg_err = 'Oops, we could not do this...';
+			WDP.lang.default_msg_err = "Oops, we could not do this...";
 		}
 
-		jQuery('body').append(
+		jQuery("body").append(
 			'<div class="update-notice ok" id="wdp-success" style="display:none">' +
-			'<span class="check-animation"></span>' +
+			'<span class="the-msg-icon check-animation"></span>' +
 			'<p><span class="default-text">' + WDP.lang.default_msg_ok + '</span>' +
-			'<span class="extra-text"></span></p>' +
+			'<span class="extra-text" style="display:none"></span></p>' +
+			'<span class="close">&times;</span>' +
 			'</div>'
 		)
 
-		jQuery('body').append(
+		jQuery("body").append(
 			'<div class="update-notice err" id="wdp-error" style="display:none">' +
-			'<i class="wdv-icon wdv-icon-warning-sign"></i>' +
+			'<i class="the-msg-icon wdv-icon wdv-icon-warning-sign"></i>' +
 			'<p><span class="default-text">' + WDP.lang.default_msg_err + '</span>' +
-			'<span class="extra-text"></span></p>' +
+			'<span class="extra-text" style="display:none"></span></p>' +
+			'<span class="close">&times;</span>' +
 			'</div>'
 		);
 
-		msg_success = jQuery('#wdp-success');
-		msg_error = jQuery('#wdp-error');
-		msg = msg_success;
+		me.msgSuccess = jQuery("#wdp-success");
+		me.msgError = jQuery("#wdp-error");
+		me.msg = me.msgSuccess;
+		me.delay = 3000;
 	}
 
 	// Show current message.
-	function show_message() {
-		var tmr = msg.data('tmr');
+	function showMessage() {
+		var tmr = me.msg.data("tmr");
 
-		hide_message();
+		hideMessage();
 		if (tmr) {
-			window.setTimeout( WDP.showMessage, 20 );
+			window.setTimeout(WDP.showMessage, 20);
 			return;
 		}
 
-		msg.show();
+		me.msg.show();
+		me.msg.one("click", ".close", hideMessage);
 
 		// Hide the update notice box after a short time.
-		tmr = window.setTimeout(function() {
-			msg.fadeOut();
-			msg.data('tmr', false);
-		}, delay);
-		msg.data('tmr', tmr);
+		if (me.delay) {
+			tmr = window.setTimeout(function() {
+				me.msg.fadeOut();
+				me.msg.data("tmr", false);
+			}, me.delay);
+			me.msg.data("tmr", tmr);
+			me.msg.find(".close").hide();
+		} else {
+			me.msg.find(".close").show();
+			tmr = false;
+			me.msg.data("tmr", false);
+		}
 	}
 
 	// Hide all messages.
-	function hide_message() {
+	function hideMessage() {
 		var tmr;
 
 		// Success message.
-		tmr = msg_success.data('tmr');
+		tmr = me.msgSuccess.data("tmr");
 		if (tmr) {
 			window.clearTimeout(tmr);
-			msg_success.data('tmr', false);
+			me.msgSuccess.data("tmr", false);
 		}
-		msg_success.hide();
+		me.msgSuccess.hide();
 
 		// Error message.
-		tmr = msg_error.data('tmr');
+		tmr = me.msgError.data("tmr");
 		if (tmr) {
 			window.clearTimeout(tmr);
-			msg_error.data('tmr', false);
+			me.msgError.data("tmr", false);
 		}
-		msg_error.hide();
+		me.msgError.hide();
 	}
 
 	return WDP;
@@ -1079,8 +1119,23 @@ WDP.showMessage = function(action) {
  *
  * @since  4.0.0
  */
-WDP.showSuccess = function(action) {
-	WDP.showMessage('type', 'success').showMessage(action, arguments[1]);
+WDP.showSuccess = function(message) {
+	var args = {
+		"type": "success",
+		"delay": 3000,
+		"icon": true,
+		"message": false,
+		"show": false
+	};
+
+	if (message instanceof Object) {
+		WDP.showMessage(args);
+		message.show = true;
+		WDP.showMessage(message);
+	} else if ("string" === typeof message) {
+		args.message = message;
+		WDP.showMessage(args);
+	}
 
 	return WDP;
 };
@@ -1090,8 +1145,23 @@ WDP.showSuccess = function(action) {
  *
  * @since  4.0.0
  */
-WDP.showError = function(action) {
-	WDP.showMessage('type', 'error').showMessage(action, arguments[1]);
+WDP.showError = function(message) {
+	var args = {
+		"type": "error",
+		"delay": false,
+		"icon": true,
+		"message": false,
+		"show": true
+	};
+
+	if (message instanceof Object) {
+		WDP.showMessage(args);
+		message.show = true;
+		WDP.showMessage(message);
+	} else if ("string" === typeof message) {
+		args.message = message;
+		WDP.showMessage(args);
+	}
 
 	return WDP;
 };

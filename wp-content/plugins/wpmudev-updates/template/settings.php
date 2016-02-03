@@ -9,9 +9,13 @@
  *   $data (membership data)
  *   $member (user profile data)
  *   $urls (urls of all dashboard menu items)
- *   $membership_label (like "Monthly (full)")
+ *   $membership_type (full|single|free)
  *   $allowed_users (list of all users that can see the WPUDEV Dashboard)
  *   $auto_update (bool. current value of the auto-update setting)
+ *   $single_id (int. ID of the single-license project)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 $can_manage_users = true;
@@ -45,19 +49,58 @@ if ( WPMUDEV_LIMIT_TO_USER ) {
 		<div class="subscription-detail">
 			<span class="label"><?php esc_html_e( 'Type:', 'wpmudev' ); ?></span>
 			<span class="value">
-				<?php echo esc_html( $membership_label ); ?>
-				<i class="status-ok dev-icon dev-icon-radio_checked"></i>
+				<?php
+				switch ( $membership_type ) {
+					case 'full':
+						esc_html_e( 'Full', 'wpmudev' );
+						echo '<i class="status-ok dev-icon dev-icon-radio_checked"></i>';
+						break;
+
+					case 'single':
+						esc_html_e( 'Single', 'wpmudev' );
+						echo '<i class="status-ok dev-icon dev-icon-radio_checked"></i>';
+						break;
+
+					default:
+						esc_html_e( 'Free', 'wpmudev' );
+						break;
+				}
+				?>
 			</span>
 		</div>
+		<?php if ( 'single' == $membership_type ) : ?>
+		<div class="subscription-detail">
+			<span class="label"><?php esc_html_e( 'Active Subscription:', 'wpmudev' ); ?></span>
+			<span class="value">
+				<?php
+				$item = WPMUDEV_Dashboard::$site->get_project_infos( $single_id );
+				echo esc_html( $item->name );
+				?>
+			</span>
+		</div>
+		<?php endif; ?>
+		<?php if ( 'Staff' == $profile['title'] ) : ?>
+		<div class="subscription-detail">
+			<span class="label"><?php esc_html_e( 'Status:', 'wpmudev' ); ?></span>
+			<span class="value">
+				Staff-Hero
+				<span class="status-ok" tooltip="<?php echo "Your duty is no easy one:\n\nHelp members in need...\nMake stranges smile...\nFight evil...\nSave kittens!"; ?>">
+					<i class="dev-icon dev-icon-logo_alt"></i>
+				</span>
+			</span>
+		</div>
+		<?php endif; ?>
 		<div class="subscription-detail">
 			<span class="label"><?php esc_html_e( 'Member since:', 'wpmudev' ); ?></span>
 			<span class="value">
 				<?php echo esc_html( date_i18n( 'F d, Y', $profile['member_since'] ) ); ?>
 			</span>
 		</div>
-		<a href="<?php echo esc_url( $url_membership ); ?>" target="_blank" class="button">
-			<?php esc_html_e( 'Change plan', 'wpmudev' ); ?>
-		</a>
+		<div class="buttons">
+			<a href="<?php echo esc_url( $url_membership ); ?>" target="_blank" class="button">
+				<?php esc_html_e( 'Change plan', 'wpmudev' ); ?>
+			</a>
+		</div>
 	</div>
 </section>
 

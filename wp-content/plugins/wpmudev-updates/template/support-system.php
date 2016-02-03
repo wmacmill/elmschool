@@ -9,6 +9,9 @@
  *   $data (membership data)
  *   $profile (user profile data)
  *   $urls (urls of all dashboard menu items)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 // Collect system details to display.
@@ -280,17 +283,33 @@ $this->render_header( $page_title );
 
 		<div class="content">
 			<p class="tc"><em>- Additional briefing for support heroes -</em></p>
-			<?php echo WPMUDEV_Dashboard::$notice->dump_queue(); ?>
+			<?php
+			// @codingStandardsIgnoreStart: Dump is HTML code, no escaping!
+			echo WPMUDEV_Dashboard::$notice->dump_queue();
+			// @codingStandardsIgnoreEnd
+			?>
 		</div>
 	</div>
 	<?php endif; ?>
 
 </div>
+<?php
+printf(
+	esc_html__( 'Dashboard version %s', 'wpmudev' ),
+	esc_html( WPMUDEV_Dashboard::$version )
+);
+?>
 </div>
 
 
 <?php
 
+/**
+ * Helper function
+ *
+ * @since  4.0.0
+ * @param  array $list List of settings.
+ */
 function __render_list( $list ) {
 	echo '<ul class="dev-list left top">';
 
@@ -298,12 +317,20 @@ function __render_list( $list ) {
 		printf(
 			'<li><div><span class="list-label list-header">%s</span><span class="list-detail">%s</span></div></li>',
 			esc_html( $key ),
+			// @codingStandardsIgnoreStart: Value contains HTML code, no escaping!
 			$value
+			// @codingStandardsIgnoreEnd
 		);
 	}
 	echo '</ul>';
 }
 
+/**
+ * Helper function.
+ *
+ * @since  4.0.0
+ * @return array
+ */
 function __error_reporting() {
 	$levels = array();
 	$error_reporting = error_reporting();
@@ -339,6 +366,13 @@ function __error_reporting() {
 	return $levels;
 }
 
+/**
+ * Helper function.
+ *
+ * @since  4.0.0
+ * @param  mixed $val Value to format.
+ * @return string
+ */
 function __value_format( $val ) {
 	if ( is_numeric( $val ) and ( $val >= ( 1024 * 1024 ) ) ) {
 		$val = size_format( $val );
@@ -346,6 +380,13 @@ function __value_format( $val ) {
 	return $val;
 }
 
+/**
+ * Helper function.
+ *
+ * @since  4.0.0
+ * @param  string $constant Name of a PHP const.
+ * @return string
+ */
 function __const_format( $constant ) {
 	if ( ! defined( $constant ) ) {
 		return '<em>undefined</em>';

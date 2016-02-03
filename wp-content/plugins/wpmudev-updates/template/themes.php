@@ -8,6 +8,9 @@
  * Following variables are passed into the template:
  *   $data (membership data)
  *   $urls (urls of all dashboard menu items)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 // Render the page header section.
@@ -25,6 +28,7 @@ $this->render_header( $page_title );
 				<?php esc_html_e( 'Sort', 'wpmudev' ); ?>
 			</label>
 			<select id="sel_sort" class="sel-sort">
+				<option value="def"><?php esc_html_e( 'Default', 'wpmudev' ); ?></option>
 				<option value="popularity"><?php esc_html_e( 'Popularity', 'wpmudev' ); ?></option>
 				<option value="released"><?php esc_html_e( 'Release Date', 'wpmudev' ); ?></option>
 				<option value="updated"><?php esc_html_e( 'Recently Updated', 'wpmudev' ); ?></option>
@@ -36,8 +40,29 @@ $this->render_header( $page_title );
 </div>
 
 
-<div class="row row-projects">
-	<div class="content"><div class="content-inner">
+<div class="row row-projects updates hide-empty">
+	<h3 class="section-title" id="section1">
+		<span class="title"><?php esc_html_e( 'Available updates', 'wpmduev' ); ?></span>
+		<span class="count"></span>
+	</h3>
+	<div class="content">
+		<div class="content-inner"></div>
+	</div>
+	<div class="no-content"></div>
+	<div class="row-sep"></div>
+</div>
+
+<div class="row row-projects installed hide-empty">
+	<div class="content">
+		<div class="content-inner"></div>
+	</div>
+	<div class="no-content">
+		<?php esc_html_e( 'No Themes found', 'wpmudev' ); ?>
+	</div>
+	<div class="row-sep"></div>
+</div>
+
+<div class="project-list hidden">
 	<?php
 	foreach ( $data['projects'] as $project ) {
 		if ( empty( $project['id'] ) ) { continue; }
@@ -46,10 +71,6 @@ $this->render_header( $page_title );
 		$this->render_project( $project['id'] );
 	}
 	?>
-	</div></div>
-	<div class="no-content">
-		<?php esc_html_e( 'No Themes found', 'wpmudev' ); ?>
-	</div>
 </div>
 
 <?php $this->load_template( 'element-last-refresh' ); ?>

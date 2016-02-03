@@ -7,6 +7,9 @@
  *
  * Following variables are passed into the template:
  *   $pid (project ID)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 // Skip if project-ID is invalid.
@@ -22,10 +25,10 @@ if ( empty( $res->pid ) || empty( $res->name ) ) { return; }
 if ( $res->is_hidden ) { return; }
 
 $action = false;
-$action_url = '#';
+$action_url = '#project-' . $pid;
 $action_class = '';
 $action_ajax = '';
-$action_attr = false;
+$action_attr = array();
 $show_badge = false;
 $target = '_self';
 
@@ -39,9 +42,7 @@ if ( ! $res->is_installed ) {
 		$action = __( 'Upgrade', 'wpmudev' );
 		$action_url = '#upgrade';
 		$action_class = 'button button-cta';
-		$action_attr = array(
-			'rel="dialog"',
-		);
+		$action_attr['rel'] = 'dialog';
 	} elseif ( $res->is_compatible && $res->url->install ) {
 		$action = __( 'Install', 'wpmudev' );
 		$action_ajax = 'project-install';
@@ -54,7 +55,6 @@ if ( ! $res->is_installed ) {
 		$target = '_blank';
 	} else {
 		$action = $res->incompatible_reason;
-		$action_url = '#';
 		$action_class = 'disabled';
 	}
 } else {
@@ -63,10 +63,10 @@ if ( ! $res->is_installed ) {
 	 * Possible Actions: Update, Activate, Deactivate, Install Upfront.
 	 */
 
-	// 1. Check if the project can be updated.
 	if ( $res->has_update ) {
+		// 1. Check if the project can be updated.
 		$action = __( 'Update', 'wpmudev' );
-		$action_url = '#update-project';
+		$action_url = '#update=' . $pid;
 		$action_class = 'has-update button-yellow';
 
 		if ( $res->can_update ) {
@@ -74,8 +74,20 @@ if ( ! $res->is_installed ) {
 		} else {
 			$action_class .= ' disabled';
 		}
+	} elseif ( $res->special ) {
+		// 2. This is a dropin/mu-plugin.
+		$action = __( 'Not available', 'wpmudev' );
+		$action_class .= ' button-deactivated';
+		switch ( $res->special ) {
+			case 'dropin':
+				$action_attr['tooltip'] = __( 'This is a Dropin', 'wpmudev' );
+				break;
+			case 'muplugin':
+				$action_attr['tooltip'] = __( 'This is a mu-plugin', 'wpmudev' );
+				break;
+		}
 	} elseif ( $res->is_active ) {
-		// 2.a Deactivate an active plugin (not for themes!)
+		// 3.a Deactivate an active plugin (not for themes!)
 		if ( 'plugin' == $res->type ) {
 			if ( $res->is_network_admin ) {
 				$action = __( 'Network Deactivate', 'wpmudev' );
@@ -96,7 +108,7 @@ if ( ! $res->is_installed ) {
 			// Note: No change for active themes in network admin mode.
 		}
 	} else {
-		// 2.b Activate an inactive project (theme or plugin)
+		// 3.b Activate an inactive project (theme or plugin)
 		if ( 'plugin' == $res->type ) {
 			if ( $res->is_network_admin ) {
 				$action = __( 'Network Activate', 'wpmudev' );
@@ -141,16 +153,13 @@ if ( 'theme' == $res->type ) {
 }
 
 if ( ! $action ) {
-	$action = __( 'Instructions', 'wpmudev' );
-	$action_url = $res->url->instructions;
-	$action_attr = array(
-		'rel="dialog"',
-		'data-class="small no-margin"',
-		'data-height="600"',
-		'data-title="' . sprintf( __( '%s Instructions', 'wpmudev' ), esc_attr( $res->name ) ) . '"',
-	);
-
-	$res->url->instructions = false;
+	if ( 'theme' == $res->type ) {
+		$action = __( 'Theme details', 'wpmudev' );
+	} else {
+		$action = __( 'Plugin details', 'wpmudev' );
+	}
+	$action_url = '#pid=' . $res->pid;
+	$action_class = 'show-info button-light';
 }
 
 $minor_actions = array();
@@ -159,14 +168,6 @@ if ( $res->is_active && $res->url->config ) {
 		'<a href="%s">%s</a>',
 		$res->url->config,
 		( 'theme' == $res->type ? __( 'Customize', 'wpmudev' ) : __( 'Configure', 'wpmudev' ) )
-	);
-}
-if ( $res->url->instructions ) {
-	$minor_actions[] = sprintf(
-		'<a href="%s" rel="dialog" data-class="small no-margin" data-height="600" data-title="%s">%s</a>',
-		$res->url->instructions,
-		sprintf( __( '%s Instructions', 'wpmudev' ), esc_attr( $res->name ) ),
-		__( 'Instructions', 'wpmudev' )
 	);
 }
 
@@ -187,7 +188,7 @@ $attr = array(
 foreach ( $res->tags as $tid => $tag ) {
 	$attr[ 'tag-' . $tid ] = 1;
 }
-$url_spinner = WPMUDEV_Dashboard::$site->plugin_url . 'image/spin-grey.gif';
+$url_spinner = WPMUDEV_Dashboard::$site->plugin_url . 'shared-ui/img/spin-grey.gif';
 if ( $action_ajax && empty( $action_url ) ) {
 	$action_url = '#' . $action_ajax;
 }
@@ -221,7 +222,9 @@ if ( $action_ajax && empty( $action_url ) ) {
 		<?php endif; ?>
 		<?php
 		if ( $action_attr && is_array( $action_attr ) ) {
-			echo implode( ' ', $action_attr );
+			foreach ( $action_attr as $key => $value ) {
+				printf( ' %s="%s"', sanitize_html_class( $key ), esc_attr( $value ) );
+			}
 		}
 		?>
 		href="<?php echo esc_url( $action_url ); ?>"
@@ -231,7 +234,11 @@ if ( $action_ajax && empty( $action_url ) ) {
 		</a>
 	</div>
 	<div class="project-minor">
-		<?php echo implode( ' &bull; ', $minor_actions ); ?>
+		<?php
+		// @codingStandardsIgnoreStart: Actions contain HTML, no escaping!
+		echo implode( ' &bull; ', $minor_actions );
+		// @codingStandardsIgnoreEnd
+		?>
 	</div>
 
 	<?php if ( $show_badge ) : ?>

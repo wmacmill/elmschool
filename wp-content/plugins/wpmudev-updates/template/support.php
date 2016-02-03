@@ -12,6 +12,9 @@
  *   $staff_login (remote access status/details)
  *   $notes (notes for support staff)
  *   $access_logs (list of all support-staff logins)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 // Render the page header section.
@@ -37,6 +40,12 @@ if ( $access_days < 1 ) {
 	$day_expression = __( 'tomorrow', 'wpmudev' );
 } else {
 	$day_expression = sprintf( __( 'in %s days', 'wpmudev' ), $access_days );
+}
+
+if ( $notes && ! empty( $_COOKIE['wpmudev_is_staff'] ) || ! empty( $_GET['staff'] ) ) {
+	$notes_class = 'active';
+} else {
+	$notes_class = '';
 }
 
 $threads = $profile['forum']['support_threads'];
@@ -162,7 +171,7 @@ $time_format = get_option( 'time_format' );
 				);
 				?>
 			</div>
-			<form class="staff-notes" method="POST" action="<?php echo esc_url( $urls->support_url ); ?>">
+			<form class="staff-notes <?php echo esc_attr( $notes_class ); ?>" method="POST" action="<?php echo esc_url( $urls->support_url ); ?>">
 				<input type="hidden" name="action" value="staff-note" />
 				<?php wp_nonce_field( 'staff-note', 'hash' ) ?>
 				<p>

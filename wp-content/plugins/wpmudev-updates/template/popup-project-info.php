@@ -7,9 +7,17 @@
  *
  * Following variables are passed into the template:
  *   $pid (project ID)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
-$res = WPMUDEV_Dashboard::$site->get_project_infos( $pid );	  			 				 	   	 
+$res = WPMUDEV_Dashboard::$site->get_project_infos( $pid );
+
+if ( ! $res || ! is_object( $res ) ) {
+	include 'popup-no-data-found.php';
+	return;
+}
 
 $gallery_items = array();
 if ( ! empty( $res->url->video ) ) {

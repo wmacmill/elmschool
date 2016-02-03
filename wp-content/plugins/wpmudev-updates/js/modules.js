@@ -48,14 +48,13 @@ jQuery(function initModules() {
 		txtFilter.on('keyup', filterProjects);
 		txtFilter.on('search', filterProjects);
 		txtFilter.on('blur', filterProjects);
-		sortBy.on('change', sortProjects);
+		sortBy.on('change', changeCategory);
 		showCat.on('change', changeCategory);
 
-		alphabeticalIndex();
-		changeCategory(); // This will change category, count projects and sort them.
+		alphabeticalIndex(); // This will change category, count projects and sort them.
 
 		// Parse the local routes after a short delay.
-		window.setTimeout(function(){
+		window.setTimeout(function() {
 			switch (WDP.localRoutes.action) {
 				case 'pid':    showProjectInfo(WDP.localRoutes.param); break;
 				case 'update': showUpdateInfo(WDP.localRoutes.param); break;
@@ -64,16 +63,19 @@ jQuery(function initModules() {
 
 		// Display the project info popup.
 		function showProjectInfo(param) {
+			if (!param) { return; }
 			showPopup.call(this, 'info', param);
 		}
 
 		// Display the project update info popup.
 		function showUpdateInfo(param) {
+			if (!param) { return; }
 			showPopup.call(this, 'update', param);
 		}
 
 		// Display the project update info popup.
 		function showProjectChangelog(param) {
+			if (!param) { return; }
 			showPopup.call(this, 'changelog', param);
 		}
 	}
@@ -99,13 +101,12 @@ jQuery(function initModules() {
 		txtFilter.on('keyup', filterProjects);
 		txtFilter.on('search', filterProjects);
 		txtFilter.on('blur', filterProjects);
-		sortBy.on('change', sortProjects);
+		sortBy.on('change', changeCategory);
 
-		alphabeticalIndex();
-		filterProjects(); // This will change category, count projects and sort them.
+		alphabeticalIndex(); // This will change category, count projects and sort them.
 
 		// Parse the local routes after a short delay.
-		window.setTimeout(function(){
+		window.setTimeout(function() {
 			switch (WDP.localRoutes.action) {
 				case 'pid':    showProjectInfo(WDP.localRoutes.param); break;
 				case 'update': showUpdateInfo(WDP.localRoutes.param); break;
@@ -114,16 +115,19 @@ jQuery(function initModules() {
 
 		// Display the project info popup.
 		function showProjectInfo(param) {
+			if (!param) { return; }
 			showPopup.call(this, 'info', param);
 		}
 
 		// Display the project update info popup.
 		function showUpdateInfo(param) {
+			if (!param) { return; }
 			showPopup.call(this, 'update', param);
 		}
 
 		// Display the project update info popup.
 		function showProjectChangelog(param) {
+			if (!param) { return; }
 			showPopup.call(this, 'changelog', param);
 		}
 	}
@@ -182,11 +186,20 @@ jQuery(function initModules() {
 	}
 
 	// Refresh the values in the update-counter badges.
-	function refreshUpdateCounter(type, step) {
+	function refreshUpdateCounter(type, step, action) {
 		var menu = jQuery('#adminmenu .toplevel_page_wpmudev'),
 			badge_total = menu.find('.total-updates'),
 			badge_details = menu.find('.' + type + '-updates'),
 			count = 0;
+
+		if (badge_details.length) {
+			count = parseInt(badge_details.first().find('.countval').text());
+			if ('set' === action) { step = step - count; }
+			count += step;
+			if (count < 0) { count = 0; }
+			badge_details.removeClass().addClass(type + '-updates update-plugins count-' + count);
+			badge_details.find('.countval').text(count);
+		}
 
 		if (badge_total.length) {
 			count = parseInt(badge_total.first().find('.countval').text());
@@ -194,14 +207,6 @@ jQuery(function initModules() {
 			if (count < 0) { count = 0; }
 			badge_total.removeClass().addClass('total-updates update-plugins count-' + count);
 			badge_total.find('.countval').text(count);
-		}
-
-		if (badge_details.length) {
-			count = parseInt(badge_details.first().find('.countval').text());
-			count += step;
-			if (count < 0) { count = 0; }
-			badge_details.removeClass().addClass(type + '-updates update-plugins count-' + count);
-			badge_details.find('.countval').text(count);
 		}
 	}
 
@@ -346,7 +351,8 @@ jQuery(function initModules() {
 
 	// Count projects and hide empty sections.
 	function countProjects() {
-		var cat = jQuery('#sel_category').val();
+		var cat = jQuery('#sel_category').val(),
+			count_updates = jQuery('.project-box[data-hasupdate=1]').length;
 
 		items.show();
 		items.filter('.filter-hide').hide();
@@ -367,31 +373,48 @@ jQuery(function initModules() {
 			row.addClass('expanded');
 		}
 
+
+		if (jQuery('body').hasClass('wpmud-plugins')) {
+			refreshUpdateCounter('plugin', count_updates, 'set');
+		} else if (jQuery('body').hasClass('wpmud-themes')) {
+			refreshUpdateCounter('theme', count_updates, 'set');
+		}
+
 		sortProjects();
 	}
 
 	// Display Projects of a certain category.
 	function changeCategory() {
 		var cat = jQuery('#sel_category').val(),
-			title = jQuery('#sel_category').find('option:selected').text(),
+			sort = jQuery('#sel_sort').val(),
+			catName = jQuery('#sel_category').find('option:selected').text(),
+			rowUpdates = jQuery('.row-projects.updates .content-inner'),
 			rowInstalled = jQuery('.row-projects.installed .content-inner'),
 			rowUninstalled = jQuery('.row-projects.uninstalled .content-inner'),
-			instBox = rowInstalled.closest('.row'),
-			uninstBox = rowUninstalled.closest('.row'),
-			uninstTitle = uninstBox.find('.section-title .title'),
-			instTitle = instBox.find('.section-title .title')
+			boxUpdates = rowUpdates.closest('.row'),
+			boxInstalled = rowInstalled.closest('.row'),
+			boxUninstalled = rowUninstalled.closest('.row'),
+			titleUpdates = boxUpdates.find('.section-title .title'),
+			titleInstalled = boxInstalled.find('.section-title .title'),
+			titleUninstalled = boxUninstalled.find('.section-title .title'),
+			showUpdates = false
 			;
 
+		// This is always used for the Themes page (no category there).
 		if (!cat) { cat = '0'; }
 
+		if ('0' === cat && 'def' === sort && rowUpdates.length) {
+			showUpdates = true;
+		}
+
 		// 1. Update the titles/toggle buttons.
-		if (instBox.length && uninstBox.length) {
+		if (boxInstalled.length && boxUninstalled.length) {
 			if ('0' === cat) {
-				uninstTitle.text(uninstTitle.data('title').replace( /%s/, '' ));
-				instTitle.text(instTitle.data('title').replace( /%s/, '' ));
+				titleUninstalled.text(titleUninstalled.data('title').replace( /%s/, '' ));
+				titleInstalled.text(titleInstalled.data('title').replace( /%s/, '' ));
 			} else {
-				uninstTitle.text(uninstTitle.data('title').replace( /%s/, title ));
-				instTitle.text(instTitle.data('title').replace( /%s/, title ));
+				titleUninstalled.text(titleUninstalled.data('title').replace( /%s/, catName ));
+				titleInstalled.text(titleInstalled.data('title').replace( /%s/, catName ));
 			}
 		}
 
@@ -400,10 +423,13 @@ jQuery(function initModules() {
 		// Move projects to correct list and hide if needed.
 		items.each(function() {
 			var item = jQuery(this);
-			if (item.data('installed')) {
-				rowInstalled.append(item);
-			} else {
+
+			if (showUpdates && item.data('hasupdate')) {
+				rowUpdates.append(item);
+			} else if (!item.data('installed') && rowUninstalled.length) {
 				rowUninstalled.append(item);
+			} else {
+				rowInstalled.append(item);
 			}
 
 			if ('0' !== cat) {
@@ -420,6 +446,9 @@ jQuery(function initModules() {
 	// Sort Projects by current sort option.
 	function sortProjects() {
 		var option = jQuery('#sel_sort').val();
+
+		// Def/Popularity are equal, except def will display updates in top.
+		if ('def' === option) { option = 'popularity'; }
 
 		for (var i = 0; i < rows.length; i += 1) {
 			var row = jQuery('.content-inner', rows[i]),
@@ -457,6 +486,8 @@ jQuery(function initModules() {
 			var item = jQuery(order[i]);
 			item.data('alphabetical', i);
 		}
+
+		changeCategory();
 	}
 
 	// Display a project specific popup.

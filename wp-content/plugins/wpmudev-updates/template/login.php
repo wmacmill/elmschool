@@ -10,6 +10,9 @@
  *   $key_valid
  *   $connection_error
  *   $urls (urls of all dashboard menu items)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 $register_url = 'http://premium.wpmudev.org/#pricing';
@@ -26,9 +29,8 @@ if ( isset( $_GET['api_error'] ) ) {
 		$reset_url,
 		__( 'Forgot your password?', 'wpmudev' )
 	);
-}
-// Variable `$connection_error` is set by the UI function `render_dashboard`
-elseif ( $connection_error ) {
+} elseif ( $connection_error ) {
+	// Variable `$connection_error` is set by the UI function `render_dashboard`.
 	$errors[] = sprintf(
 		'%s<br><br>%s<br><br><em>%s</em>',
 		sprintf(
@@ -37,13 +39,12 @@ elseif ( $connection_error ) {
 		),
 		__( 'If this problem continues, please contact your host with this error message and ask:', 'wpmudev' ),
 		sprintf(
-			__( '"Is php on my server properly configured to be able to contact %s with a GET HTTP request via fsockopen or CURL?"', 'wpmudev' ),
+			__( '"Is php on my server properly configured to be able to contact %s with a POST HTTP request via fsockopen or CURL?"', 'wpmudev' ),
 			WPMUDEV_Dashboard::$api->rest_url( '' )
 		)
 	);
-}
-// Variable `$key_valod` is set by the UI function `render_dashboard`
-elseif ( ! $key_valid ) {
+} elseif ( ! $key_valid ) {
+	// Variable `$key_valod` is set by the UI function `render_dashboard`.
 	$errors[] = __( 'Your API Key was invalid. Please try again.', 'wpmudev' );
 }
 
@@ -52,31 +53,37 @@ $form_action = WPMUDEV_Dashboard::$api->rest_url( 'authenticate' );
 
 ?>
 <section id="login" class="login-form-wrapper">
-	<h1><?php _e( 'Let the games begin.', 'wpmudev' ); ?></h1>
+	<h1><?php esc_html_e( 'Let the games begin.', 'wpmudev' ); ?></h1>
 
 	<?php
 	// Display the errors.
 	if ( count( $errors ) ) {
-		?><div class="login-errors dev-tip"><?php
+		?><div class="login-errors dev-tip">
+		<?php
 		foreach ( $errors as $message ) {
 			?>
-			<p><?php echo $message; ?></p>
+			<p><?php
+			// @codingStandardsIgnoreStart: Message contains HTML, no escaping!
+			echo $message;
+			// @codingStandardsIgnoreEnd
+			?></p>
 			<?php
 		}
-		?></div><?php
+		?>
+		</div><?php
 	} ?>
 
 	<div class="login-image"></div>
 
 	<div class="dev-box login-box">
 		<div class="box-title">
-			<h3><?php _e( 'Login', 'wpmudev' ) ?></h3>
+			<h3><?php esc_html_e( 'Login', 'wpmudev' ) ?></h3>
 		</div>
 		<div class="box-content">
-		<form action="<?php echo $form_action; ?>" method="post" class="loign-form">
+		<form action="<?php echo esc_url( $form_action ); ?>" method="post" class="loign-form">
 			<div>
 				<label for="user_name">
-					<?php _e( 'Email', 'wpmudev' ); ?>
+					<?php esc_html_e( 'Email', 'wpmudev' ); ?>
 				</label>
 				<input
 					type="text"
@@ -88,7 +95,7 @@ $form_action = WPMUDEV_Dashboard::$api->rest_url( 'authenticate' );
 			</div>
 			<div>
 				<label for="password">
-					<?php _e( 'Password', 'wpmudev' ); ?>
+					<?php esc_html_e( 'Password', 'wpmudev' ); ?>
 				</label>
 				<input
 					type="password"
@@ -96,18 +103,18 @@ $form_action = WPMUDEV_Dashboard::$api->rest_url( 'authenticate' );
 					id="password"
 					autocomplete="off"
 					placeholder="<?php echo esc_attr__( 'Your password', 'wpmudev' ); ?>" />
-				<input type="hidden" name="redirect_url" value="<?php echo $urls->dashboard_url; ?>" />
+				<input type="hidden" name="redirect_url" value="<?php echo esc_url( $urls->dashboard_url ); ?>" />
 			</div>
 			<div class="buttons">
 				<?php
 				printf(
 					'<a href="%s" target="_blank" class="button button-text">%s</a>',
-					$reset_url,
-					__( 'Forgot password', 'wpmudev' )
+					esc_url( $reset_url ),
+					esc_html__( 'Forgot password', 'wpmudev' )
 				);
 				?>
 				<button type="submit" class="button one-click">
-					<?php _e( 'Login', 'wpmudev' ); ?>
+					<?php esc_html_e( 'Login', 'wpmudev' ); ?>
 				</button>
 			</div>
 		</form>
@@ -117,8 +124,8 @@ $form_action = WPMUDEV_Dashboard::$api->rest_url( 'authenticate' );
 	<p class="box-footer">
 		<?php
 		printf(
-			__( 'No account? %sSign up%s to WPMU DEV today!', 'wpmudev' ),
-			'<a href="' . $register_url . '" target="_blank">',
+			esc_html__( 'No account? %sSign up%s to WPMU DEV today!', 'wpmudev' ),
+			'<a href="' . esc_url( $register_url ) . '" target="_blank">',
 			'</a>'
 		);
 		?>

@@ -1,6 +1,9 @@
 <?php
 /**
  * Dashboard template: Demo of UI elements
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 // Render the page header section.
@@ -577,6 +580,52 @@ $this->render_header( $page_title );
 
 <section class="dev-box">
 	<div class="box-title">
+		<h3>Notifications</h3>
+	</div>
+	<div class="box-content">
+		<p>There are some javascript functions that can trigger notifications.</p>
+		<p>
+		<code style="cursor:pointer" onclick="note_demo1()"><i class="wdv-icon wdv-icon-play-circle"></i> WDP.showSuccess()</code>
+		<br>
+		<code style="cursor:pointer" onclick="note_demo2()"><i class="wdv-icon wdv-icon-play-circle"></i> WDP.showError()</code>
+		<br>
+		<code style="cursor:pointer" onclick="note_demo3()"><i class="wdv-icon wdv-icon-play-circle"></i> WDP.showError("You clicked the wrong button")</code>
+		<br>
+		<code style="cursor:pointer" onclick="note_demo4()"><i class="wdv-icon wdv-icon-play-circle"></i> $('.load-demo').loading(true)</code><br>
+		<code style="cursor:pointer" onclick="note_demo5()"><i class="wdv-icon wdv-icon-play-circle"></i> $('.load-demo').loading(true, "Wait 3 seconds")</code>
+		</p>
+		<p>
+		<button type="button" class="load-demo">This is .load-demo</button>
+		</p>
+
+		<script>
+		function note_demo1() {
+			WDP.showSuccess();
+		}
+		function note_demo2() {
+			WDP.showError();
+		}
+		function note_demo3() {
+			WDP.showError("You clicked the wrong button");
+		}
+		function note_demo4() {
+			jQuery('.load-demo').loading(true);
+			window.setTimeout(function(){
+				jQuery('.load-demo').loading(false);
+			}, 3000);
+		}
+		function note_demo5() {
+			jQuery('.load-demo').loading(true, "Wait 3 seconds");
+			window.setTimeout(function(){
+				jQuery('.load-demo').loading(false);
+			}, 3000);
+		}
+		</script>
+	</div>
+</section>
+
+<section class="dev-box">
+	<div class="box-title">
 		<h3>Lists</h3>
 	</div>
 	<div class="box-content">
@@ -803,12 +852,12 @@ $this->render_header( $page_title );
 				</tr>
 				<tr>
 					<td>
-<div>
-<span class="toggle" tooltip="test">
-	<input type="checkbox" class="toggle-checkbox" id="chk4" checked="checked" />
-	<label class="toggle-label" for="chk4"></label>
-</span>
-</div>
+					<div>
+					<span class="toggle" tooltip="test">
+						<input type="checkbox" class="toggle-checkbox" id="chk4" checked="checked" />
+						<label class="toggle-label" for="chk4"></label>
+					</span>
+					</div>
 					</td>
 					<td class="tc">
 					<span class="radio-group with-icon">
@@ -826,6 +875,16 @@ $this->render_header( $page_title );
 					</span>
 					</td>
 					<td class="tr">OK</td>
+				</tr>
+				<tr>
+					<td>Row 4-A</td>
+					<td><select><option>A<option>B<option>C<option>D<option>E</select></td>
+					<td class="tr">Row 4-C</td>
+				</tr>
+				<tr>
+					<td>Row 5-A</td>
+					<td><select><option>A<option>B<option>C<option>D<option>E</select></td>
+					<td class="tr">Row 5-C</td>
 				</tr>
 			</tbody>
 		</table>
@@ -1032,7 +1091,7 @@ var items = [
 	<br class="group">
 	<div style="margin-bottom:-12px;margin-top:40px" class="tc">
 		<div class="dev-tip">With great power comes great responsibility</div>
-		<img src="<?php echo WPMUDEV_Dashboard::$site->plugin_url ?>/image/devman.svg" />
+		<img src="<?php echo esc_url( WPMUDEV_Dashboard::$site->plugin_url ); ?>/image/devman.svg" />
 	</div>
 	<hr>
 	<p><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

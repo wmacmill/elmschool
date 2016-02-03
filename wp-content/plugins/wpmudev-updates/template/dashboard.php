@@ -12,6 +12,9 @@
  *   $type [full|single|free]
  *   $my_project (only needed for type == single)
  *   $projects (keys: free|paid; list of projects, only for type free/single)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 $profile = $member['profile'];

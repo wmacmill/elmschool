@@ -5,6 +5,41 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+4.0.7 - UNRELEASED - Philipp
+----------------------------------------------------------------------
+- Available updates are now displayed above other plugins/themes.
+- We made the Dashboard much more reliable!
+
+- Add much smarter project-caching to reliably detect available updates.
+- Add check to automatically update Upfront-parent when a child theme is updated.
+- Fix fatal error (has_cap) when admin user was deleted.
+- Fix incorrect links in the search-results of the main Dashboard page.
+- Fix a possible infinite-loops that blocked wp-admin for the superadmin in rare cases.
+- Add an additional timeout to really prevent infinite-loops in any case!
+- Remove the Instructions popup from plugin; you can find Instructions on the website instead.
+- Many small changes to polish the UI and generally make plugin more stable.
+
+4.0.6 - 1/27/2016 - Philipp
+----------------------------------------------------------------------
+- Remote updates are working now!
+
+- Fixed the message "Plugin is at the latest version" when trying to remote-update a plugin.
+- Fixed notice on WordPress plugins/themes page about undefined variable "can_install".
+- A lot of improvements to make those updates reliable.
+
+
+4.0.5 - 1/25/2016 - Philipp
+----------------------------------------------------------------------
+- Plugin just got faster and more stable!
+
+- Added our own changelog to the default WordPress Updates page for WPMUDEV plugins.
+- Fixed another problem for members with Single-Membership.
+- Fixed an issue about "undefined function is_plugin_active".
+- Fixed an incompatibility with php 5.4 and lower.
+- Refactored API logic to prevent redundant API calls, which makes you site faster.
+- Improve error logging, especially with `WPMUDEV_API_DEBUG` flag enabled.
+- Countless small tweaks in the UI.
+
 4.0.4 - 1/18/2016 - Philipp
 ----------------------------------------------------------------------
 - Important: Turn off automatic updates in Manage page to upgrade to this version!
@@ -306,4 +341,4 @@ Added option to disable admin notices.
 Initial Release.
 
 
-161579-1453133939-au
+161579-1454515397-au

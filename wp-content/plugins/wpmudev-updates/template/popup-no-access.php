@@ -14,10 +14,14 @@
  *   $username
  *   $reason
  *   $auto_show
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 $url_upgrade = $urls->remote_site . '#pricing';
 $url_logout = $urls->dashboard_url . '&clear_key=1';
+$url_refresh = wp_nonce_url( add_query_arg( 'action', 'check-updates' ), 'check-updates', 'hash' );
 $url_devman = WPMUDEV_Dashboard::$site->plugin_url . '/image/devman.svg';
 
 switch ( $reason ) {
@@ -46,7 +50,11 @@ if ( $auto_show ) {
 <dialog id="upgrade" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" title="<?php esc_html_e( 'Upgrade Membership', 'wpmudev' ); ?>">
 <div class="dialog-upgrade">
 	<p>
-	<?php printf( $reason_text, esc_html( $username ) ); ?>
+	<?php
+	// @codingStandardsIgnoreStart: Reason contains HTML, no escaping!
+	printf( $reason_text, esc_html( $username ) );
+	// @codingStandardsIgnoreEnd
+	?>
 	</p>
 	<ul class="listing bold">
 	<li><?php esc_html_e( 'Access to 140+ Plugins & Upfront Themes', 'wpmudev' ); ?></li>
@@ -63,13 +71,17 @@ if ( $auto_show ) {
 	</div>
 	<?php if ( $auto_show && $is_logged_in ) : ?>
 	<p class="below-dev-man">
+		<small>
 		<?php
 		printf(
-			esc_html__( 'or %slogout%s', 'wpmudev' ),
+			esc_html__( 'You can also %srefresh data%s or %slogout%s', 'wpmudev' ),
+			'<a href="' . esc_url( $url_refresh ) . '"class="has-spinner"><i class="wdv-icon wdv-icon-refresh spin-on-click"></i> ',
+			'</a>',
 			'<a href="' . esc_url( $url_logout ) . '">',
 			'</a>'
 		);
 		?>
+		</small>
 	</p>
 	<?php endif; ?>
 </div>

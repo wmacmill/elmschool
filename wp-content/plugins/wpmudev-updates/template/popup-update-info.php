@@ -7,12 +7,22 @@
  *
  * Following variables are passed into the template:
  *   $pid (project ID)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 $item = WPMUDEV_Dashboard::$site->get_project_infos( $pid, true );
 
+if ( ! $item || ! is_object( $item ) ) {
+	include 'popup-no-data-found.php';
+	return;
+}
+$dlg_id = 'dlg-' . md5( time() . '-' . $pid );
+
 if ( $item->is_installed ) {
-	$notes = array();
+	$notes_intro = array();
+	$notes_details = array();
 	$release_date = '';
 	$date_format = get_option( 'date_format' );
 
@@ -20,24 +30,52 @@ if ( $item->is_installed ) {
 		if ( version_compare( $log['version'], $item->version_latest, 'eq' ) ) {
 			$release_date = date_i18n( $date_format, $log['time'] );
 		}
+
 		if ( version_compare( $log['version'], $item->version_installed, 'gt' ) ) {
-			$notes += explode( "\n", $log['log'] );
+			$log_items = explode( "\n", $log['log'] );
+			$detail_level = 0;
+
+			foreach ( $log_items as $note ) {
+				if ( 0 === strpos( $note, '<p>' ) ) { $detail_level += 1; }
+
+				$note = stripslashes( $note );
+				$note = preg_replace( '/(<br ?\/?>|<p>|<\/p>)/', '', $note );
+				$note = trim( preg_replace( '/^\s*(\*|\-)\s*/', '', $note ) );
+				$note = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $note );
+				$note = preg_replace( '/`(.*?)`/', '<code>\1</code>', $note );
+				if ( empty( $note ) ) { continue; }
+
+				if ( $detail_level < 2 ) {
+					$notes_intro[] = $note;
+				} else {
+					$notes_details[] = $note;
+				}
+			}
 		}
 	}
 }
 
+if ( 'plugin' == $item->type ) {
+	$title_not_installed = __( 'Plugin not installed', 'wpmudev' );
+	$title_is_installed = __( 'Update Plugin', 'wpmudev' );
+} else {
+	$title_not_installed = __( 'Theme not installed', 'wpmudev' );
+	$title_is_installed = __( 'Update Theme', 'wpmudev' );
+}
+
 if ( ! $item->is_installed ) : ?>
-<dialog title="<?php esc_attr_e( 'Plugin not installed', 'wpmudev' ); ?>" class="small">
+<dialog title="<?php echo esc_attr( $title_not_installed ); ?>" class="small">
 <p class="tc">
-	<?php _e( 'Something unexpected happened.<br>Please wait one moment while we refresh the page...', 'wpmudev' ); ?>
+	<?php esc_html_e( 'Something unexpected happened.', 'wpmudev' ); ?><br />
+	<?php esc_html_e( 'Please wait one moment while we refresh the page...', 'wpmudev' ); ?>
 </p>
 <script>
 	window.setTimeout(function(){ window.location.reload(); }, 2000 );
 </script>
 </dialog>
 <?php else : ?>
-<dialog title="<?php esc_attr_e( 'Update Plugin', 'wpmudev' ); ?>" class="small">
-<div class="wdp-update" data-project="<?php echo esc_attr( $pid ); ?>">
+<dialog title="<?php echo esc_attr( $title_is_installed ); ?>" class="small">
+<div class="wdp-update <?php echo esc_attr( $dlg_id ); ?>" data-project="<?php echo esc_attr( $pid ); ?>">
 
 <div class="title-action">
 	<?php if ( $item->is_licensed ) : ?>
@@ -45,7 +83,7 @@ if ( ! $item->is_installed ) : ?>
 		<a href="<?php echo esc_url( $item->url->update ); ?>" class="button button-small button-yellow btn-update-ajax">
 			<?php esc_html_e( 'Update Now', 'wpmudev' ); ?>
 		</a>
-		<?php } else { ?>
+		<?php } elseif ( $item->has_update ) { ?>
 		<a href="<?php echo esc_url( $item->url->download ); ?>" class="button button-small">
 			<?php esc_html_e( 'Download Now', 'wpmudev' ); ?>
 		</a>
@@ -88,24 +126,99 @@ if ( ! $item->is_installed ) : ?>
 		<th colspan="3"><?php esc_html_e( 'Notes', 'wpmudev' ); ?></th>
 	</tr>
 	<tr class="before-update">
-		<td colspan="3" class="col-notes"><ul>
+		<td colspan="3" class="col-notes versions">
 		<?php
-		foreach ( $notes as $note ) {
-			$note = stripslashes( $note );
-			$note = preg_replace( '/(<br ?\/?>|<p>|<\/p>)/', '', $note );
-			$note = trim( preg_replace( '/^\s*(\*|\-)\s*/', '', $note ) );
-			$note = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $note );
-			$note = preg_replace( '/`(.*?)`/', '<code>\1</code>', $note );
-			if ( empty( $note ) ) { continue; }
-			printf( '<li>%s</li>', $note );
+		if ( ! $item->has_update ) {
+			printf(
+				'<p class="tc">%s</p>',
+				sprintf(
+					'<i class="wdv-icon wdv-icon-thumbs-up"></i> ' .
+					esc_html__( 'You\'ve got the latest version of %s!', 'wpmudev' ),
+					'<strong>' . esc_html( $item->name ) . '</strong>'
+				)
+			);
+		} else {
+			switch ( $item->special ) {
+				case 'dropin':
+					printf(
+						'<p class="tc"><strong>%s</strong></p>',
+						esc_html__( 'This is a Dropin, automatic updates are not possible for this. Please download and install the update manually.', 'wpmudev' )
+					);
+					break;
+
+				case 'muplugin':
+					printf(
+						'<p class="tc"><strong>%s</strong></p>',
+						esc_html__( 'This is a must-use plugin, automatic updates are not possible for this. Please download and install the update manually.', 'wpmudev' )
+					);
+					break;
+			}
+			?>
+			<ul class="changes">
+			<?php
+			foreach ( $notes_intro as $note ) {
+				printf(
+					'<li class="version-intro">%s</li>',
+					wp_kses_post( $note )
+				);
+			}
+			if ( count( $details ) ) {
+				printf(
+					'<li class="toggle-details">
+					<a href="#" class="for-intro">%s</a><a href="#" class="for-detail">%s</a>
+					</li>',
+					esc_html__( 'Show all changes', 'wpmudev' ),
+					esc_html__( 'Hide details', 'wpmudev' )
+				);
+				foreach ( $notes_details as $note ) {
+					printf(
+						'<li class="version-detail">%s</li>',
+						wp_kses_post( $note )
+					);
+				}
+			}
 		}
 		?>
 		</ul></td>
 	</tr>
 </table>
 
+<style>
+.<?php echo esc_attr( $dlg_id ); ?> .versions ul.changes .for-detail,
+.<?php echo esc_attr( $dlg_id ); ?> .versions ul.changes .version-detail {
+	display: none;
+}
+.<?php echo esc_attr( $dlg_id ); ?> .versions ul.changes .for-intro {
+	display: inline-block;
+}
+.<?php echo esc_attr( $dlg_id ); ?> .versions ul.changes.show-details .for-intro {
+	display: none;
+}
+.<?php echo esc_attr( $dlg_id ); ?> .versions ul.changes.show-details .for-detail {
+	display: inline-block;
+}
+.<?php echo esc_attr( $dlg_id ); ?> .versions ul.changes.show-details .version-detail {
+	display: list-item;
+}
+.<?php echo esc_attr( $dlg_id ); ?> .versions ul.changes .toggle-details {
+	padding: 8px 0 4px;
+	text-align: right;
+	font-size: 12px;
+	list-style: none;
+}
+</style>
 <script>
-jQuery(function() {
+jQuery(function(){
+	jQuery('.<?php echo esc_attr( $dlg_id ); ?>').on('click', '.toggle-details a', function(ev) {
+		var li = jQuery(this),
+			ver = li.closest('.changes');
+
+		ev.preventDefault();
+		ev.stopPropagation()
+		ver.toggleClass('show-details');
+		return false;
+	});
+
 	var btnUpdate = jQuery('.btn-update-ajax'),
 		popup = btnUpdate.closest('.box'),
 		pid = "<?php echo esc_attr( $pid ); ?>",
@@ -118,16 +231,16 @@ jQuery(function() {
 		data.pid = pid;
 		data.is_network = +(jQuery('body').hasClass('network-admin'));
 
-		popup.loading(true);
+		popup.loading(true, <?php echo json_encode( __( "Hang on while we're installing the update...", 'wpmudev' ) ); ?>);
 		jQuery.post(
 			window.ajaxurl,
 			data,
 			function(response) {
 				if (!response || !response.success) {
 					if (response && response.data && response.data.message) {
-						WDP.showError('message', response.data.message);
+						WDP.showError(response.data.message);
 					} else {
-						WDP.showError('message');
+						WDP.showError();
 					}
 					WDP.showError();
 					return;

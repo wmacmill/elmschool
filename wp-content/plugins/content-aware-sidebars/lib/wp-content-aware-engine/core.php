@@ -95,7 +95,7 @@ if(!class_exists("WPCACore")) {
 			if(is_admin()) {
 
 				add_action('admin_enqueue_scripts',
-					array(__CLASS__,'enqueue_scripts_styles'));
+					array(__CLASS__,'enqueue_scripts_styles'),9);
 				add_action('delete_post',
 					array(__CLASS__,'sync_group_deletion'));
 				add_action('trashed_post',
@@ -161,6 +161,7 @@ if(!class_exists("WPCACore")) {
 				'date'          => true,
 				'bbpress'       => function_exists('bbp_get_version'),	// bbPress
 				'bp_member'     => defined('BP_VERSION'),				// BuddyPress
+				'pods'          => defined("PODS_DIR"),
 				'polylang'      => defined('POLYLANG_VERSION'),			// Polylang
 				'qtranslate'    => defined('QTX_VERSION'),				// qTranslate
 				'transposh'     => defined('TRANSPOSH_PLUGIN_VER'),		// Transposh Translation Filter
@@ -630,15 +631,20 @@ if(!class_exists("WPCACore")) {
 					);
 				}
 
-				if(!wp_script_is("select2","registered")) {
-					wp_register_script(
-						'select2',
-						plugins_url('/assets/js/select2.min.js', __FILE__),
-						array('jquery'),
-						'3.5.4',
-						true
-					);
+				//Make sure to use packaged version
+				if(wp_script_is("select2","registered")) {
+					wp_deregister_script("select2");
 				}
+
+				//Add to head to take priority
+				//if being added under other name
+				wp_register_script(
+					'select2',
+					plugins_url('/assets/js/select2.min.js', __FILE__),
+					array('jquery'),
+					'3.5.4',
+					false
+				);
 
 				wp_register_script(
 					self::PREFIX.'condition-groups',

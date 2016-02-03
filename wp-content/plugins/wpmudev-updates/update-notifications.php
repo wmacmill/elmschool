@@ -2,14 +2,16 @@
 /**
  * Plugin Name: WPMU DEV Dashboard
  * Plugin URI:  https://premium.wpmudev.org/project/wpmu-dev-dashboard/
- * Description: Brings the power of WPMU DEV direct to you, it'll revolutionize how you use WordPress, activate now!
+ * Description: Brings the powers of WPMU DEV directly to you. It will revolutionize how you use WordPress. Activate now!
  * Author:      WPMU DEV
- * Version:     4.0.4
+ * Version:     4.0.7
  * Author URI:  http://premium.wpmudev.org/
  * Text Domain: wpmudev
  * Domain Path: includes/languages/
  * Network:     true
  * WDP ID:      119
+ *
+ * @package WPMUDEV_Dashboard
  */
 
 /*
@@ -42,7 +44,7 @@ class WPMUDEV_Dashboard {
 	 *
 	 * @var string (Version number)
 	 */
-	static public $version = '4.0.4';
+	static public $version = '4.0.7';
 
 	/**
 	 * Holds the API module.
@@ -107,6 +109,8 @@ class WPMUDEV_Dashboard {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
+		require_once 'shared-ui/plugin-ui.php';
+
 		require_once 'includes/class-wpmudev-dashboard-site.php';
 		require_once 'includes/class-wpmudev-dashboard-api.php';
 		require_once 'includes/class-wpmudev-dashboard-ui.php';

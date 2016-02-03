@@ -9,6 +9,9 @@
  *   $data (membership data)
  *   $urls (urls of all dashboard menu items)
  *   $tags (list of plugin tags)
+ *
+ * @since  4.0.0
+ * @package WPMUDEV_Dashboard
  */
 
 // Render the page header section.
@@ -26,6 +29,7 @@ $this->render_header( $page_title );
 				<?php esc_html_e( 'Sort', 'wpmudev' ); ?>
 			</label>
 			<select id="sel_sort" class="sel-sort">
+				<option value="def"><?php esc_html_e( 'Default', 'wpmudev' ); ?></option>
 				<option value="popularity"><?php esc_html_e( 'Popularity', 'wpmudev' ); ?></option>
 				<option value="released"><?php esc_html_e( 'Release Date', 'wpmudev' ); ?></option>
 				<option value="updated"><?php esc_html_e( 'Recently Updated', 'wpmudev' ); ?></option>
@@ -50,6 +54,18 @@ $this->render_header( $page_title );
 	</div>
 </div>
 
+<div class="row row-projects updates hide-empty">
+	<h3 class="section-title" id="section1">
+		<span class="title"><?php esc_html_e( 'Available updates', 'wpmduev' ); ?></span>
+		<span class="count"></span>
+	</h3>
+	<div class="content">
+		<div class="content-inner"></div>
+	</div>
+	<div class="no-content"></div>
+	<div class="row-sep"></div>
+</div>
+
 <div class="row row-projects installed hide-empty">
 	<h3 class="section-title" id="section1">
 		<span class="title" data-title="<?php esc_attr_e( 'Installed %s Plugins', 'wpmduev' ); ?>"></span>
@@ -61,14 +77,7 @@ $this->render_header( $page_title );
 	<div class="no-content">
 		<?php esc_html_e( 'No Plugins found', 'wpmudev' ); ?>
 	</div>
-	<div class="row-sep">
-		<!--
-		<a href="#section1" class="button button-light project-toggle">
-			<span class="expand" data-title="<?php esc_attr_e( 'See all installed %s plugins', 'wpmudev' ); ?>"></span>
-			<span class="collapse"><?php esc_attr_e( 'Back to overview', 'wpmudev' ); ?></span>
-		</a>
-		-->
-	</div>
+	<div class="row-sep"></div>
 </div>
 
 <div class="row row-projects uninstalled">
@@ -82,14 +91,7 @@ $this->render_header( $page_title );
 	<div class="no-content">
 		<?php esc_html_e( 'No Plugins found', 'wpmudev' ); ?>
 	</div>
-	<div class="row-sep">
-		<!--
-		<a href="#section2" class="button button-light project-toggle">
-			<span class="expand" data-title="<?php esc_attr_e( 'See all available %s plugins', 'wpmudev' ); ?>"></span>
-			<span class="collapse"><?php esc_attr_e( 'Back to overview', 'wpmudev' ); ?></span>
-		</a>
-		-->
-	</div>
+	<div class="row-sep"></div>
 </div>
 
 
@@ -110,6 +112,6 @@ $this->render_header( $page_title );
 jQuery(function(){
 	window.WDP = window.WDP || {};
 	WDP.data = WDP.data || {};
-	WDP.data.hash_show_popup = <?php echo json_encode( wp_create_nonce( 'show-popup' ) ); ?>;
+	WDP.data.hash_show_popup = <?php echo json_encode( wp_create_nonce( 'show-popup' ) ); ?>;	  			 				 	   	 
 });
 </script>
