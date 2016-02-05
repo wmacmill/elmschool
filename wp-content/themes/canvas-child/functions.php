@@ -3,7 +3,7 @@
  * This is the functions.php file.
  *
  * Use this file to add php funtions to the parent theme so that it doesn't get overwritten
- * 
+ *
  */
 
 /*
@@ -57,16 +57,16 @@ function hide_that_stuff() {
 	    .tablenav{display:none;}
 	    </style>';
 	}
-    
+
     global $pagenow;
-    
+
     if ( !current_user_can('update_core') && $pagenow == 'profile.php' ) {
         echo '<style>.user-nickname-wrap{display:none;}.user-url-wrap{display:none;}.user-description-wrap{display:none;}#wppmUserProfilePwdRulesContainer{display:none;}</style>';
     }
 
     //removes the website box on the user profile
     if ( $pagenow == 'user-new.php' || $pagenow == 'user-edit.php' ) {
-        echo "<script>jQuery(document).ready(function(){jQuery('#url').parents('tr').remove();});</script>"; //removes the website field from user profile    
+        echo "<script>jQuery(document).ready(function(){jQuery('#url').parents('tr').remove();});</script>"; //removes the website field from user profile
     }
 
     if ( $pagenow == 'user-edit.php' ) {
@@ -74,7 +74,7 @@ function hide_that_stuff() {
     }
 
 
-    
+
 }
 add_action('admin_head', 'hide_that_stuff');
 //end hide "add new" button group
@@ -125,8 +125,8 @@ add_action( 'gform_pre_submission', 'pre_submission_handler' );
 
 function pre_submission_handler( $form ) {
 
-    foreach ($form['fields'] as &$field ) {   
-    
+    foreach ($form['fields'] as &$field ) {
+
     if ( $field->type != 'email' || strpos( $field->cssClass, 'feedback-learner-email' ) === false ) {
             continue;
         }
@@ -178,7 +178,7 @@ remove_filter('register_message', 'custom_register_message');
 *******/
 add_action( 'admin_footer', 'wpse_59652_list_terms_exclusions', 9999 );
 
-function wpse_59652_list_terms_exclusions() 
+function wpse_59652_list_terms_exclusions()
 {
     global $current_screen;
 
@@ -209,16 +209,16 @@ function wpse_59652_list_terms_exclusions()
 //This removes the ability for anyone other than admin to upload videos
 add_filter('upload_mimes', 'custom_upload_mimes');
 function custom_upload_mimes ( $existing_mimes=array() ) {
-    
+
     if (current_user_can('administrator')) {//abort if admin
         return $existing_mimes;
     }
     //see https://codex.wordpress.org/Function_Reference/get_allowed_mime_types for allowed mime types
-    //see https://codex.wordpress.org/Plugin_API/Filter_Reference/upload_mimes for how this function is working 
+    //see https://codex.wordpress.org/Plugin_API/Filter_Reference/upload_mimes for how this function is working
     // Add file extension 'extension' with mime type 'mime/type'
     $existing_mimes['extension'] = 'mime/type';
-     
-    // add as many as you like e.g. 
+
+    // add as many as you like e.g.
     /*
 
     $existing_mimes['doc'] = 'application/msword';
@@ -228,7 +228,7 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
     unset( $existing_mimes['exe'] );//also executeable files - just asking for trouble
     unset( $existing_mimes['avi'] );
     unset( $existing_mimes['mp4|m4v'] );
-    unset( $existing_mimes['wmv'] ); 
+    unset( $existing_mimes['wmv'] );
     unset( $existing_mimes['asf|asx'] );
     unset( $existing_mimes['wmx'] );
     unset( $existing_mimes['wm'] );
@@ -248,24 +248,24 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
 
 //adding filters for other file types in media library
 function modify_post_mime_types( $post_mime_types ) {
- 
+
     // select the mime type, here: 'application/pdf'
     // then we define an array with the label values
- 
+
     $post_mime_types['application/pdf'] = array( __( 'PDFs' ), __( 'Manage PDFs' ), _n_noop( 'PDF', 'PDF' ) );
     $post_mime_types['application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'] = array( __( 'XLSs' ), __( 'Manage XLSs' ), _n_noop( 'Excel', 'Excel' ) );
     $post_mime_types['application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'] = array( __( 'Words' ), __( 'Manage Words' ), _n_noop( 'Word', 'Word' ) );
     $post_mime_types['application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation'] = array( __( 'PPTs' ), __( 'Manage PPTs' ), _n_noop( 'PPT', 'PPTs' ) );
     // then we return the $post_mime_types variable
     return $post_mime_types;
- 
+
 }
- 
+
 // Add Filter Hook
 add_filter( 'post_mime_types', 'modify_post_mime_types' );
 
 /*
-* In this section we're doing a few things. 
+* In this section we're doing a few things.
 * 1. Adding support for categories to topics
 * 2. Giving permission to edit "Quebec" category courses if they are a particular user
 * 3. Cleaning up the admin backend for those peopel that get the new permissions so they only have access to what's needed
@@ -286,20 +286,20 @@ function will_give_permissions( $allcaps, $cap, $args ) {
 
 
    if ( $user_id === 397 && in_category ( 'quebec' , $post ) ) {
-        
+
         $allcaps[$cap[0]] = true;
-        
-        return $allcaps;            
+
+        return $allcaps;
     }
 
     return $allcaps;
 
 }
-add_filter( 'user_has_cap', 'will_give_permissions', 0, 3 ); 
+add_filter( 'user_has_cap', 'will_give_permissions', 0, 3 );
 
 function will_remove_menus_for_user_permissions () {
     $user_ID = get_current_user_id();
-    
+
     if ( $user_ID == 397 ) {
         remove_menu_page( 'jetpack' );
         //remove_menu_page( 'index.php' );                  //Dashboard
@@ -314,10 +314,10 @@ function will_remove_menus_for_user_permissions () {
         remove_menu_page( 'options-general.php' );        //Settings
         remove_menu_page( 'link-manager.php' );
         remove_menu_page( 'edit.php?post_type=acf' );
-        remove_menu_page( 'admin.php?page=branding' ); 
-        remove_menu_page( 'edit.php?post_type=sfwd-assignment' ); 
+        remove_menu_page( 'admin.php?page=branding' );
+        remove_menu_page( 'edit.php?post_type=sfwd-assignment' );
         remove_submenu_page('edit.php?post_type=sfwd-courses', 'edit.php?post_type=sfwd-assignment' );
-      
+
 
         echo '<style type="text/css">
         #toplevel_page_branding {display:none !important;}
@@ -330,7 +330,7 @@ function will_remove_menus_for_user_permissions () {
         .nav-tab-admin_page_ldAdvQuiz_statistics {display:none !important;}
         .nav-tab-admin_page_ldAdvQuiz_toplist {display:none !important;}
         #woothemes-settings {display:none !important;}
-        </style>';     
+        </style>';
 
         $post = get_the_ID();
         $post_type = get_post_type ( $post );
@@ -343,7 +343,7 @@ function will_remove_menus_for_user_permissions () {
 
         //this isn't working for some reason - take it out for now and deal with it
         /*if ( $post_type != 'sfwd-courses'  ) {
-            echo '<style type="text/css"> 
+            echo '<style type="text/css">
             .row-actions {display:none !important;}
             </style>';
         }*/
@@ -389,13 +389,32 @@ function wpcodex_set_capabilities() {
                     'delete_course',
                     'delete_courses',
                 );
-                
+
                 foreach ( $caps as $cap ) {
-                    $user->remove_cap ($cap); 
+                    $user->remove_cap ($cap);
                 }
     }
 }
 add_action( 'init', 'wpcodex_set_capabilities', 1000 );
+
+/*
+*
+* Redirecting users to a page if they're set as "terminated"
+*/
+function redirect_terminated_users_to_page () {
+  global $wp;
+
+  if ( current_user_can ('manage_options') ) { //jump ship if admin
+    return;
+  }
+
+  if( is_user_logged_in() && current_user_can('terminated') && !is_page(2996)  ) {
+    wp_redirect ('/disabled');
+    exit;
+  }
+}
+
+add_action ( 'wp', 'redirect_terminated_users_to_page' );
 
 
 /**
