@@ -1,5 +1,11 @@
 *** Canvas Changelog ***
 
+2016.02.04 - version 5.9.17
+ * Fix - fixes comments pagination on single post pages.
+   comments.php
+ * Fix - removes Jetpack Sharedaddy icons from erroneously outputting on the Magazine page template.
+   content-magazine-grid.php
+
 2016.01.15 - version 5.9.16
  * Tweak - Adds the woo_logo_img filter.
    includes/theme-actions.php

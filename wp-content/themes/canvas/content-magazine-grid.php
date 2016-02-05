@@ -46,11 +46,13 @@
 ?>
 	<section class="entry">
 	    <?php
+	    	if ( function_exists( 'sharing_display' ) ) { remove_filter( 'the_excerpt', 'sharing_display', 19 ); }
 	    	if ( isset( $woo_options['woo_magazine_grid_post_content'] ) && ( $woo_options['woo_magazine_grid_post_content'] == 'content' ) ) {
 	    		the_content( __( 'Continue Reading &rarr;', 'woothemes' ) );
 	    	} else {
 	    		the_excerpt();
 	    	}
+	    	if ( function_exists( 'sharing_display' ) ) { add_filter( 'the_excerpt', 'sharing_display', 19 ); }
 	    ?>
 	</section><!-- /.entry -->
 <?php

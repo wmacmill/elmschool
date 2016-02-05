@@ -40,7 +40,7 @@ if ( post_password_required() ) { ?><p class="nocomments"><?php _e( 'This post i
 					 * define custom_comment() and that will be used instead.
 					 * See custom_comment() in /includes/theme-comments.php for more.
 					 */
-					wp_list_comments( array( 'callback' => 'custom_comment', 'avatar_size' => 40 ), $comments_by_type['comment'] );
+					wp_list_comments( array( 'callback' => 'custom_comment', 'avatar_size' => 40, 'type' => 'comment' ) );
 				?>
 			</ol>
 		 	<?php
@@ -65,7 +65,7 @@ if ( post_password_required() ) { ?><p class="nocomments"><?php _e( 'This post i
 						 * define list_pings() and that will be used instead.
 						 * See list_pings() in /includes/theme-comments.php for more.
 						 */
-						wp_list_comments( array( 'callback' => 'list_pings' ), $comments_by_type['pings'] );
+						wp_list_comments( array( 'callback' => 'list_pings', 'type' => 'pings' ) );
 					?>
 				</ol>
 			<?php }
