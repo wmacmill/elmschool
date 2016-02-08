@@ -18,7 +18,7 @@ Begin custom CSS here. Note there is additional css styling sometimes in Brandin
 */
 
 /*removes the update box from Admin colunns from all users*/
-.cpac_message.updated {
+.cpac_message .updated {
     display: none;
 }
 
