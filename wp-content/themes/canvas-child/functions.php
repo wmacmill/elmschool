@@ -425,7 +425,14 @@ function my_favorite_actions($wp_toolbar) {
     if( current_user_can('read') )
         $wp_toolbar->remove_node( 'my-sites' );
 }
+//removes it from the back end menu as well
+function remove_mysites_menu_from_dashboard() {
+  if( is_super_admin() )
+      return;
 
+    $page = remove_submenu_page( 'index.php', 'my-sites.php' );
+}
+add_action( 'admin_menu', 'remove_mysites_menu_from_dashboard', 999 );
 
 /**
 * This is the end. Ensure the file closes with a php tag ?>
