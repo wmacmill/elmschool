@@ -1,4 +1,4 @@
-/*  
+/*
 Theme Name: Custom - Child Theme
 Theme URI: http://kisscleaners.com/
 Version: 1.0
@@ -47,10 +47,10 @@ padding: 5px;
 
 /*moves the navigation menus to the right of the logo for screens above the min-width*/
 @media only screen and (min-width: 768px) {
-    #navigation { 
-        float: right; 
-        width: auto; 
-        clear:none; 
+    #navigation {
+        float: right;
+        width: auto;
+        clear:none;
         max-width: 600px; // This can be changed
     }
 }
@@ -115,7 +115,7 @@ body .woo-sc-box.tick {
 }
 
 .home-body p{
-    
+
     color: #222 !important;
     font: 800 64px/64px "open sans" !important;
     text-transform: uppercase;
@@ -195,7 +195,7 @@ p {
     .gf_right_half {
         width: 100% !important;
     }
-    
+
     /*puts the buttons on their own lines on smaller screens*/
     #learndash_next_prev_link > a {
       display: block;
@@ -232,6 +232,9 @@ ul.nav li.current_page_item a {
   color: #fff;
 }
 
+.cpac_message.updated {
+    display: none;
+}
 
 /*
 *
