@@ -17,6 +17,11 @@ Template: canvas
 Begin custom CSS here. Note there is additional css styling sometimes in Branding->CSS for the site
 */
 
+/*removes the update box from Admin colunns from all users*/
+.cpac_message.updated {
+    display: none;
+}
+
 #post-author {
     display: none;
 }
@@ -232,9 +237,6 @@ ul.nav li.current_page_item a {
   color: #fff;
 }
 
-.cpac_message.updated {
-    display: none;
-}
 
 /*
 *
