@@ -17,10 +17,6 @@ Template: canvas
 Begin custom CSS here. Note there is additional css styling sometimes in Branding->CSS for the site
 */
 
-.cpac_message {
-  display: none;
-}
-
 #post-author {
     display: none;
 }
