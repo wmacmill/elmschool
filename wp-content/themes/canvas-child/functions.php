@@ -416,6 +416,16 @@ function redirect_terminated_users_to_page () {
 
 add_action ( 'wp', 'redirect_terminated_users_to_page' );
 
+//removing my-sites from admin bar except for super admin
+add_filter( 'admin_bar_menu', 'my_favorite_actions', 999 );
+function my_favorite_actions($wp_toolbar) {
+    if( is_super_admin() )
+        return $wp_toolbar;
+
+    if( current_user_can('read') )
+        $wp_toolbar->remove_node( 'my-sites' );
+}
+
 
 /**
 * This is the end. Ensure the file closes with a php tag ?>
