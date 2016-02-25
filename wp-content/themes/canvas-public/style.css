@@ -1,0 +1,246 @@
+/*
+Theme Name: Custom - Public Theme
+Theme URI: http://kisscleaners.com/
+Version: 1.0
+Description: Used for styling CSS on site - always use a child site!
+Author: Will
+Author URI: http://kisscleaners.com
+Template: canvas
+
+*/
+
+/* Default styles */
+
+@import "../canvas/style.css";
+
+/*
+Begin custom CSS here. Note there is additional css styling sometimes in Branding->CSS for the site
+*/
+
+#post-author {
+    display: none;
+}
+
+#post-author, #connect {
+    display: none;
+}
+
+.nocomments {
+    display:none;
+}
+
+#credit {
+     display:none;
+}
+
+.post-meta{
+     display:none;
+}
+
+/*removes the border around images*/
+.entry img, img.thumbnail {
+background: none;
+border: medium none;
+padding: 5px;
+}
+
+
+/*moves the navigation menus to the right of the logo for screens above the min-width*/
+@media only screen and (min-width: 768px) {
+    #navigation {
+        float: right;
+        width: auto;
+        clear:none;
+        max-width: 600px; // This can be changed
+    }
+}
+
+/*changes the nav container color to whatever is set here*/
+#nav-container {
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #d9d9d9;
+    margin: 0;
+}
+
+/*transform the h1 text to uppercase*/
+h1 {
+    text-transform: uppercase !important;
+}
+
+/*change the highlighted text background colour to the light blue*/
+body .woo-sc-box.tick {
+  background-color: #aecde9 !important;
+}
+
+
+/*
+*
+*Customizing the homepage
+*
+*/
+
+/*creates a background on the homepage with a parallax effect when scrolling*/
+/*.home #inner-wrapper {
+ background: url('http://learndashcp.wpengine.com/wp-content/uploads/2014/12/Depositphotos_57710397_original.jpg') no-repeat center center fixed;
+ -o-background-size: cover;
+ -moz-background-size: cover;
+ -webkit-background-size: cover;
+ background-size: cover;
+}*/
+
+/*.home #header { background:#ffffff; }
+
+.home #navigation .menus { display: none; }
+
+.home #footer {
+    border-color: #dbdbdb -moz-use-text-color -moz-use-text-color;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 0;
+    background-color:#ffffff;
+}
+
+.home .title{
+	display:none;
+}
+
+.home #logo{
+    display:none;
+}
+
+.home-body {
+    margin-bottom: 50px;
+    margin-top: 75px;
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.home-body p{
+
+    color: #222 !important;
+    font: 800 64px/64px "open sans" !important;
+    text-transform: uppercase;
+}
+
+.home .entry p {
+    margin-bottom: 0;
+}
+*/
+
+/*
+*
+*
+*modifications to learndash specific styling
+*
+*/
+
+/*increases the font size on the profile table*/
+#learndash_lessons, #learndash_quizzes, .expand_collapse, .notavailable_message, #learndash_lesson_topics_list div > strong, #learndash_lesson_topics_list div ul > li .sn, .learndash_profile_heading, #learndash_profile a, #learndash_profile div {
+  font-size: 18px !important;
+  font-weight: normal;
+}
+
+/*takes the radius off the table to make it more "flat"*/
+#learndash_lessons, #learndash_quizzes, #learndash_profile, #learndash_lesson_topics_list > div {
+  border-radius: 0 !important;
+}
+
+.expand_collapse {
+    top:-20px !important;
+}
+
+/*changing the styling for fonts across the platform*/
+p {
+    font: 300 20px/1.5em Helvetica !important;
+}
+
+#learndash_lessons .right {
+    width: inherit !important;
+}
+
+
+/*Styling for the gravity forms feedback forms*/
+
+#description-title > h2 {
+    font-weight: bold;
+}
+
+#description-block {
+    font-size: smaller;
+    margin-left: 10px;
+}
+
+#description-inner-block {
+    font-size: small;
+    margin-left: 10px;
+}
+
+#gf-content-description {
+    color: #808080;
+}
+
+/*
+*
+*This will change the styling on the screen of mobile phones
+*
+*/
+
+/*changes the booking calendar on mobile phones*/
+@media only screen and (max-width: 600px) {
+/* Styles placed here will only apply to screens less than 600 pixels wide */
+
+/*updates the gravity forms columns to make the more responsive*/
+    .gf_left_half {
+        width: 100% !important;
+    }
+
+    .gf_right_half {
+        width: 100% !important;
+    }
+
+    /*puts the buttons on their own lines on smaller screens*/
+    #learndash_next_prev_link > a {
+      display: block;
+    }
+
+}
+
+/*making previous & next into buttons*/
+#learndash_next_prev_link > a {
+  border: 1px solid !important;
+  border-radius: 5px !important;
+  padding: 8px !important;
+}
+
+/*changing the hover color on forward and backwards links in courses*/
+#learndash_next_prev_link > a:hover {
+  color: #fff !important;
+  text-decoration: none;
+  background-color: #428bca;
+}
+
+/*button styling for help menu*/
+#menu-item-1960 > a {
+    background: #1abc9c none repeat scroll 0 0;
+    color: #fff !important;
+}
+
+/*making the hover of nav menus white*/
+ul.nav li a:hover {
+  color: #fff;
+}
+
+ul.nav li.current_page_item a {
+  color: #fff;
+}
+
+
+/*removes the image above the login box*/)
+.login h1 {
+    display: none !important;
+}
+
+/*
+*
+*
+*end mobile changes
+*/
