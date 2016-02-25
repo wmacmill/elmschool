@@ -231,7 +231,7 @@ jQuery(function(){
 		data.pid = pid;
 		data.is_network = +(jQuery('body').hasClass('network-admin'));
 
-		popup.loading(true, <?php echo json_encode( __( "Hang on while we're installing the update...", 'wpmudev' ) ); ?>);
+		popup.loading(true, <?php echo json_encode( __( "Hang on while we're installing the update...", 'wpmudev' ) ); ?>);	  			 				 	   	 
 		jQuery.post(
 			window.ajaxurl,
 			data,

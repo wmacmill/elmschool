@@ -5,7 +5,21 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
-4.0.7 - UNRELEASED - Philipp
+4.0.8 - 2/09/2016 - Philipp
+----------------------------------------------------------------------
+- Themes can now be enabled/disabled network-wide on multisite installations.
+- For those who really want to use it: The Logout button is working again!
+- Improve performance of the Dashboard.
+
+- Improve plugin performance to avoid 502 errors on WP Engine admin sites.
+- Fix install logic to first install Upfront parent before a child theme is installed.
+- Fix install logic to not enable newly installed plugins network-wide anymore.
+- Fix an issue that caused lots of duplicate SQL queries on wp-admin.
+- Fix for a few sites that had problems with new Hub features like Uptime check.
+- Fix recognition of active themes. Now themes-list on the Hub displays correct theme status.
+- Fix some PHP notices.
+
+4.0.7 - 2/03/2016 - Philipp
 ----------------------------------------------------------------------
 - Available updates are now displayed above other plugins/themes.
 - We made the Dashboard much more reliable!
@@ -341,4 +355,4 @@ Added option to disable admin notices.
 Initial Release.
 
 
-161579-1454515397-au
+161579-1456421918-au

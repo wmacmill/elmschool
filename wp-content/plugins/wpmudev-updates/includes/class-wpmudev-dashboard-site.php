@@ -223,6 +223,25 @@ class WPMUDEV_Dashboard_Site {
 			0
 		);
 
+		/*
+		// Schedule event that collects data about active plugins/themes.
+		Not finished because of low priority.
+
+		if ( is_multisite() && is_main_site() ) {
+			if ( ! wp_next_scheduled( 'wpmudev_scheduled_project_status' ) ) {
+				wp_schedule_event( time(), 'twicedaily', 'wpmudev_scheduled_project_status' );
+			}
+
+			add_action(
+				'wpmudev_scheduled_project_status',
+				array( $this, 'refresh_blog_project_status' )
+			);
+		} elseif ( wp_next_scheduled( 'wpmudev_scheduled_project_status' ) ) {
+			// In case the cron job was already installed in a sub-site...
+			wp_clear_scheduled_hook( 'wpmudev_scheduled_project_status' );
+		}
+		*/
+
 		/**
 		 * Run custom initialization code for the Site module.
 		 *
@@ -268,6 +287,7 @@ class WPMUDEV_Dashboard_Site {
 			'autoupdate_dashboard' => 1,
 			'autoupdate_schedule' => array(),
 			'notifications' => array(),
+			// 'blog_active_projects' => array(), // Only used on multisite. Not finished.
 			'auth_user' => null, // NULL means: Ignore during 'reset' action.
 		);
 
@@ -652,12 +672,20 @@ class WPMUDEV_Dashboard_Site {
 
 						if ( 'plugin' == $local['type'] ) {
 							activate_plugins( $local['filename'], '', $is_network );
-						} elseif ( ! $is_network && 'theme' == $local['type'] ) {
-							$old_theme = $this->get_active_wpmu_theme();
-							if ( $old_theme ) {
-								$other_pids = array( $old_theme );
+						} elseif ( 'theme' == $local['type'] ) {
+							if ( $is_network ) {
+								// Allow theme network wide.
+								$allowed_themes = get_site_option( 'allowedthemes' );
+								$allowed_themes[ $local['slug'] ] = true;
+								update_site_option( 'allowedthemes', $allowed_themes );
+							} else {
+								// We only activate themes on single-sites.
+								$old_theme = $this->get_active_wpmu_theme();
+								if ( $old_theme ) {
+									$other_pids = array( $old_theme );
+								}
+								switch_theme( $local['slug'] );
 							}
-							switch_theme( $local['slug'] );
 						}
 
 						WPMUDEV_Dashboard::$ui->render_project( $pid, $other_pids );
@@ -670,6 +698,13 @@ class WPMUDEV_Dashboard_Site {
 
 						if ( 'plugin' == $local['type'] ) {
 							deactivate_plugins( $local['filename'], '', $is_network );
+						} elseif ( 'theme' == $local['type'] ) {
+							if ( $is_network ) {
+								// Disallow theme network wide.
+								$allowed_themes = get_site_option( 'allowedthemes' );
+								unset( $allowed_themes[ $local['slug'] ] );
+								update_site_option( 'allowedthemes', $allowed_themes );
+							}
 						}
 
 						WPMUDEV_Dashboard::$ui->render_project( $pid );
@@ -681,8 +716,8 @@ class WPMUDEV_Dashboard_Site {
 						if ( $this->install_project( $pid ) ) {
 							$local = $this->get_cached_projects( $pid );
 
-							if ( 'plugin' == $local['type'] ) {
-								activate_plugins( $local['filename'], '', $is_network );
+							if ( ! $is_network && 'plugin' == $local['type'] ) {
+								activate_plugins( $local['filename'], '', false );
 							}
 
 							WPMUDEV_Dashboard::$ui->render_project(
@@ -989,7 +1024,9 @@ class WPMUDEV_Dashboard_Site {
 
 		$this->option_cache[ $key ] = $value;
 		$this->option_hash[ $key ] = $new_hash;
-		$res = update_site_option( $key, $value );
+		if ( $value ) {
+			update_site_option( $key, $value );
+		}
 	}
 
 	/**
@@ -1059,7 +1096,9 @@ class WPMUDEV_Dashboard_Site {
 		// Fix to prevent WP from hashing PHP objects.
 		set_site_transient( $key, '', $expiration );
 
-		set_site_transient( $key, $value, $expiration );
+		if ( $value ) {
+			set_site_transient( $key, $value, $expiration );
+		}
 	}
 
 	/**
@@ -1162,18 +1201,17 @@ class WPMUDEV_Dashboard_Site {
 		if ( ! $projects || ! is_array( $projects ) ) {
 			// Set param to true to avoid infinite loop.
 			$projects = $this->scan_fs_local_projects();
-		}
+			if ( is_array( $projects ) ) {
+				// Save to be able to check for changes later.
+				$this->set_transient(
+					'local_projects',
+					$projects,
+					5 * MINUTE_IN_SECONDS
+				);
 
-		if ( is_array( $projects ) ) {
-			// Save to be able to check for changes later.
-			$this->set_transient(
-				'local_projects',
-				$projects,
-				5 * MINUTE_IN_SECONDS
-			);
-
-			// Use cached version on next call.
-			$this->set_option( 'refresh_local_flag', 0 );
+				// Use cached version on next call.
+				$this->set_option( 'refresh_local_flag', 0 );
+			}
 		}
 
 		if ( $project_id ) {
@@ -1287,6 +1325,10 @@ class WPMUDEV_Dashboard_Site {
 			$res->can_update = WPMUDEV_Dashboard::$site->user_can_install( $pid );
 			$res->is_licensed = WPMUDEV_Dashboard::$site->user_can_install( $pid, true );
 
+			if ( 'theme' == $res->type ) {
+				$res->need_upfront = $this->is_upfront_theme( $pid );
+			}
+
 			if ( $res->is_licensed ) {
 				// Okay, this project is licensed.
 				$res->is_installed = WPMUDEV_Dashboard::$site->is_project_installed( $pid );
@@ -1318,9 +1360,10 @@ class WPMUDEV_Dashboard_Site {
 							$res->is_active = is_plugin_active( $res->filename );
 						}
 					} elseif ( 'theme' == $res->type ) {
-						$res->need_upfront = $this->is_upfront_theme( $pid );
-
-						if ( ! $is_network_admin ) {
+						if ( $is_network_admin ) {
+							$allowed_themes = get_site_option( 'allowedthemes' );
+							$res->is_active = ! empty( $allowed_themes[ $res->slug ] );
+						} else {
 							$res->is_active = ($res->slug == get_option( 'stylesheet' ) );
 						}
 					}
@@ -1349,7 +1392,9 @@ class WPMUDEV_Dashboard_Site {
 					$res->can_activate = current_user_can( 'activate_plugins' );
 				}
 			} elseif ( 'theme' == $res->type ) {
-				if ( ! $is_network_admin ) {
+				if ( $is_network_admin ) {
+					$res->can_activate = current_user_can( 'manage_network_themes' );
+				} else {
 					$res->can_activate = current_user_can( 'switch_themes' );
 				}
 			}
@@ -2667,6 +2712,84 @@ class WPMUDEV_Dashboard_Site {
 	}
 
 	/**
+	 * A scheduled event that runs twicedaily on multisite networks. This
+	 * function loops through all blogs and stores a list of active WPMUDEV
+	 * plugins/themes in a sitemeta value.
+	 * This information is used by API::refresh_membership_data() to send an
+	 * accurate list of active projects to the API server.
+	 *
+	 * @todo  We do not want to use site-loops. Find a different way!
+	 *
+	 * @since  4.0.8
+	 */
+	public function refresh_blog_project_status() {
+		/*
+		What a shame. We need to find a more efficient way than this...
+
+		// No need for caching on single-sites.
+		if ( ! is_multisite() ) { return; }
+
+		// No point in doing this for large networks (more than 10.000 sites).
+		if ( wp_is_large_network() ) { return; }
+
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php' ;
+		}
+
+		$local_projects = WPMUDEV_Dashboard::$site->get_cached_projects();
+		$active_projects = array();
+
+		// First filter out network-wide-actived plugins.
+		foreach ( $local_projects as $pid => $item ) {
+			if ( 'theme' == $item['type'] ) { continue; }
+			if ( is_plugin_active_for_network( $item['filename'] ) ) {
+				unset( $local_projects[ $pid ] );
+			}
+		}
+
+		// We "only" scan the first 1000 sites, not whole network.
+		$scan_sites = wp_get_sites(
+			array(
+				'archived' => false,
+				'spam' => false,
+				'deleted' => false,
+				'limit' => 1000,
+			)
+		);
+
+		foreach ( $scan_sites as $site ) {
+			switch_to_blog( $site['blog_id'] );
+			if ( ! count( $local_projects ) ) {
+				// Yay! All our plugins are active, no more checks needed...
+				break;
+			}
+			foreach ( $local_projects as $pid => $item ) {
+				if ( 'theme' == $item['type'] ) {
+					$theme = wp_get_theme();
+					$slug = dirname( $item['filename'] );
+					if ( $theme->stylesheet == $slug || $theme->template == $slug ) {
+						$active_projects[ $pid ] = true;
+						unset( $local_projects[ $pid ] );
+					}
+				} else {
+					if ( is_plugin_active( $item['filename'] ) ) {
+						$active_projects[ $pid ] = true;
+						unset( $local_projects[ $pid ] );
+					}
+				}
+			}
+			restore_current_blog();
+		}
+
+		// Now save the list with active projects of first 1000 active blogs!
+		WPMUDEV_Dashboard::$site->set_option(
+			'blog_active_projects',
+			$active_projects
+		);
+		*/
+	}
+
+	/**
 	 * This handler is called right after a plugin was installed or updated.
 	 * It instructs the dashboard to flush all caches (i.e. filesystem is
 	 * scanned again, the transient is re-generated, ...)
@@ -3113,7 +3236,7 @@ class WPMUDEV_Dashboard_Site {
 					$local_version = $theme['version'];
 					$latest_version = $local_version;
 					$theme_slug = dirname( $theme['filename'] );
-					$theme_id = $theme['id'];
+					$theme_id = $theme['pid'];
 
 					// Remove the 133theme from WP update list.
 					if ( ! isset( $value->response[ $theme_slug ] ) ) {

@@ -5,6 +5,14 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 2.1.4 =
+* Fixed: Preserve file permission after smushing ( Fix for Images disappearing in Media library on some hosts )
+* Fixed: Styles plugin compatibility
+* Fixed: Append URL params considering the existing arguments ( WPML Compatibility )
+* Fixed: Warning: For settings link in Network admin, Warning: https://goo.gl/HAfhaF ( Thank you @Maks3w for suggestions )
+* Fixed: Fatal error if both pro version and free version are activated
+* Fixed: NextGen-Smush conflict on plugin activation on a fresh install
+
 = 2.1.3 =
 * Fixed: Compatibility with v4.0 of our Dashboard plugin, was not detecting pro status
 
@@ -126,4 +134,4 @@ Change Log:
 - First release
 
 
-161579-1453127002-au
+161579-1456421920-au

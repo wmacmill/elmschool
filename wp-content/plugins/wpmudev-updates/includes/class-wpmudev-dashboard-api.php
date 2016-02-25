@@ -61,7 +61,7 @@ class WPMUDEV_Dashboard_Api {
 
 		if ( defined( 'WPMUDEV_APIKEY' ) && WPMUDEV_APIKEY ) {
 			$this->api_key = WPMUDEV_APIKEY;
-		} elseif ( empty( $_GET['clear_key'] ) ) {
+		} else {
 			// If 'clear_key' is present in URL then do not load the key from DB.
 			$this->api_key = get_site_option( 'wpmudev_apikey' );
 		}
@@ -226,7 +226,7 @@ class WPMUDEV_Dashboard_Api {
 			$options['decompress'] = false;
 		}
 
-		if ( WPMUDEV_API_AUTHENTICATION ) {
+		if ( WPMUDEV_API_AUTHORIZATION ) {
 			if ( ! isset( $options['headers'] ) ) {
 				$options['headers'] = array();
 			}
@@ -589,16 +589,46 @@ class WPMUDEV_Dashboard_Api {
 			$local_projects = WPMUDEV_Dashboard::$site->get_cached_projects();
 		}
 
-		$projects = array();
-		foreach ( $local_projects as $pid => $project ) {
-			if ( ! function_exists( 'is_plugin_active' ) ) {
-				include_once ABSPATH . 'wp-admin/includes/plugin.php' ;
-			}
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php' ;
+		}
 
-			if ( is_multisite() ) {
-				$active = is_plugin_active_for_network( $project['filename'] );
+		$blog_projects = array();
+
+		/*
+		Disabled, implementation not finished because of low priority.
+
+		$blog_projects = WPMUDEV_Dashboard::$site->get_option( 'blog_active_projects' );
+		if ( ! is_array( $blog_projects ) ) {
+			$blog_projects = array();
+			WPMUDEV_Dashboard::$site->set_option( 'blog_active_projects', array() );
+		}
+		*/
+
+		$projects = array();
+		$theme = wp_get_theme();
+		$ms_allowed = $theme->get_allowed();
+		foreach ( $local_projects as $pid => $item ) {
+			if ( ! empty( $blog_projects[ $pid ] ) ) {
+				// This project is activated on a blog!
+				$active = true;
 			} else {
-				$active = is_plugin_active( $project['filename'] );
+				if ( is_multisite() ) {
+					if ( 'theme' == $item['type'] ) {
+						// If the theme is available on main site it's "active".
+						$slug = dirname( $item['filename'] );
+						$active = ! empty( $ms_allowed[ $slug ] );
+					} else {
+						$active = is_plugin_active_for_network( $item['filename'] );
+					}
+				} else {
+					if ( 'theme' == $item['type'] ) {
+						$slug = dirname( $item['filename'] );
+						$active = ( $theme->stylesheet == $slug || $theme->template == $slug );
+					} else {
+						$active = is_plugin_active( $item['filename'] );
+					}
+				}
 			}
 			$extra = '';
 
@@ -613,7 +643,7 @@ class WPMUDEV_Dashboard_Api {
 			$extra = apply_filters( 'wpmudev_api_project_extra_data', $extra, $pid );
 
 			$projects[ $pid ] = array(
-				'version' => $project['version'],
+				'version' => $item['version'],
 				'active' => $active ? true : false,
 				'extra' => $extra,
 			);
@@ -649,6 +679,7 @@ class WPMUDEV_Dashboard_Api {
 				'projects' => json_encode( $projects ),
 				'domain' => network_site_url(),
 				'admin_url' => network_admin_url(),
+				'home_url' => network_home_url(),
 			),
 			'POST'
 		);

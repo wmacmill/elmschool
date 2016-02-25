@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: pkthree
-Donate link: http://www.theblog.ca
+Donate link: https://www.paypal.me/PeterKeung
 Tags: login, logout, redirect, admin, administration, dashboard, users, authentication
 Requires at least: 3.2
-Tested up to: 4.3
+Tested up to: 4.4
 Stable tag: trunk
 
 Redirect users to different locations after logging in and logging out.

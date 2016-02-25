@@ -101,11 +101,19 @@ if ( ! $res->is_installed ) {
 				$action_class .= ' disabled';
 			}
 		} elseif ( 'theme' == $res->type ) {
-			if ( ! $res->is_network_admin ) {
-				// Show a badge for the active theme.
+			if ( $res->is_network_admin ) {
+				// Multisite will disable (=hide) theme network-wide.
+				$action = __( 'Network Disable', 'wpmudev' );
+			} else {
+				// Show a badge for the active theme, but no deactivate button!
 				$show_badge = 'active-theme';
 			}
-			// Note: No change for active themes in network admin mode.
+			$action_ajax = 'project-deactivate';
+			$action_class = 'button-light';
+
+			if ( ! $res->can_activate ) {
+				$action_class .= ' disabled';
+			}
 		}
 	} else {
 		// 3.b Activate an inactive project (theme or plugin)
@@ -121,15 +129,19 @@ if ( ! $res->is_installed ) {
 				$action_class .= ' disabled';
 			}
 		} elseif ( 'theme' == $res->type ) {
-			if ( ! $res->is_network_admin ) {
+			if ( $res->is_network_admin ) {
+				// Multisite will enable (=allow) theme network-wide.
+				$action = __( 'Network Enable', 'wpmudev' );
+			} else {
+				// Activate theme on single site.
 				$action = __( 'Activate', 'wpmudev' );
-				$action_ajax = 'project-activate';
-
-				if ( ! $res->can_activate ) {
-					$action_class .= ' disabled';
-				}
 			}
-			// Note: Themes can only be activated in single-site mode.
+
+			$action_ajax = 'project-activate';
+
+			if ( ! $res->can_activate ) {
+				$action_class .= ' disabled';
+			}
 		}
 	}
 }

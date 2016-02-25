@@ -2,8 +2,8 @@
 /*
 Plugin Name: Nav Menu Roles
 Plugin URI: http://www.kathyisawesome.com/449/nav-menu-roles/
-Description: Hide custom menu items based on user roles. PLEASE READ THE [FAQ](http://wordpress.org/plugins/nav-menu-roles/faq/#conflict) IF YOU ARE NOT SEEING THE SETTINGS.
-Version: 1.7.4
+Description: Hide custom menu items based on user roles.
+Version: 1.7.9
 Author: Kathy Darling
 Author URI: http://www.kathyisawesome.com
 License: GPL2
@@ -45,16 +45,16 @@ class Nav_Menu_Roles {
 	protected static $_instance = null;
 
 	/**
-	* @var string donate url
+	* @constant string donate url
 	* @since 1.5
 	*/
-	public static $donate_url = "https://inspirepay.com/pay/helgatheviking";
+	CONST DONATE_URL = "https://inspirepay.com/pay/helgatheviking/10";
 
 	/**
-	* @var string version number
+	* @constant string version number
 	* @since 1.7.1
 	*/
-	public $version = '1.7.4';
+	CONST VERSION = '1.7.6';
 
 	/**
 	* Main Nav Menu Roles Instance
@@ -105,13 +105,8 @@ class Nav_Menu_Roles {
 		// load the textdomain
 		add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
 
-		// add a notice that NMR is conflicting with another plugin
-		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
-		add_action( 'activated_plugin', array( $this, 'delete_transient' ) );
-		add_action( 'deactivated_plugin', array( $this, 'delete_transient' ) );
-
-		// add FAQ link to plugin 
-		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'add_action_links' ) );
+		// add FAQ and Donate link to plugin 
+		add_filter( 'plugin_row_meta', array( $this, 'add_action_links' ), 10, 4 );
 
 		// switch the admin walker
 		add_filter( 'wp_edit_nav_menu_walker', array( $this, 'edit_nav_menu_walker' ) );
@@ -133,6 +128,9 @@ class Nav_Menu_Roles {
 			add_filter( 'wp_get_nav_menu_items', array( $this, 'exclude_menu_items' ) );
 		}
 
+		// upgrade routine
+		add_action( 'plugins_loaded', array( $this, 'maybe_upgrade' ) );
+
 	}
 
 	/**
@@ -147,8 +145,6 @@ class Nav_Menu_Roles {
 		// Register Importer
 		$this->register_importer();
 
-		// save user notice
-		$this->nag_ignore();
 	}
 
 
@@ -189,75 +185,29 @@ class Nav_Menu_Roles {
 	/**
 	* Display a Notice if plugin conflicts with another
 	* @since 1.5
+	* @deprecated will removed in 2.0
 	*/
 	public function admin_notice() {
-		global $pagenow, $wp_filter;
-
-		// quit early if not on the menus page, or if not an admin
-		if( ! in_array( $pagenow, array( 'nav-menus.php', 'plugins.php' ) ) || ! current_user_can( 'manage_options' ) ){
-			return;
-		}
-
-		// Get any existing copy of our transient data
-		if ( false === ( $conflicts = get_transient( 'nav_menu_roles_conflicts' ) ) ) {
-
-			// It wasn't there, so regenerate the data and save the transient
-			global $wp_filter;
-
-			$filters = is_array( $wp_filter['wp_edit_nav_menu_walker'] ) ? array_shift( $wp_filter['wp_edit_nav_menu_walker'] ) : array();
-
-			foreach( $filters as $filter ){
-				// we expect to see NVR so collect everything else
-				if( ! is_a( $filter['function'][0], 'Nav_Menu_Roles') ) {
-					$conflicts[] = is_object( $filter['function'][0] ) ? get_class( $filter['function'][0] ) : $filter['function'][0];
-				}
-
-			}
-		}
-
-
-		// Check Transient for conflicts and show error
-		if ( ! empty ( $conflicts ) ) {
-			global $current_user ;
-			$user_id = $current_user->ID;
-
-			if ( ! get_user_meta( $user_id, 'nmr_ignore_notice' ) ) {
-
-				echo '<div class="error">
-				<p>';
-				printf ( __( 'Nav Menu Roles has detected a possible conflict with the following functions or classes: %1$s. Please direct the author of the conflicting theme or plugin to the %2$sFAQ%3$s for a solution. | %4$sHide Notice%3$s', 'nav-menu-roles' ),
-				'<code>' . implode( $conflicts, ', ' ) . '</code>',
-				'<a href="http://wordpress.org/plugins/nav-menu-roles/faq#conflict" target="_blank">',
-				'</a>',
-				'<a href="?nmr_nag_ignore=0">' );
-				echo '</p>
-				</div>';
-
-			}
-
-		}
-		
+		_deprecated_function( __METHOD__, '1.7.8' );
 	}
 
 
 	/**
 	* Allow the notice to be dismissable
 	* @since 1.6
+	* @deprecated will removed in 2.0
 	*/
 	public function nag_ignore() {
-		global $current_user;
-		$user_id = $current_user->ID;
-		/* If user clicks to ignore the notice, add that to their user meta */
-		if ( isset($_GET['nmr_nag_ignore']) && '0' == $_GET['nmr_nag_ignore'] ) {
-			add_user_meta( $user_id, 'nmr_ignore_notice', 'true', true );
-		}
+		_deprecated_function( __METHOD__, '1.7.8' );
 	}
 
 	/**
 	* Delete the transient when a plugin is activated or deactivated
 	* @since 1.5
+	* @deprecated will removed in 2.0
 	*/
 	public function delete_transient() {
+		_deprecated_function( __METHOD__, '1.7.8' );
 		delete_transient( 'nav_menu_roles_conflicts' );
 	}
 
@@ -266,12 +216,14 @@ class Nav_Menu_Roles {
 	* Add docu link
 	* @since 1.7.3
 	*/
-	public function add_action_links( $links ) {
-		 $new_link = array(
-		 	sprintf( '<a href="https://wordpress.org/plugins/nav-menu-roles/faq/#conflict">%s</a>', __( 'FAQ', 'nav-menu-roles' ) ),
-		 );
-		return array_merge( $links, $new_link );
+	public function add_action_links( $plugin_meta, $plugin_file, $plugin_data, $status ) {
+		if( $plugin_file == plugin_basename(__FILE__) ){
+			$plugin_meta[] = sprintf( '<a class="dashicons-before dashicons-welcome-learn-more" href="https://wordpress.org/plugins/nav-menu-roles/faq/#conflict">%s</a>', __( 'FAQ', 'nav-menu-roles' ) );
+			$plugin_meta[] = '<a class="dashicons-before dashicons-awards" href="' . self::DONATE_URL . '" target="_blank">' . __( 'Donate', 'nav-menu-roles' ) . '</a>';
+		}
+		return $plugin_meta;
 	}
+
 
 	/**
 	* Override the Admin Menu Walker
@@ -328,6 +280,9 @@ class Nav_Menu_Roles {
 		// the specific roles to check
 		$checked_roles = is_array( $roles ) ? $roles : false;
 
+		// whether to display the role checkboxes
+		$hidden = $logged_in_out == 'in' ? '' : 'display: none;';
+
 		?>
 
 		<input type="hidden" name="nav-menu-role-nonce" value="<?php echo wp_create_nonce( 'nav-menu-nonce-name' ); ?>" />
@@ -361,7 +316,7 @@ class Nav_Menu_Roles {
 
 		</div>
 
-		<div class="field-nav_menu_role nav_menu_role_field description-wide" style="margin: 5px 0;">
+		<div class="field-nav_menu_role nav_menu_role_field description-wide" style="margin: 5px 0; <?php echo $hidden;?>">
 		    <span class="description"><?php _e( "Restrict menu item to a minimum role", 'nav-menu-roles' ); ?></span>
 		    <br />
 
@@ -399,7 +354,7 @@ class Nav_Menu_Roles {
 	public function enqueue_scripts( $hook ){
 		if ( $hook == 'nav-menus.php' ){
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_script( 'nav-menu-roles', plugins_url( 'js/nav-menu-roles' . $suffix . '.js' , __FILE__ ), array( 'jquery' ), $this->version, true );
+			wp_enqueue_script( 'nav-menu-roles', plugins_url( 'js/nav-menu-roles' . $suffix . '.js' , __FILE__ ), array( 'jquery' ), self::VERSION, true );
 		}
 	}
 
@@ -510,7 +465,23 @@ class Nav_Menu_Roles {
 		}
 
 		return $items;
-}
+	}
+
+
+	/**
+	* Maybe upgrade
+	*
+	* @access public
+	* @return void
+	*/
+	public function maybe_upgrade() {
+		$db_version = get_option( 'nav_menu_roles_db_version', false );
+		
+		// 1.7.7 upgrade: changed the debug notice so the old transient is invalid
+		if ( $db_version === false || version_compare( '1.7.7', $db_version, '<' ) ) {
+		    update_option( 'nav_menu_roles_db_version', self::VERSION );
+		} 
+	}
 
 } // end class
 
