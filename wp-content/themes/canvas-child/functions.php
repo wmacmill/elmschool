@@ -434,6 +434,119 @@ function remove_mysites_menu_from_dashboard() {
 }
 add_action( 'admin_menu', 'remove_mysites_menu_from_dashboard', 999 );
 
+
+add_filter( 'gform_pre_render_8', 'populate_group_dropdown' );
+add_filter( 'gform_pre_validation_8', 'populate_group_dropdown' );
+add_filter( 'gform_pre_submission_filter_8', 'populate_group_dropdown' );
+add_filter( 'gform_admin_pre_render_8', 'populate_group_dropdown' );
+
+function populate_group_dropdown ( $form ) {
+    
+    foreach ( $form['fields'] as &$field ) {
+
+        if ( $field->type != 'select' || strpos( $field->cssClass, 'populate-groups' ) === false ) {
+            continue;
+        }
+        
+        $user_id = get_current_user_id ();
+
+        $group_ids = learndash_get_administrators_group_ids ( $user_id );
+
+        $choices = array();
+
+        foreach ( $group_ids as $group ) {
+            //$post->get_post($group);
+
+            $choices[] = array( 'text' => get_the_title($group), 'value' => $group );
+        }
+
+        $field->placeholder = 'Enroll in a group';
+        $field->choices = $choices;
+
+    }
+
+    return $form; 
+}
+
+add_action( 'gform_user_registered', 'add_user_to_group_on_registration', 10, 4 );
+
+function add_user_to_group_on_registration ( $user_id, $feed, $entry, $user_pass ) {
+
+    $group_id = rgar( $entry, '5' );
+
+    if ( $group_id != '' ) {
+        update_user_meta ( $user_id, 'learndash_group_users_' . $group_id , $group_id );
+    }
+
+}
+
+//this will redirect users to the new add user screen
+function will_new_add_user_page () {
+    global $pagenow;
+
+    //check if on user-new.php & if on blog id 1
+    /*if ( $pagenow !== 'user-new.php'){ //&& get_current_blog_id() !=1 ) {
+        return;
+    }*/
+    $user_id = get_current_user_id();
+    if ( $user_id === 12 ) {
+        return;
+    }
+
+    wp_redirect ('/add-a-user/');
+    return;
+        
+}    
+    
+add_action('load-user-new.php', 'will_new_add_user_page');
+
+
+function will_add_existing_user_to_site ( $form ) {
+
+    $email = rgpost( 'input_2' );
+    $user_id = email_exists ($email); //returns false if doesn't exist
+    $group_id = rgpost ( 'input_5' ); //store group id
+    
+
+    if ( !email_exists($email) ) { //if user doesn't exist bail & let form register themfdsousdo
+        return $form; //bail
+    }
+
+    if ( is_user_member_of_blog ( $user_id , 1 ) ) { //check if user is already on this blog, if so bail
+        if ( $group_id > 0 ){//they selected a group
+            update_user_meta ( $user_id, 'learndash_group_users_' . $group_id , $group_id );
+        }
+        wp_redirect ('/add-a-user/user-exists/');
+        
+        return $form; //bail - user already a memeber of blog so don't want to change role
+    }
+
+    //they're a member of a site, but not this one
+    $role = 'subscriber'; //give default role
+
+    add_user_to_blog( 1, $user_id, $role ); //add them to site
+    
+    //need to add usermeta for the group
+    if ( $group_id > 0 ){//they selected a group
+        update_user_meta ( $user_id, 'learndash_group_users_' . $group_id , $group_id );
+    }
+    wp_redirect ('/add-a-user/user-exists/'); //redirect to this page - maybe make a seperate page for success?
+
+    return $form;
+}
+
+add_filter ( 'gform_pre_validation_8', 'will_add_existing_user_to_site' );
+
+/* Dynamically Populating User Role
+* http://gravitywiz.com/2012/04/30/dynamically-populating-user-role/
+*/
+add_filter('gform_field_value_user_role', 'gform_populate_user_role');
+function gform_populate_user_role($value){
+    $user = wp_get_current_user();
+    $role = $user->roles;
+    return reset($role);
+}
+
 /**
 * This is the end. Ensure the file closes with a php tag ?>
 *
